@@ -4,12 +4,12 @@ import Foundation
 
 // MARK: - URLRequest HTTP Method Helpers
 extension URLRequest {
-    init(url: URL, method: HTTPMethod) {
+    public init(url: URL, method: HTTPMethod) {
         self.init(url: url)
         httpMethod = method.rawValue
     }
 
-    func changeMethod(to method: HTTPMethod) -> URLRequest {
+    public func changeMethod(to method: HTTPMethod) -> URLRequest {
         var request = self
         request.httpMethod = method.rawValue
         return request

@@ -4,7 +4,7 @@ import Foundation
 
 // MARK: - URL Request Helpers
 extension URL {
-    func request(for httpMethod: HTTPMethod) -> URLRequest {
+    public func request(for httpMethod: HTTPMethod = .get) -> URLRequest {
         var request = URLRequest(url: self)
         request.httpMethod = httpMethod.rawValue
         return request
