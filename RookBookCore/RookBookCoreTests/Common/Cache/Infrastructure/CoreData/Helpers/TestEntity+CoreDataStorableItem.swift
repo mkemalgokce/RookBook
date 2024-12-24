@@ -1,0 +1,15 @@
+// Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
+
+import CoreData
+import RookBookCore
+
+extension TestEntity: CoreDataStorableItem {
+    public func update(with domain: DomainEntity) {
+        id = domain.id
+        value = domain.value
+    }
+
+    public func toDomain() -> DomainEntity {
+        DomainEntity(id: id, value: value)
+    }
+}

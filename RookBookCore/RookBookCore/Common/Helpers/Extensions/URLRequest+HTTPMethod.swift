@@ -8,7 +8,7 @@ extension URLRequest {
         self.init(url: url)
         httpMethod = method.rawValue
     }
-    
+
     func changeMethod(to method: HTTPMethod) -> URLRequest {
         var request = self
         request.httpMethod = method.rawValue
