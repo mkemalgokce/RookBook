@@ -1,9 +1,9 @@
 // Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
 
-import Foundation
 import Combine
+import Foundation
 
 public protocol HTTPClient {
     typealias Output = (Data, HTTPURLResponse)
-    func perform(request: URLRequest) -> AnyPublisher<Output, Never>
+    func perform(_ request: URLRequest) -> AnyPublisher<Output, Error>
 }
