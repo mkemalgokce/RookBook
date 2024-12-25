@@ -11,6 +11,7 @@
 		55AB67262D1C44B40028A0F0 /* RookBookIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55AB671E2D1C44B40028A0F0 /* RookBookIOS.framework */; };
 		55AB6B152D1C46780028A0F0 /* RookBookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55AB57252D1AD26D0028A0F0 /* RookBookCore.framework */; platformFilter = ios; };
 		55AB6B162D1C46780028A0F0 /* RookBookCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55AB57252D1AD26D0028A0F0 /* RookBookCore.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		55AB6CDD2D1C84500028A0F0 /* SnapShooter in Frameworks */ = {isa = PBXBuildFile; productRef = 55AB6CDC2D1C84500028A0F0 /* SnapShooter */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55AB67262D1C44B40028A0F0 /* RookBookIOS.framework in Frameworks */,
+				55AB6CDD2D1C84500028A0F0 /* SnapShooter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +261,7 @@
 			);
 			name = RookBookIOSTests;
 			packageProductDependencies = (
+				55AB6CDC2D1C84500028A0F0 /* SnapShooter */,
 			);
 			productName = RookBookIOSTests;
 			productReference = 55AB67252D1C44B40028A0F0 /* RookBookIOSTests.xctest */;
@@ -288,6 +291,7 @@
 					};
 					55AB67242D1C44B40028A0F0 = {
 						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
 					};
 				};
 			};
@@ -300,6 +304,9 @@
 			);
 			mainGroup = 55AB571B2D1AD26D0028A0F0;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				55AB6CDB2D1C84500028A0F0 /* XCRemoteSwiftPackageReference "SnapShooter" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 55AB57262D1AD26D0028A0F0 /* Products */;
 			projectDirPath = "";
@@ -788,6 +795,7 @@
 		55AB672F2D1C44B40028A0F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q9ARVAPAG3;
@@ -802,6 +810,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -810,6 +819,7 @@
 		55AB67302D1C44B40028A0F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q9ARVAPAG3;
@@ -879,6 +889,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		55AB6CDB2D1C84500028A0F0 /* XCRemoteSwiftPackageReference "SnapShooter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mkemalgokce/SnapShooter";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		55AB6CDC2D1C84500028A0F0 /* SnapShooter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55AB6CDB2D1C84500028A0F0 /* XCRemoteSwiftPackageReference "SnapShooter" */;
+			productName = SnapShooter;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 55AB571C2D1AD26D0028A0F0 /* Project object */;
 }

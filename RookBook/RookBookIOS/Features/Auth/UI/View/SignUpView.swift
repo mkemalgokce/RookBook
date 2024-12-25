@@ -2,8 +2,22 @@
 
 import UIKit
 
-public final class SignInView: UIView {
+final class SignUpView: UIView {
     // MARK: - UI Properties
+    lazy var fullNameTextField: RoundedTextField = {
+        let field = RoundedTextField()
+        field.placeholder = "Full Name"
+        field.backgroundColor = .green3
+        field.placeholderColor = .green1
+        field.textColor = .green1
+        field.font = .boldSystemFont(ofSize: 20)
+        field.autocapitalizationType = .words
+        field.autocorrectionType = .no
+        field.keyboardType = .namePhonePad
+        field.returnKeyType = .continue
+        return field
+    }()
+
     lazy var mailTextField: RoundedTextField = {
         let field = RoundedTextField()
         field.placeholder = "Mail"
@@ -11,6 +25,10 @@ public final class SignInView: UIView {
         field.placeholderColor = .green1
         field.textColor = .green1
         field.font = .boldSystemFont(ofSize: 20)
+        field.keyboardType = .emailAddress
+        field.autocapitalizationType = .none
+        field.returnKeyType = .continue
+        field.autocorrectionType = .no
         return field
     }()
 
@@ -21,38 +39,34 @@ public final class SignInView: UIView {
         field.placeholderColor = .green1
         field.textColor = .green1
         field.font = .boldSystemFont(ofSize: 20)
+        field.keyboardType = .default
+        field.autocapitalizationType = .none
+        field.returnKeyType = .done
+        field.autocorrectionType = .no
         return field
     }()
 
-    lazy var signInButton: RoundedButton = {
-        let button = RoundedButton(title: "Sign In", backgroundColor: .green1, textColor: .white)
+    lazy var signUpButton: RoundedButton = {
+        let button = RoundedButton(title: "Sign Up", backgroundColor: .green1, textColor: .white)
         return button
     }()
 
-    lazy var signInWithAppleButton: RoundedButton = {
-        let appleLogoImage = UIImage(systemName: "apple.logo")?
-            .withTintColor(.white, renderingMode: .alwaysOriginal)
+    lazy var signUpWithAppleButton: RoundedButton = {
         let button = RoundedButton(
-            title: "Sign In With Apple", backgroundColor: .black.withAlphaComponent(0.7),
+            title: "Sign Up With Apple", backgroundColor: .black.withAlphaComponent(0.7),
             textColor: .white,
-            iconImage: appleLogoImage
+            iconImage: UIImage(systemName: "apple.logo")?
+                .withTintColor(.white, renderingMode: .alwaysOriginal)
         )
 
         return button
     }()
 
-    lazy var signUpButton: FooterButton = {
-        let button = FooterButton(firstText: "Don't have an account?", secondText: "Sign Up")
+    lazy var signInButton: FooterButton = {
+        let button = FooterButton(firstText: "Already have an account?", secondText: "Sign In")
         button.firstColor = .green2
         button.secondColor = .green1
         return button
-    }()
-
-    private lazy var topImageView: UIImageView = {
-        let imageView = UIImageView(image: .dogSleeping)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
     }()
 
     private lazy var dividerView: DividerView = {
@@ -61,16 +75,17 @@ public final class SignInView: UIView {
     }()
 
     private lazy var bodyVStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [mailTextField, passTextField])
+        let stack = UIStackView(arrangedSubviews: [fullNameTextField, mailTextField, passTextField])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.spacing = 8
         stack.distribution = .fillEqually
+        stack.spacing = 8
+        stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
 
     private lazy var bottomVStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [signInButton, signInWithAppleButton, dividerView, signUpButton])
+        let stack = UIStackView(arrangedSubviews: [signUpButton, signUpWithAppleButton, dividerView, signInButton])
         stack.axis = .vertical
         stack.spacing = 8
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -89,8 +104,8 @@ public final class SignInView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Override Methods
-    override public func layoutSubviews() {
+    // MARK: - Lifecycle Methods
+    override func layoutSubviews() {
         super.layoutSubviews()
         applyGradient(colors: [.green3, .green4])
     }
@@ -99,23 +114,13 @@ public final class SignInView: UIView {
     private func setupView() {
         addSubview(bodyVStack)
         addSubview(bottomVStack)
-        addSubview(topImageView)
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            topImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            topImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            topImageView.widthAnchor.constraint(
-                lessThanOrEqualTo: bottomVStack.widthAnchor,
-                multiplier: 3 / 4
-            ),
-            topImageView.heightAnchor.constraint(equalTo: topImageView.widthAnchor),
-
-            bottomVStack.bottomAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.bottomAnchor,
-                constant: -16
-            ),
+            bottomVStack.topAnchor.constraint(equalTo: bodyVStack.bottomAnchor, constant: 16),
+            bottomVStack.bottomAnchor
+                .constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             bottomVStack.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
 
             bottomVStack.leadingAnchor.constraint(
@@ -127,7 +132,7 @@ public final class SignInView: UIView {
                 constant: -16
             ),
 
-            bodyVStack.topAnchor.constraint(equalTo: topImageView.bottomAnchor, constant: -8),
+            bodyVStack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 80),
 
             bodyVStack.widthAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.widthAnchor,
@@ -135,11 +140,12 @@ public final class SignInView: UIView {
             ),
             bodyVStack.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             bodyVStack.bottomAnchor.constraint(
-                equalTo: bottomVStack.topAnchor,
-                constant: -8
+                lessThanOrEqualTo: bottomVStack.topAnchor,
+                constant: 96
             ),
 
-            signUpButton.heightAnchor.constraint(equalToConstant: 50)
+            bodyVStack.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1 / 3)
+
         ])
     }
 }

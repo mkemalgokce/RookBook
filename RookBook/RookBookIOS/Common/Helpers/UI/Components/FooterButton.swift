@@ -7,8 +7,17 @@ final class FooterButton: UIButton {
     private let firstText: String
     private let secondText: String
 
-    var firstColor: UIColor = .black
-    var secondColor: UIColor = .black
+    var firstColor: UIColor = .black {
+        didSet {
+            configureTexts()
+        }
+    }
+
+    var secondColor: UIColor = .black {
+        didSet {
+            configureTexts()
+        }
+    }
 
     // MARK: - Initializers
     init(firstText: String, secondText: String) {
