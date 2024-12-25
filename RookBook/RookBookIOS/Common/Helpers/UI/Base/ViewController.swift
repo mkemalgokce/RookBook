@@ -2,14 +2,14 @@
 
 import UIKit
 
-class ViewController<View: UIView>: UIViewController {
+public class ViewController<View: UIView>: UIViewController {
     // MARK: - Properties
     var rootView: View {
         view as! View
     }
 
     // MARK: - Lifecycle Methods
-    override func loadView() {
+    override public func loadView() {
         view = View()
     }
 }
