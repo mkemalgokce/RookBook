@@ -133,7 +133,7 @@ final class EmailAuthenticationServiceTests: XCTestCase {
 
         accessTokenStore.storedToken = Token("accessToken")
         refreshTokenStore.storedToken = Token("refreshToken")
-        
+
         expectPublisher(sut.logout(), toCompleteWith: .success(()), when: {
             client.complete(with: Data(), and: validResponse)
         })
