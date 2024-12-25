@@ -1,0 +1,54 @@
+{
+  "configurations" : [
+    {
+      "id" : "515E4346-7580-4E6A-80E4-037713EB7927",
+      "name" : "Test Scheme Action",
+      "options" : {
+        "addressSanitizer" : {
+          "enabled" : true
+        },
+        "guardMallocEnabled" : false,
+        "mallocGuardEdgesEnabled" : false,
+        "mallocStackLoggingOptions" : null,
+        "nsZombieEnabled" : false,
+        "threadSanitizerEnabled" : false
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "addressSanitizer" : {
+      "detectStackUseAfterReturn" : true,
+      "enabled" : true
+    },
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:RookBookCore.xcodeproj",
+          "identifier" : "55AB671D2D1C44B40028A0F0",
+          "name" : "RookBookIOS"
+        }
+      ]
+    },
+    "guardMallocEnabled" : true,
+    "mallocGuardEdgesEnabled" : true,
+    "mallocScribbleEnabled" : true,
+    "mallocStackLoggingOptions" : {
+      "loggingType" : "liveAllocations"
+    },
+    "nsZombieEnabled" : true,
+    "testExecutionOrdering" : "random",
+    "threadSanitizerEnabled" : true,
+    "undefinedBehaviorSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "55AB67242D1C44B40028A0F0",
+        "name" : "RookBookIOSTests"
+      }
+    }
+  ],
+  "version" : 1
+}
