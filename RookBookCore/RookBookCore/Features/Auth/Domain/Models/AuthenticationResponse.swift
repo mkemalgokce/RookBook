@@ -4,5 +4,5 @@ struct AuthenticationResponse {
     // MARK: - Properties
     let accessToken: Token
     let refreshToken: Token
-    let user: User
+    let user: AuthenticatedUserDTO
 }

@@ -27,7 +27,7 @@ final class EmailAuthenticationService: AuthenticationService {
     }
 
     // MARK: - Internal Methods
-    func login(with credentials: SignInCredentials) -> AnyPublisher<any User, any Error> {
+    func login(with credentials: SignInCredentials) -> AnyPublisher<AuthenticatedUser, any Error> {
         let request = buildSignInRequest(credentials)
         let storage = storage
         return client.perform(request)
@@ -35,12 +35,13 @@ final class EmailAuthenticationService: AuthenticationService {
                 let mapper = AuthenticationResponseMapper()
                 let authResponse = try mapper.map(data: data, from: response)
                 try storage.storeTokens(accessToken: authResponse.accessToken, refreshToken: authResponse.refreshToken)
-                return authResponse.user
+                let user = AuthenticatedUserMapper.map(authResponse.user)
+                return user
             }
             .eraseToAnyPublisher()
     }
 
-    func register(with credentials: SignUpCredentials) -> AnyPublisher<any User, any Error> {
+    func register(with credentials: SignUpCredentials) -> AnyPublisher<AuthenticatedUser, any Error> {
         let request = buildSignUpRequest(credentials)
         let storage = storage
         return client.perform(request)
@@ -48,7 +49,8 @@ final class EmailAuthenticationService: AuthenticationService {
                 let mapper = AuthenticationResponseMapper()
                 let authResponse = try mapper.map(data: data, from: response)
                 try storage.storeTokens(accessToken: authResponse.accessToken, refreshToken: authResponse.refreshToken)
-                return authResponse.user
+                let user = AuthenticatedUserMapper.map(authResponse.user)
+                return user
             }
             .eraseToAnyPublisher()
     }

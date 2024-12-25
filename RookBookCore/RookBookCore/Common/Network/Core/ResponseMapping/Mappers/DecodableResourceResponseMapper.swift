@@ -3,6 +3,11 @@
 import Foundation
 
 struct DecodableResourceResponseMapper<Resource: Decodable>: ResponseMapping {
+    // MARK: - Nested Types
+    enum Error: Swift.Error {
+        case invalidData
+    }
+
     // MARK: - Properties
     private let decoder: JSONDecoder
     private let validStatusCodes: Range<Int>
@@ -15,10 +20,10 @@ struct DecodableResourceResponseMapper<Resource: Decodable>: ResponseMapping {
 
     // MARK: - Internal Methods
     func map(data: Data, from response: HTTPURLResponse) throws -> Resource {
-        guard validStatusCodes.contains(response.statusCode) else {
-            throw URLError(.badServerResponse)
+        guard validStatusCodes
+            .contains(response.statusCode), let decoded = try? decoder.decode(Resource.self, from: data) else {
+            throw Error.invalidData
         }
-
-        return try decoder.decode(Resource.self, from: data)
+        return decoded
     }
 }

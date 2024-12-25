@@ -4,7 +4,7 @@ import Combine
 import Foundation
 
 public protocol AuthenticationService {
-    func login(with credentials: SignInCredentials) -> AnyPublisher<User, Error>
-    func register(with credentials: SignUpCredentials) -> AnyPublisher<User, Error>
+    func login(with credentials: SignInCredentials) -> AnyPublisher<AuthenticatedUser, Error>
+    func register(with credentials: SignUpCredentials) -> AnyPublisher<AuthenticatedUser, Error>
     func logout() -> AnyPublisher<Void, Error>
 }

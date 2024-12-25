@@ -34,9 +34,13 @@ final class AuthenticationResponseMapper: ResponseMapping {
     }
 
     // MARK: - Private Methods
-    private func decodeUser(data: Data, from response: HTTPURLResponse) throws -> AuthenticatedUser {
-        let mapper = DecodableResourceResponseMapper<AuthenticatedUser>()
-        return try mapper.map(data: data, from: response)
+    private func decodeUser(data: Data, from response: HTTPURLResponse) throws -> AuthenticatedUserDTO {
+        let mapper = DecodableResourceResponseMapper<AuthenticatedUserDTO>()
+        do {
+            return try mapper.map(data: data, from: response)
+        } catch {
+            throw Error.invalidData
+        }
     }
 
     private func extractToken(from headerSection: Any?, tokenKey: String) throws -> Token {

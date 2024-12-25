@@ -7,12 +7,6 @@ struct TokenStorage {
     let accessTokenStore: TokenStorable
     let refreshTokenStore: TokenStorable
 
-    // MARK: - Initializers
-    init(accessTokenStore: TokenStorable, refreshTokenStore: TokenStorable) {
-        self.accessTokenStore = accessTokenStore
-        self.refreshTokenStore = refreshTokenStore
-    }
-
     // MARK: - Internal Methods
     func storeTokens(accessToken: Token, refreshToken: Token) throws {
         try accessTokenStore.store(token: accessToken)

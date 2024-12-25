@@ -7,7 +7,7 @@ struct EmptyResponseMapper: ResponseMapping {
     struct InvalidResponseError: Error {}
 
     // MARK: - Properties
-    private let validStatusCodes: Range<Int>
+    let validStatusCodes: Range<Int>
 
     // MARK: - Initializers
     init(validStatusCodes: Range<Int> = 200..<300) {
