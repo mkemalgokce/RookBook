@@ -24,11 +24,6 @@ class TitleLabel: UIStackView {
         set { label.text = newValue }
     }
 
-    var textAlignment: NSTextAlignment {
-        get { label.textAlignment }
-        set { label.textAlignment = newValue }
-    }
-
     var numberOfLines: Int {
         get { label.numberOfLines }
         set { label.numberOfLines = newValue }

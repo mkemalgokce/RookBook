@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		55935C712D1CC034005004D6 /* RookBookIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55935C702D1CC034005004D6 /* RookBookIOS.framework */; };
+		55935C722D1CC034005004D6 /* RookBookIOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55935C702D1CC034005004D6 /* RookBookIOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		55AB713D2D1C8BE20028A0F0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -16,7 +21,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		55935C732D1CC034005004D6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				55935C722D1CC034005004D6 /* RookBookIOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		55935C702D1CC034005004D6 /* RookBookIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RookBookIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AB71262D1C8BE00028A0F0 /* RookBookIOSApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RookBookIOSApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AB713C2D1C8BE20028A0F0 /* RookBookIOSAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RookBookIOSAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -52,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55935C712D1CC034005004D6 /* RookBookIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,11 +86,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55935C6F2D1CC034005004D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55935C702D1CC034005004D6 /* RookBookIOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		55AB711D2D1C8BE00028A0F0 = {
 			isa = PBXGroup;
 			children = (
 				55AB71282D1C8BE00028A0F0 /* RookBookIOSApp */,
 				55AB713F2D1C8BE20028A0F0 /* RookBookIOSAppTests */,
+				55935C6F2D1CC034005004D6 /* Frameworks */,
 				55AB71272D1C8BE00028A0F0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -93,6 +123,7 @@
 				55AB71222D1C8BE00028A0F0 /* Sources */,
 				55AB71232D1C8BE00028A0F0 /* Frameworks */,
 				55AB71242D1C8BE00028A0F0 /* Resources */,
+				55935C732D1CC034005004D6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -146,6 +177,7 @@
 					};
 					55AB713B2D1C8BE20028A0F0 = {
 						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
 						TestTargetID = 55AB71252D1C8BE00028A0F0;
 					};
 				};
@@ -225,7 +257,6 @@
 				INFOPLIST_FILE = RookBookIOSApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -253,7 +284,6 @@
 				INFOPLIST_FILE = RookBookIOSApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -392,6 +422,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q9ARVAPAG3;
@@ -401,6 +432,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mkg.RookBookIOSAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RookBookIOSApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RookBookIOSApp";
@@ -411,6 +443,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q9ARVAPAG3;

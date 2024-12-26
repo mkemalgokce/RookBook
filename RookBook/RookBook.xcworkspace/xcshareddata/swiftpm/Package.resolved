@@ -1,0 +1,15 @@
+{
+  "originHash" : "c53dd05d67c71600a7a7eab67e189f442fc2c4ddb6852629fcfe360babe457a0",
+  "pins" : [
+    {
+      "identity" : "snapshooter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mkemalgokce/SnapShooter",
+      "state" : {
+        "revision" : "581cae63e2ca513a05952d8178c769efb711276f",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 3
+}

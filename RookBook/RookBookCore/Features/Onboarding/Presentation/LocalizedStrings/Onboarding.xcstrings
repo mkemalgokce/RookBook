@@ -1,0 +1,176 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Finish Button Title" : {
+      "comment" : "Onboarding page finish button title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitir"
+          }
+        }
+      }
+    },
+    "Next Button Title" : {
+      "comment" : "Onboarding page next button title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İleri"
+          }
+        }
+      }
+    },
+    "Onboarding Subtitle 1" : {
+      "comment" : "Onboarding page first subtitle",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dive into a world of bookish fun and note-taking delight!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kitap dolu bir eğlence ve not alma keyfine dal!"
+          }
+        }
+      }
+    },
+    "Onboarding Subtitle 2" : {
+      "comment" : "Onboarding page second subtitle",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore your bookshelf, capture your thoughts with text and visuals and enrich your reading experience."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kitaplığını keşfet, düşüncelerini yazı ve görsellerle yakala ve okuma deneyimini zenginleştir."
+          }
+        }
+      }
+    },
+    "Onboarding Subtitle 3" : {
+      "comment" : "Onboarding page third subtitle",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn your reading adventures into memorable note-taking escapades"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Okuma maceralarını unutulmaz not alma serüvenlerine dönüştür"
+          }
+        }
+      }
+    },
+    "Onboarding Title 1" : {
+      "comment" : "Onboarding page first title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to RookBook!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RookBook’a Hoşgeldin!"
+          }
+        }
+      }
+    },
+    "Onboarding Title 2" : {
+      "comment" : "Onboarding page second title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore and Discover!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keşfet ve Öğren!"
+          }
+        }
+      }
+    },
+    "Onboarding Title 3" : {
+      "comment" : "Onboarding page third title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enjoy Magic of RookBook!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RookBook’un Sihirli Dünyasına Katıl!"
+          }
+        }
+      }
+    },
+    "Onboarding View Title" : {
+      "comment" : "Onboarding view title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ROOKBOOK"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ROOKBOOK"
+          }
+        }
+      }
+    },
+    "Previous Button Title" : {
+      "comment" : "Onboarding page previous button title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geri"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
