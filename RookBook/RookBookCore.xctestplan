@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "88A5937E-2536-4612-A805-2C264BD00B17",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "55AB572C2D1AD26D0028A0F0",
+        "name" : "RookBookCoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -31,7 +31,7 @@ final class OnboardingSnapshotTests: XCTestCase {
 
     // MARK: - Helpers
     private typealias Page = OnboardingPageViewModel<UIImage>
-    
+
     private func makeSUT() -> (OnboardingViewController, UINavigationController) {
         let sut = OnboardingViewController(pageViewModels: stubOnboardingPages())
         let nc = NavigationController(rootViewController: sut)

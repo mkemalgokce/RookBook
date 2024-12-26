@@ -53,6 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		55935D782D1D61BC005004D6 /* RookBookCore.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RookBookCore.xctestplan; sourceTree = "<group>"; };
 		55AB57252D1AD26D0028A0F0 /* RookBookCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RookBookCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AB572D2D1AD26D0028A0F0 /* RookBookCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RookBookCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AB671E2D1C44B40028A0F0 /* RookBookIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RookBookIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +123,7 @@
 		55AB571B2D1AD26D0028A0F0 = {
 			isa = PBXGroup;
 			children = (
+				55935D782D1D61BC005004D6 /* RookBookCore.xctestplan */,
 				55AB6CDA2D1C80930028A0F0 /* RookBookIOS.xctestplan */,
 				55AB57272D1AD26D0028A0F0 /* RookBookCore */,
 				55AB57312D1AD26D0028A0F0 /* RookBookCoreTests */,

@@ -1,5 +1,6 @@
 // Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
 
+import Combine
 import RookBookCore
 import RookBookIOS
 import UIKit
@@ -7,6 +8,8 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Properties
     var window: UIWindow?
+
+    lazy var appStateStore: AppStateStore = {}()
 
     // MARK: - Internal Methods
     func scene(

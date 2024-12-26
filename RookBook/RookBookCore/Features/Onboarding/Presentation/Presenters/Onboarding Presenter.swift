@@ -48,7 +48,11 @@ public final class OnboardingPresenter {
     }
 
     public func updatePage(for index: Int) {
-        currentPageIndex = index >= totalPages ? totalPages - 1 : index
+        if index >= 0 {
+            currentPageIndex = index >= totalPages ? totalPages - 1 : index
+        } else {
+            currentPageIndex = 0
+        }
         displayCurrentPage()
     }
 
