@@ -106,6 +106,19 @@ final class OnboardingPresenterTests: XCTestCase {
         XCTAssertEqual(config.title, OnboardingPresenter.title)
     }
 
+    // MARK: - OnboardingPageViewModel
+    func test_onboardingPageViewModel_onInit() {
+        let viewModel = OnboardingPageViewModel(
+            title: "title",
+            subtitle: "description",
+            image: "image"
+        )
+
+        XCTAssertEqual(viewModel.title, "title")
+        XCTAssertEqual(viewModel.subtitle, "description")
+        XCTAssertEqual(viewModel.image, "image")
+    }
+
     // MARK: - Helpers
     private func makeSUT(
         totalPages: Int = 3,

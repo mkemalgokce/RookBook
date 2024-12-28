@@ -11,35 +11,35 @@ final class UserDefaultsAppStateStoreTests: XCTestCase {
     }
 
     // MARK: - Tests
-    func test_state_whenNoStateStored_returnsOnboarding() throws {
+    func test_state_whenNoStateStored_returnsOnboarding() {
         let (sut, _) = makeSUT()
-        let state = try sut.state()
+        let state = sut.state()
         XCTAssertEqual(state, .onboarding)
     }
 
-    func test_state_whenStoredStateExists_returnsCorrectState() throws {
+    func test_state_whenStoredStateExists_returnsCorrectState() {
         let (sut, _) = makeSUT()
-        try sut.update(.home)
+        sut.update(.home)
 
-        let state = try sut.state()
+        let state = sut.state()
 
         XCTAssertEqual(state, .home)
     }
 
-    func test_state_whenStoredStateIsInvalid_returnsOnboarding() throws {
+    func test_state_whenStoredStateIsInvalid_returnsOnboarding() {
         let (sut, userDefaults) = makeSUT()
         userDefaults.setValue(16, forKey: UserDefaultsAppStateStore.Constants.stateKey)
 
-        let state = try sut.state()
+        let state = sut.state()
 
         XCTAssertEqual(state, .onboarding)
     }
 
-    func test_update_setsNewStateInUserDefaults() throws {
+    func test_update_setsNewStateInUserDefaults() {
         let (sut, userDefaults) = makeSUT()
         let newState: AppState = .login
 
-        try sut.update(newState)
+        sut.update(newState)
 
         let storedState = userDefaults.value(forKey: UserDefaultsAppStateStore.Constants.stateKey) as? UInt8
         XCTAssertEqual(storedState, newState.rawValue)

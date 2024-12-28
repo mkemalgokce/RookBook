@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		554FDD062D20A8D6006CBFA6 /* RookBookIOSApp.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 554FDD052D20A8D6006CBFA6 /* RookBookIOSApp.xctestplan */; };
 		55935C712D1CC034005004D6 /* RookBookIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55935C702D1CC034005004D6 /* RookBookIOS.framework */; };
 		55935C722D1CC034005004D6 /* RookBookIOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55935C702D1CC034005004D6 /* RookBookIOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		554FDD052D20A8D6006CBFA6 /* RookBookIOSApp.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RookBookIOSApp.xctestplan; sourceTree = "<group>"; };
 		55935C702D1CC034005004D6 /* RookBookIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RookBookIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AB71262D1C8BE00028A0F0 /* RookBookIOSApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RookBookIOSApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AB713C2D1C8BE20028A0F0 /* RookBookIOSAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RookBookIOSAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +99,7 @@
 		55AB711D2D1C8BE00028A0F0 = {
 			isa = PBXGroup;
 			children = (
+				554FDD052D20A8D6006CBFA6 /* RookBookIOSApp.xctestplan */,
 				55AB71282D1C8BE00028A0F0 /* RookBookIOSApp */,
 				55AB713F2D1C8BE20028A0F0 /* RookBookIOSAppTests */,
 				55935C6F2D1CC034005004D6 /* Frameworks */,
@@ -207,6 +210,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				554FDD062D20A8D6006CBFA6 /* RookBookIOSApp.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

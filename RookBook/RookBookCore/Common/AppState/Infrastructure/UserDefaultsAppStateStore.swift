@@ -17,7 +17,7 @@ public struct UserDefaultsAppStateStore: AppStateStore {
     }
 
     // MARK: - State Retrieval
-    public func state() throws -> AppState {
+    public func state() -> AppState {
         guard let storedStateRawValue = userDefaults.value(forKey: Constants.stateKey) as? UInt8 else {
             return .onboarding
         }
@@ -30,7 +30,7 @@ public struct UserDefaultsAppStateStore: AppStateStore {
     }
 
     // MARK: - State Update
-    public func update(_ newState: AppState) throws {
+    public func update(_ newState: AppState) {
         userDefaults.setValue(newState.rawValue, forKey: Constants.stateKey)
     }
 }

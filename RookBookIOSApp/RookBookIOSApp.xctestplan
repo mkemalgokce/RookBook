@@ -1,0 +1,46 @@
+{
+  "configurations" : [
+    {
+      "id" : "D70954FC-A75A-4879-BD13-451F817D1D6B",
+      "name" : "Test Scheme Action",
+      "options" : {
+        "mallocScribbleEnabled" : true,
+        "nsZombieEnabled" : true,
+        "testExecutionOrdering" : "random",
+        "threadSanitizerEnabled" : false,
+        "undefinedBehaviorSanitizerEnabled" : true
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "addressSanitizer" : {
+      "enabled" : true
+    },
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:RookBookIOSApp.xcodeproj",
+          "identifier" : "55AB71252D1C8BE00028A0F0",
+          "name" : "RookBookIOSApp"
+        }
+      ]
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:RookBookIOSApp.xcodeproj",
+      "identifier" : "55AB71252D1C8BE00028A0F0",
+      "name" : "RookBookIOSApp"
+    },
+    "threadSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookIOSApp.xcodeproj",
+        "identifier" : "55AB713B2D1C8BE20028A0F0",
+        "name" : "RookBookIOSAppTests"
+      }
+    }
+  ],
+  "version" : 1
+}

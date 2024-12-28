@@ -9,7 +9,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Properties
     var window: UIWindow?
 
-    lazy var appStateStore: AppStateStore = {}()
+    lazy var appStateNavigator: AppStateNavigating = AppStateNavigator(
+        navigationController: navigationController,
+        appStateStore: appStateStore
+    )
+
+    lazy var appStateStore: AppStateStore = UserDefaultsAppStateStore()
+
+    lazy var navigationController = UINavigationController()
 
     // MARK: - Internal Methods
     func scene(
@@ -19,14 +26,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-
-        window?.rootViewController = UIViewController()
-        window?.makeKeyAndVisible()
+        configureWindow()
     }
 
-    func sceneDidDisconnect(_ scene: UIScene) {}
-    func sceneDidBecomeActive(_ scene: UIScene) {}
-    func sceneWillResignActive(_ scene: UIScene) {}
-    func sceneWillEnterForeground(_ scene: UIScene) {}
-    func sceneDidEnterBackground(_ scene: UIScene) {}
+    func configureWindow() {
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+        appStateNavigator.navigate()
+    }
 }
