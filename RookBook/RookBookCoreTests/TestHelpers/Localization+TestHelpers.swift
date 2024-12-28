@@ -40,6 +40,22 @@ func assertLocalizedKeyAndValuesExist(
     }
 }
 
+func assertPropertyMatchesLocalizedString(
+    _ value: String,
+    key: String,
+    table: String,
+    bundle: Bundle,
+    file: StaticString = #file,
+    line: UInt = #line
+) {
+    XCTAssertEqual(
+        value,
+        localized(key, table: table, bundle: bundle),
+        file: file,
+        line: line
+    )
+}
+
 func assertLocalizedString(
     _ key: String,
     table: String,
