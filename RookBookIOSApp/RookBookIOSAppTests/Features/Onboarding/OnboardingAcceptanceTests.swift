@@ -8,18 +8,18 @@ import XCTest
 final class OnboardingAcceptanceTests: XCTestCase {
     func test_onOnboardingCompletion_displaysSignIn() {
         let appStateStore = MockAppStateStore(initialState: .onboarding)
-        let (sut, scene) = launch(appStateStore: appStateStore)
+        let (sut, nav, scene) = launch(appStateStore: appStateStore)
 
         simulateOnboardingCompletion(vc: sut)
 
-        let nav = sut.navigationController
-        XCTAssertTrue(nav?.topViewController is UIViewController)
+        XCTAssertTrue(nav?.topViewController is SignInViewController)
     }
 
     // MARK: - Helpers
-    private func launch(appStateStore: AppStateStore) -> (OnboardingViewController, SceneDelegate) {
+    private func launch(appStateStore: AppStateStore)
+        -> (OnboardingViewController, UINavigationController?, SceneDelegate) {
         let sut = SceneDelegate()
-        sut.appStateStore = appStateStore
+        sut.compositionRoot.appStateStore = appStateStore
         sut.window = UIWindow(frame: CGRect(x: 0, y: 0, width: 390, height: 1))
         sut.configureWindow()
 
@@ -27,7 +27,7 @@ final class OnboardingAcceptanceTests: XCTestCase {
         let vc = nav?.topViewController as! OnboardingViewController
 
         vc.simulateAppearance()
-        return (vc, sut)
+        return (vc, nav, sut)
     }
 
     private func simulateOnboardingCompletion(vc: OnboardingViewController) {

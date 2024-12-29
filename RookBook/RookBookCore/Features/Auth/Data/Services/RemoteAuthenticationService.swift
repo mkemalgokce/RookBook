@@ -3,7 +3,7 @@
 import Combine
 import Foundation
 
-final class EmailAuthenticationService: AuthenticationService {
+public final class RemoteAuthenticationService: AuthenticationServiceConformable {
     // MARK: - Properties
     private let client: HTTPClient
     private let buildSignInRequest: (Credentials) -> URLRequest
@@ -12,7 +12,7 @@ final class EmailAuthenticationService: AuthenticationService {
     private let storage: TokenStorage
 
     // MARK: - Initializers
-    init(
+    public init(
         client: HTTPClient,
         buildSignInRequest: @escaping (Credentials) -> URLRequest,
         buildSignUpRequest: @escaping (Credentials) -> URLRequest,
@@ -27,7 +27,7 @@ final class EmailAuthenticationService: AuthenticationService {
     }
 
     // MARK: - Internal Methods
-    func login(with credentials: SignInCredentials) -> AnyPublisher<AuthenticatedUser, any Error> {
+    public func login(with credentials: SignInCredentials) -> AnyPublisher<AuthenticatedUser, any Error> {
         let request = buildSignInRequest(credentials)
         let storage = storage
         return client.perform(request)
@@ -41,7 +41,7 @@ final class EmailAuthenticationService: AuthenticationService {
             .eraseToAnyPublisher()
     }
 
-    func register(with credentials: SignUpCredentials) -> AnyPublisher<AuthenticatedUser, any Error> {
+    public func register(with credentials: SignUpCredentials) -> AnyPublisher<AuthenticatedUser, any Error> {
         let request = buildSignUpRequest(credentials)
         let storage = storage
         return client.perform(request)
@@ -55,7 +55,7 @@ final class EmailAuthenticationService: AuthenticationService {
             .eraseToAnyPublisher()
     }
 
-    func logout() -> AnyPublisher<Void, any Error> {
+    public func logout() -> AnyPublisher<Void, any Error> {
         let request = buildLogoutRequest()
         let storage = storage
         return client.perform(request)

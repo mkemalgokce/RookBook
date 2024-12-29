@@ -37,7 +37,7 @@ final class SceneDelegateTests: XCTestCase {
                          line: UInt = #line) -> (SceneDelegate, MockAppStateNavigator) {
         let navigator = MockAppStateNavigator()
         let sut = SceneDelegate()
-        sut.appStateNavigator = navigator
+        sut.compositionRoot.appStateNavigator = navigator
         if let window {
             sut.window = window
         }

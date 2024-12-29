@@ -150,7 +150,7 @@ final class EmailAuthenticationServiceTests: XCTestCase {
         file: StaticString = #file,
         line: UInt = #line
     ) -> (
-        sut: EmailAuthenticationService,
+        sut: RemoteAuthenticationService,
         client: HTTPClientSpy,
         accessTokenStore: MockTokenStore,
         refreshTokenStore: MockTokenStore
@@ -162,7 +162,7 @@ final class EmailAuthenticationServiceTests: XCTestCase {
 
         let accessTokenStore = MockTokenStore()
         let refreshTokenStore = MockTokenStore()
-        let sut = EmailAuthenticationService(
+        let sut = RemoteAuthenticationService(
             client: client,
             buildSignInRequest: { _ in signInRequest },
             buildSignUpRequest: { _ in signUpRequest },

@@ -8,15 +8,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Properties
     var window: UIWindow?
-
-    lazy var appStateNavigator: AppStateNavigating = AppStateNavigator(
-        navigationController: navigationController,
-        appStateStore: appStateStore
-    )
-
-    lazy var appStateStore: AppStateStore = UserDefaultsAppStateStore()
-
-    lazy var navigationController = UINavigationController()
+    lazy var compositionRoot = CompositionRoot()
 
     // MARK: - Internal Methods
     func scene(
@@ -30,8 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func configureWindow() {
-        window?.rootViewController = navigationController
+        window?.rootViewController = compositionRoot.navigationController
         window?.makeKeyAndVisible()
-        appStateNavigator.navigate()
+        compositionRoot.appStateNavigator.navigate()
     }
 }

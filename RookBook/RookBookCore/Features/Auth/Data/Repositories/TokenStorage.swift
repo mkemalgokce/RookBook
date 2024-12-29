@@ -2,10 +2,16 @@
 
 import Foundation
 
-struct TokenStorage {
+public struct TokenStorage {
     // MARK: - Properties
-    let accessTokenStore: TokenStorable
-    let refreshTokenStore: TokenStorable
+    public let accessTokenStore: TokenStorable
+    public let refreshTokenStore: TokenStorable
+
+    // MARK: - Initializers
+    public init(accessTokenStore: TokenStorable, refreshTokenStore: TokenStorable) {
+        self.accessTokenStore = accessTokenStore
+        self.refreshTokenStore = refreshTokenStore
+    }
 
     // MARK: - Internal Methods
     func storeTokens(accessToken: Token, refreshToken: Token) throws {

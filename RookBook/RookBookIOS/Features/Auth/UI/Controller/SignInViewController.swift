@@ -1,6 +1,7 @@
 // Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
 
 import Foundation
+import RookBookCore
 
 public final class SignInViewController: ViewController<SignInView> {
     // MARK: - Properties
@@ -17,6 +18,8 @@ public final class SignInViewController: ViewController<SignInView> {
     public var onSignIn: (() -> Void)?
     public var onAppleSignIn: (() -> Void)?
     public var onSignUp: (() -> Void)?
+
+    public var appleCredentialsProvider: AppleCredentialsProviding?
 
     // MARK: - Lifecycle Methods
     override public func viewDidLoad() {
@@ -42,5 +45,16 @@ public final class SignInViewController: ViewController<SignInView> {
 
     @objc private func signUpButtonTapped() {
         onSignUp?()
+    }
+}
+
+// MARK: - ResourceErrorView & ResourceLoadingView
+extension SignInViewController: ResourceErrorView, ResourceLoadingView {
+    public func display(_ viewModel: ResourceErrorViewModel) {
+        showAlert(message: viewModel.message)
+    }
+
+    public func display(_ viewModel: ResourceLoadingViewModel) {
+        isLoading = viewModel.isLoading
     }
 }

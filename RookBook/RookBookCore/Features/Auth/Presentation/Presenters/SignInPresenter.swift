@@ -2,7 +2,7 @@
 
 import Foundation
 
-final class SignInPresenter {
+public final class SignInPresenter {
     public static var title: String {
         NSLocalizedString("Sign In Title",
                           tableName: "SignIn",

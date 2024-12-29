@@ -4,7 +4,7 @@ import AuthenticationServices
 import Combine
 import RookBookCore
 
-class AppleCredentialsProvider: NSObject, AppleCredentialsProviding {
+public class AppleCredentialsProvider: NSObject, AppleCredentialsProviding {
     // MARK: - Nested Types
     enum AppleCredentialsError: Error {
         case invalidCredentials
@@ -15,14 +15,14 @@ class AppleCredentialsProvider: NSObject, AppleCredentialsProviding {
     private let authorizationController: AppleAuthorizationController
 
     // MARK: - Initializers
-    init(authorizationController: AppleAuthorizationController? = nil) {
+    public init(authorizationController: AppleAuthorizationController? = nil) {
         self.authorizationController = authorizationController ?? AppleAuthorizationController()
         super.init()
         self.authorizationController.delegate = self
     }
 
     // MARK: - AppleCredentialsProviding
-    func provide() -> AnyPublisher<RookBookCore.AppleCredentials, any Error> {
+    public func provide() -> AnyPublisher<RookBookCore.AppleCredentials, any Error> {
         authorizationController.performRequests()
         return subject.eraseToAnyPublisher()
     }

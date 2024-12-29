@@ -3,7 +3,7 @@
 import AuthenticationServices
 import Foundation
 
-class AppleAuthorizationController: NSObject {
+public class AppleAuthorizationController: NSObject {
     // MARK: - Nested Types
     private struct InvalidCredentialsError: Error {}
 
@@ -14,6 +14,7 @@ class AppleAuthorizationController: NSObject {
         appleIDRequest.requestedScopes = [.fullName, .email]
         let controller = ASAuthorizationController(authorizationRequests: [appleIDRequest])
         controller.delegate = self
+        controller.presentationContextProvider = self
         return controller
     }()
 
@@ -30,8 +31,13 @@ class AppleAuthorizationController: NSObject {
 }
 
 // MARK: - ASAuthorizationControllerDelegate
-extension AppleAuthorizationController: ASAuthorizationControllerDelegate {
-    func authorizationController(
+extension AppleAuthorizationController: ASAuthorizationControllerDelegate,
+    ASAuthorizationControllerPresentationContextProviding {
+    public func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        ASPresentationAnchor()
+    }
+
+    public func authorizationController(
         controller: ASAuthorizationController,
         didCompleteWithAuthorization authorization: ASAuthorization
     ) {
@@ -42,7 +48,7 @@ extension AppleAuthorizationController: ASAuthorizationControllerDelegate {
         }
     }
 
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: any Error) {
+    public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: any Error) {
         delegate?.didCompleteWithError(error: error)
     }
 }
