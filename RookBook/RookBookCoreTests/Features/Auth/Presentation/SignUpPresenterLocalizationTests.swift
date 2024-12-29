@@ -68,4 +68,17 @@ final class SignUpPresenterLocalizationTests: XCTestCase {
             bundle: bundle
         )
     }
+
+    func test_testConfiguration_returnsCorrectValues() {
+        let configuration = SignUpPresenter.textConfiguration
+
+        XCTAssertEqual(configuration.title, SignUpPresenter.title)
+        XCTAssertEqual(configuration.fullNameTextFieldPlaceholder, SignUpPresenter.fullNamePlaceholder)
+        XCTAssertEqual(configuration.emailTextFieldPlaceholder, SignUpPresenter.emailPlaceholder)
+        XCTAssertEqual(configuration.passwordTextFieldPlaceholder, SignUpPresenter.passwordPlaceholder)
+        XCTAssertEqual(configuration.signUpButtonTitle, SignUpPresenter.signUpButtonTitle)
+        XCTAssertEqual(configuration.signUpWithAppleButtonTitle, SignUpPresenter.signUpWithAppleButtonTitle)
+        XCTAssertEqual(configuration.alreadyHaveAccountButtonTitle, SignUpPresenter.alreadyHaveAnAccountTitle)
+        XCTAssertEqual(configuration.signInButtonTitle, SignUpPresenter.signInButtonTitle)
+    }
 }

@@ -1,7 +1,7 @@
 // Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
 
-import UIKit
 import RookBookCore
+import UIKit
 
 final class SignUpViewController: ViewController<SignUpView> {
     // MARK: - Properties
@@ -51,7 +51,6 @@ final class SignUpViewController: ViewController<SignUpView> {
     }
 }
 
-
 // MARK: - SignUpViewTextConfiguration
 extension SignUpViewController {
     func setup(with textConfiguration: SignUpViewTextConfiguration) {
@@ -63,6 +62,5 @@ extension SignUpViewController {
         rootView.signInButton.secondText = textConfiguration.signInButtonTitle
         rootView.signUpButton.setTitle(textConfiguration.signUpButtonTitle, for: .normal)
         rootView.signUpWithAppleButton.setTitle(textConfiguration.signUpWithAppleButtonTitle, for: .normal)
-                                                
     }
 }

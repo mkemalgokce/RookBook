@@ -60,4 +60,16 @@ final class SignInPresenterLocalizationTests: XCTestCase {
             bundle: bundle
         )
     }
+
+    func test_textConfiguration_returnsCorrectValues() {
+        let textConfiguration = SignInPresenter.textConfiguration
+
+        XCTAssertEqual(textConfiguration.title, SignInPresenter.title)
+        XCTAssertEqual(textConfiguration.emailPlaceholder, SignInPresenter.emailPlaceholder)
+        XCTAssertEqual(textConfiguration.passwordPlaceholder, SignInPresenter.passwordPlaceholder)
+        XCTAssertEqual(textConfiguration.signInButtonTitle, SignInPresenter.signInButtonTitle)
+        XCTAssertEqual(textConfiguration.signInWithAppleButtonTitle, SignInPresenter.signInWithAppleButtonTitle)
+        XCTAssertEqual(textConfiguration.dontHaveAccountText, SignInPresenter.dontHaveAnAccountTitle)
+        XCTAssertEqual(textConfiguration.signUpButtonTitle, SignInPresenter.signUpButtonTitle)
+    }
 }
