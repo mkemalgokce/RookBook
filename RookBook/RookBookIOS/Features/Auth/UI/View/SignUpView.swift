@@ -2,7 +2,7 @@
 
 import UIKit
 
-final class SignUpView: UIView {
+public final class SignUpView: UIView {
     // MARK: - UI Properties
     lazy var fullNameTextField: RoundedTextField = {
         let field = RoundedTextField()
@@ -105,7 +105,7 @@ final class SignUpView: UIView {
     }
 
     // MARK: - Lifecycle Methods
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         applyGradient(colors: [.green3, .green4])
     }

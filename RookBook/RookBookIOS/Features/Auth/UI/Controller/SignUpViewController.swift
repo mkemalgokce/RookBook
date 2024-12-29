@@ -3,7 +3,7 @@
 import RookBookCore
 import UIKit
 
-final class SignUpViewController: ViewController<SignUpView> {
+public final class SignUpViewController: ViewController<SignUpView> {
     // MARK: - Properties
     public var fullNameText: String? {
         get { rootView.fullNameTextField.text }
@@ -23,6 +23,8 @@ final class SignUpViewController: ViewController<SignUpView> {
     public var onSignIn: (() -> Void)?
     public var onSignUp: (() -> Void)?
     public var onAppleSignUp: (() -> Void)?
+
+    public var appleCredentialsProvider: AppleCredentialsProviding = AppleCredentialsProvider()
 
     // MARK: - Lifecycle Methods
     override public func viewDidLoad() {
@@ -53,7 +55,7 @@ final class SignUpViewController: ViewController<SignUpView> {
 
 // MARK: - SignUpViewTextConfiguration
 extension SignUpViewController {
-    func setup(with textConfiguration: SignUpViewTextConfiguration) {
+    public func setup(with textConfiguration: SignUpViewTextConfiguration) {
         title = textConfiguration.title
         rootView.fullNameTextField.placeholder = textConfiguration.fullNameTextFieldPlaceholder
         rootView.mailTextField.placeholder = textConfiguration.emailTextFieldPlaceholder

@@ -8,7 +8,7 @@ import XCTest
 final class OnboardingUIIntegrationTests: XCTestCase {
     func test_onboardingView_hasTitle() {
         let sut = makeSUT()
-        sut.simulateAppearance()
+        sut.simulateCollectionAppearance()
         XCTAssertEqual(sut.title, onboardingTitle)
     }
 
@@ -22,13 +22,13 @@ final class OnboardingUIIntegrationTests: XCTestCase {
 
     func test_onboardingView_hasThreePages() {
         let sut = makeSUT()
-        sut.simulateAppearance()
+        sut.simulateCollectionAppearance()
         XCTAssertEqual(sut.rootView.pageControl.numberOfPages, 3)
     }
 
     func test_rightButton_updatesPageControl() {
         let sut = makeSUT()
-        sut.simulateAppearance()
+        sut.simulateCollectionAppearance()
         XCTAssertEqual(sut.currentPage, 0)
 
         sut.simulateNextButtonTap()
@@ -43,7 +43,7 @@ final class OnboardingUIIntegrationTests: XCTestCase {
 
     func test_previousButton_updatesPageControl() {
         let sut = makeSUT()
-        sut.simulateAppearance()
+        sut.simulateCollectionAppearance()
         XCTAssertEqual(sut.currentPage, 0)
 
         sut.simulateNextButtonTap()
@@ -62,7 +62,7 @@ final class OnboardingUIIntegrationTests: XCTestCase {
 
     func test_pages_hasCorrectContent() {
         let sut = makeSUT()
-        sut.simulateAppearance()
+        sut.simulateCollectionAppearance()
 
         let firstPage = page(at: 0)
         let secondPage = page(at: 1)
@@ -80,7 +80,7 @@ final class OnboardingUIIntegrationTests: XCTestCase {
     func test_onboardingView_onCompletion() {
         var completionCallCount = 0
         let sut = makeSUT(onCompletion: { completionCallCount += 1 })
-        sut.simulateAppearance()
+        sut.simulateCollectionAppearance()
 
         XCTAssertEqual(completionCallCount, 0)
         sut.simulateNextButtonTap()
@@ -95,7 +95,7 @@ final class OnboardingUIIntegrationTests: XCTestCase {
 
     func test_onboardingView_scrollToPage() {
         let sut = makeSUT()
-        sut.simulateAppearance()
+        sut.simulateCollectionAppearance()
 
         sut.simulateScroll(to: 1)
         XCTAssertTrue(sut.collectionView.isScrolledToItem(to: 1))

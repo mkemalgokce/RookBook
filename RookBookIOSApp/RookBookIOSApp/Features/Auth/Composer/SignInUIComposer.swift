@@ -5,38 +5,32 @@ import RookBookCore
 import RookBookIOS
 
 enum SignInUIComposer {
+    // MARK: - Typealiases
     typealias SignInPublisher = (SignInCredentials) -> AnyPublisher<AuthenticatedUser, Error>
 
+    // MARK: - Static Methods
     static func composed(
         emailSignInPublisher: @escaping SignInPublisher,
-        appleSignInPublisher: @escaping SignInPublisher
+        appleSignInPublisher: @escaping SignInPublisher,
+        onSignUp: @escaping () -> Void,
+        onSuccess: @escaping () -> Void
     ) -> SignInViewController {
         let vc = SignInViewController.make(with: SignInPresenter.textConfiguration)
-        let weakVC = WeakRef(vc)
-        let presenter = LoadResourcePresenter(errorView: weakVC, loadingView: weakVC)
+        let presenter = LoadResourcePresenter(errorView: WeakRef(vc), loadingView: WeakRef(vc))
         let signInView = SignInViewAdapter(controller: vc)
+        signInView.onDisplay = onSuccess
 
-        configureSignInHandlers(
-            for: vc,
-            with: presenter,
-            signInView: signInView,
-            emailSignInPublisher: emailSignInPublisher,
-            appleSignInPublisher: appleSignInPublisher
-        )
+        vc.onSignIn = { [weak vc] in
+            guard let vc else { return }
+            presenter.load(on: signInView) { vc.emailSignInProcess(with: emailSignInPublisher) }
+        }
+        vc.onAppleSignIn = { [weak vc] in
+            guard let vc else { return }
+            presenter.load(on: signInView) { vc.appleSignInProcess(with: appleSignInPublisher) }
+        }
+        vc.onSignUp = onSignUp
 
         return vc
-    }
-
-    // MARK: - Private Helpers
-    private static func configureSignInHandlers(
-        for vc: SignInViewController,
-        with presenter: LoadResourcePresenter,
-        signInView: SignInViewAdapter,
-        emailSignInPublisher: @escaping SignInPublisher,
-        appleSignInPublisher: @escaping SignInPublisher
-    ) {
-        vc.onSignIn = { presenter.load(on: signInView) { vc.emailSignInProcess(with: emailSignInPublisher) } }
-        vc.onAppleSignIn = { presenter.load(on: signInView) { vc.appleSignInProcess(with: appleSignInPublisher) } }
     }
 }
 
@@ -50,7 +44,7 @@ extension SignInViewController {
     }
 
     private var credentials: AnyPublisher<SignInCredentials, Error> {
-        guard let mailText, let passwordText else {
+        guard let mailText, let passwordText, !mailText.isEmpty, !passwordText.isEmpty else {
             return Empty().eraseToAnyPublisher()
         }
         return Just(EmailSignInCredentials(email: mailText, password: passwordText))
@@ -59,7 +53,7 @@ extension SignInViewController {
     }
 
     private var appleCredentials: AnyPublisher<AppleCredentials, Error> {
-        appleCredentialsProvider?.provide() ?? Empty().eraseToAnyPublisher()
+        appleCredentialsProvider.provide()
     }
 
     fileprivate func emailSignInProcess(with publisher: @escaping SignInUIComposer

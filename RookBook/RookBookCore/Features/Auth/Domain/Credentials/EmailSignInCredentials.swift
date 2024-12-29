@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct EmailSignInCredentials: SignInCredentials, Equatable {
+public struct EmailSignInCredentials: SignInCredentials, Hashable {
     // MARK: - Properties
     public let email: String
     public let password: String

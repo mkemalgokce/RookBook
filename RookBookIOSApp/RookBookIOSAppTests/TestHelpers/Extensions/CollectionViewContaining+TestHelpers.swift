@@ -23,12 +23,11 @@ extension CollectionViewContaining {
 }
 
 extension CollectionViewContaining where Self: UIViewController {
-    func simulateAppearance() {
+    func simulateCollectionAppearance() {
         if !isViewLoaded {
             loadViewIfNeeded()
             setSmallFrameToPreventRenderingCells()
         }
-
         beginAppearanceTransition(true, animated: false)
         endAppearanceTransition()
     }

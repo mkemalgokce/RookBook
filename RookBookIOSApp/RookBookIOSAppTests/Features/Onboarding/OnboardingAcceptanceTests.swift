@@ -26,7 +26,7 @@ final class OnboardingAcceptanceTests: XCTestCase {
         let nav = sut.window?.rootViewController as? UINavigationController
         let vc = nav?.topViewController as! OnboardingViewController
 
-        vc.simulateAppearance()
+        vc.simulateCollectionAppearance()
         return (vc, nav, sut)
     }
 

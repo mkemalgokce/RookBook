@@ -2,7 +2,8 @@
 
 import Foundation
 
-final class SignUpPresenter {
+public final class SignUpPresenter {
+    // MARK: - Static Properties
     public static var title: String {
         NSLocalizedString("Sign Up Title",
                           tableName: "SignUp",

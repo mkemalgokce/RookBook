@@ -3,6 +3,7 @@
 import Foundation
 
 public struct SignUpViewTextConfiguration {
+    // MARK: - Properties
     public let title: String
     public let fullNameTextFieldPlaceholder: String
     public let emailTextFieldPlaceholder: String
@@ -12,6 +13,7 @@ public struct SignUpViewTextConfiguration {
     public let alreadyHaveAccountButtonTitle: String
     public let signInButtonTitle: String
 
+    // MARK: - Initializers
     public init(
         title: String,
         fullNameTextFieldPlaceholder: String,

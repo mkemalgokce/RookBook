@@ -8,7 +8,14 @@ extension CompositionRoot: AppStateNavigatorViewControllerFactory {
         SignInUIComposer
             .composed(
                 emailSignInPublisher: authenticationService.login,
-                appleSignInPublisher: authenticationService.login
+                appleSignInPublisher: authenticationService.login,
+                onSignUp: { [weak self] in
+                    guard let self else { return }
+                    navigationController.show(makeSignUpViewController(), sender: self)
+                },
+                onSuccess: { [weak self] in
+                    self?.appStateStore.update(.home)
+                }
             )
     }
 
@@ -24,5 +31,20 @@ extension CompositionRoot: AppStateNavigatorViewControllerFactory {
             appStateStore.update(.login)
             appStateNavigator.navigate()
         })
+    }
+
+    // MARK: - SignUpViewController
+    private func makeSignUpViewController() -> UIViewController {
+        SignUpUIComposer.composed(
+            email: authenticationService.register,
+            apple: authenticationService.register,
+            onSignIn: { [weak self] in
+                guard let self else { return }
+                navigationController.popViewController(animated: true)
+            },
+            onSuccess: { [weak self] in
+                self?.appStateStore.update(.home)
+            }
+        )
     }
 }

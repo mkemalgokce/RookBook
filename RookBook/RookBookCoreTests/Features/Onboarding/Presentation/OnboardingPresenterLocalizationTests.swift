@@ -11,6 +11,7 @@ final class OnboardingPresenterLocalizationTests: XCTestCase {
         assertAllLocalizedKeysAndValuesExist(in: bundle, table)
     }
 
+    // swiftlint:disable function_body_length
     func test_localizedProperties_returnCorrectValues() {
         assertPropertyMatchesLocalizedString(
             OnboardingPresenter.title,
@@ -81,4 +82,5 @@ final class OnboardingPresenterLocalizationTests: XCTestCase {
             bundle: bundle
         )
     }
+    // swiftlint:enable function_body_length
 }

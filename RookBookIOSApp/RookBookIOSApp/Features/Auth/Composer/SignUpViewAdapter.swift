@@ -4,13 +4,13 @@ import Foundation
 import RookBookCore
 import RookBookIOS
 
-final class SignInViewAdapter: ResourceView {
+final class SignUpViewAdapter: ResourceView {
     // MARK: - Properties
-    weak var controller: SignInViewController?
+    weak var controller: SignUpViewController?
     var onDisplay: (() -> Void)?
     
     // MARK: - Initializers
-    init(controller: SignInViewController? = nil) {
+    init(controller: SignUpViewController? = nil) {
         self.controller = controller
     }
 

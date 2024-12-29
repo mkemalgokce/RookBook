@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct AppleCredentials: SignInCredentials, Equatable {
+public struct AppleCredentials: SignInCredentials, SignUpCredentials, Hashable {
     // MARK: - Properties
     let userIdentifier: String
     let email: String?

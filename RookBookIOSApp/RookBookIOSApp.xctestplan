@@ -4,11 +4,10 @@
       "id" : "D70954FC-A75A-4879-BD13-451F817D1D6B",
       "name" : "Test Scheme Action",
       "options" : {
-        "mallocScribbleEnabled" : true,
-        "nsZombieEnabled" : true,
-        "testExecutionOrdering" : "random",
-        "threadSanitizerEnabled" : false,
-        "undefinedBehaviorSanitizerEnabled" : true
+        "addressSanitizer" : {
+          "enabled" : false
+        },
+        "threadSanitizerEnabled" : false
       }
     }
   ],

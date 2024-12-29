@@ -6,7 +6,7 @@
 import XCTest
 
 final class OnboardingSnapshotTests: XCTestCase {
-    func test_onboarding_first_page() {
+    func test_onboarding_first_page_dark() {
         let (_, nc) = makeSUT()
 
         let image = nc.snapshot(for: .iPhone13(style: .dark))
@@ -14,7 +14,7 @@ final class OnboardingSnapshotTests: XCTestCase {
         assert(image)
     }
 
-    func test_onboarding_second_page() {
+    func test_onboarding_second_page_light() {
         let (sut, nc) = makeSUT()
 
         sut.displayPage(at: 1)
@@ -22,7 +22,7 @@ final class OnboardingSnapshotTests: XCTestCase {
         assert(nc.snapshot())
     }
 
-    func test_onboarding_third_page() {
+    func test_onboarding_third_page_light() {
         let (sut, nc) = makeSUT()
         sut.displayPage(at: 2)
 

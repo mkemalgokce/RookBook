@@ -23,6 +23,16 @@ final class CompositionRoot {
     lazy var authenticationService: AuthenticationServiceConformable = makeRemoteAuthenticationService()
     lazy var appStateStore: AppStateStore = UserDefaultsAppStateStore()
 
+    // MARK: - Internal Methods
+    func updateAppState(to state: AppState) {
+        appStateStore.update(state)
+        appStateNavigator.navigate()
+    }
+
+    func show(_ viewController: UIViewController) {
+        navigationController.setViewControllers([viewController], animated: true)
+    }
+    
     // MARK: - Private Methods
     private func makeKeychainTokenStorage(for identifier: String) -> TokenStorable {
         KeychainTokenStore(identifier: identifier)
@@ -41,4 +51,5 @@ final class CompositionRoot {
             storage: tokenStore
         )
     }
+
 }
