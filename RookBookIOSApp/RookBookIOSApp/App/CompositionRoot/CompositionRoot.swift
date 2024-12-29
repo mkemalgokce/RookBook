@@ -9,7 +9,7 @@ final class CompositionRoot {
     let baseURL = URL(string: "https://localhost")!
 
     // MARK: - Properties
-    lazy var navigationController = UINavigationController()
+    lazy var navigationController = NavigationController()
     lazy var appStateNavigator: AppStateNavigating = AppStateNavigator(
         navigationController: navigationController,
         appStateStore: appStateStore,

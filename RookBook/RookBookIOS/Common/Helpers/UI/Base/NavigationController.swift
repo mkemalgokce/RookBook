@@ -2,8 +2,8 @@
 
 import UIKit
 
-final class NavigationController: UINavigationController {
-    override func viewDidLoad() {
+public final class NavigationController: UINavigationController {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         setupTitle()
     }

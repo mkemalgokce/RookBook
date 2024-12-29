@@ -11,7 +11,7 @@ enum SignInUIComposer {
         emailSignInPublisher: @escaping SignInPublisher,
         appleSignInPublisher: @escaping SignInPublisher
     ) -> SignInViewController {
-        let vc = SignInViewController.make()
+        let vc = SignInViewController.make(with: SignInPresenter.textConfiguration)
         let weakVC = WeakRef(vc)
         let presenter = LoadResourcePresenter(errorView: weakVC, loadingView: weakVC)
         let signInView = SignInViewAdapter(controller: vc)
@@ -42,9 +42,9 @@ enum SignInUIComposer {
 
 // MARK: - SignInViewController Extension
 extension SignInViewController {
-    fileprivate static func make() -> SignInViewController {
+    fileprivate static func make(with textConfiguration: SignInViewTextConfiguration) -> SignInViewController {
         let viewController = SignInViewController()
-        viewController.title = SignInPresenter.title
+        viewController.setup(with: textConfiguration)
         viewController.appleCredentialsProvider = AppleCredentialsProvider()
         return viewController
     }

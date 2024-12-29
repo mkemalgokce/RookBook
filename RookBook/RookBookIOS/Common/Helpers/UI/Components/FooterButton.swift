@@ -4,8 +4,17 @@ import UIKit
 
 final class FooterButton: UIButton {
     // MARK: - Properties
-    private let firstText: String
-    private let secondText: String
+    var firstText: String {
+        didSet {
+            configureTexts()
+        }
+    }
+
+    var secondText: String {
+        didSet {
+            configureTexts()
+        }
+    }
 
     var firstColor: UIColor = .black {
         didSet {

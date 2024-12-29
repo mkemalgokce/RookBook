@@ -53,7 +53,7 @@ final class RoundedTextField: UITextField {
         return dateFormatter
     }()
 
-    var placeholderColor: UIColor = .red {
+    var placeholderColor: UIColor = .green4 {
         didSet {
             updatePlaceholderText(placeholder)
             if let rightButton = rightView as? UIButton {
@@ -73,7 +73,7 @@ final class RoundedTextField: UITextField {
         set { super.delegate = self }
     }
 
-    var borderColor: UIColor = .red { didSet { layer.borderColor = borderColor.cgColor } }
+    var borderColor: UIColor = .green4 { didSet { layer.borderColor = borderColor.cgColor } }
 
     // MARK: - Initializers
     init(isSecure: Bool = false, isDateField: Bool = false) {

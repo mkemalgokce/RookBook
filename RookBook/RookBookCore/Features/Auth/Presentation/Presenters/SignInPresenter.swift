@@ -51,4 +51,14 @@ public final class SignInPresenter {
                           bundle: Bundle(for: self),
                           comment: "Sign Up Button Title")
     }
+
+    public static var textConfiguration: SignInViewTextConfiguration {
+        SignInViewTextConfiguration(title: title,
+                                    emailPlaceholder: emailPlaceholder,
+                                    passwordPlaceholder: passwordPlaceholder,
+                                    signInButtonTitle: signInButtonTitle,
+                                    signInWithAppleButtonTitle: signInWithAppleButtonTitle,
+                                    signUpButtonTitle: signUpButtonTitle,
+                                    dontHaveAccountText: dontHaveAnAccountTitle)
+    }
 }

@@ -58,3 +58,16 @@ extension SignInViewController: ResourceErrorView, ResourceLoadingView {
         isLoading = viewModel.isLoading
     }
 }
+
+// MARK: - SignInViewTextConfiguration
+extension SignInViewController {
+    public func setup(with textConfiguration: SignInViewTextConfiguration) {
+        title = textConfiguration.title
+        rootView.mailTextField.placeholder = textConfiguration.emailPlaceholder
+        rootView.passTextField.placeholder = textConfiguration.passwordPlaceholder
+        rootView.signInButton.setTitle(textConfiguration.signInButtonTitle, for: .normal)
+        rootView.signInWithAppleButton.setTitle(textConfiguration.signInWithAppleButtonTitle, for: .normal)
+        rootView.signUpButton.firstText = textConfiguration.dontHaveAccountText
+        rootView.signUpButton.secondText = textConfiguration.signUpButtonTitle
+    }
+}
