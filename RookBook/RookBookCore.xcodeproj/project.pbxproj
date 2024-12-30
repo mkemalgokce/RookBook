@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		557177232D229DD3007C81C0 /* RookBookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55AB57252D1AD26D0028A0F0 /* RookBookCore.framework */; };
+		557177312D229E14007C81C0 /* RookBookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55AB57252D1AD26D0028A0F0 /* RookBookCore.framework */; };
 		55AB572E2D1AD26D0028A0F0 /* RookBookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55AB57252D1AD26D0028A0F0 /* RookBookCore.framework */; };
 		55AB67262D1C44B40028A0F0 /* RookBookIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55AB671E2D1C44B40028A0F0 /* RookBookIOS.framework */; };
 		55AB6B152D1C46780028A0F0 /* RookBookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55AB57252D1AD26D0028A0F0 /* RookBookCore.framework */; platformFilter = ios; };
@@ -15,6 +17,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		557177242D229DD3007C81C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55AB571C2D1AD26D0028A0F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55AB57242D1AD26D0028A0F0;
+			remoteInfo = RookBookCore;
+		};
+		557177322D229E14007C81C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55AB571C2D1AD26D0028A0F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55AB57242D1AD26D0028A0F0;
+			remoteInfo = RookBookCore;
+		};
 		55AB572F2D1AD26D0028A0F0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55AB571C2D1AD26D0028A0F0 /* Project object */;
@@ -36,6 +52,20 @@
 			remoteGlobalIDString = 55AB57242D1AD26D0028A0F0;
 			remoteInfo = RookBookCore;
 		};
+		55CE63F92D229E870096E210 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55AB571C2D1AD26D0028A0F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5571773A2D229E2C007C81C0;
+			remoteInfo = RookBookCoreTestHostApp;
+		};
+		55CE63FB2D229EB40096E210 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55AB571C2D1AD26D0028A0F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5571773A2D229E2C007C81C0;
+			remoteInfo = RookBookCoreTestHostApp;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +83,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5571771F2D229DD3007C81C0 /* RookBookCoreEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RookBookCoreEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5571772D2D229E14007C81C0 /* RookBookCoreStoreIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RookBookCoreStoreIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5571773B2D229E2C007C81C0 /* RookBookCoreTestHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RookBookCoreTestHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55935D782D1D61BC005004D6 /* RookBookCore.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RookBookCore.xctestplan; sourceTree = "<group>"; };
 		55AB57252D1AD26D0028A0F0 /* RookBookCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RookBookCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AB572D2D1AD26D0028A0F0 /* RookBookCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RookBookCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,7 +94,45 @@
 		55AB6CDA2D1C80930028A0F0 /* RookBookIOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RookBookIOS.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		55CE64082D229FC40096E210 /* Exceptions for "RookBookCoreTests" folder in "RookBookCoreEndToEndTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"TestHelpers/Extensions/XCTestCase+Expect.swift",
+				"TestHelpers/Extensions/XCTestCase+MemoryLeakTracking.swift",
+				"TestHelpers/Localization+TestHelpers.swift",
+				TestHelpers/SharedHelpers.swift,
+			);
+			target = 5571771E2D229DD3007C81C0 /* RookBookCoreEndToEndTests */;
+		};
+		55CE64092D229FC40096E210 /* Exceptions for "RookBookCoreTests" folder in "RookBookCoreStoreIntegrationTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"TestHelpers/Extensions/XCTestCase+Expect.swift",
+				"TestHelpers/Extensions/XCTestCase+MemoryLeakTracking.swift",
+				"TestHelpers/Localization+TestHelpers.swift",
+				TestHelpers/SharedHelpers.swift,
+			);
+			target = 5571772C2D229E14007C81C0 /* RookBookCoreStoreIntegrationTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		557177202D229DD3007C81C0 /* RookBookCoreEndToEndTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RookBookCoreEndToEndTests;
+			sourceTree = "<group>";
+		};
+		5571772E2D229E14007C81C0 /* RookBookCoreStoreIntegrationTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RookBookCoreStoreIntegrationTests;
+			sourceTree = "<group>";
+		};
+		5571773C2D229E2C007C81C0 /* RookBookCoreTestHostApp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RookBookCoreTestHostApp;
+			sourceTree = "<group>";
+		};
 		55AB57272D1AD26D0028A0F0 /* RookBookCore */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = RookBookCore;
@@ -69,6 +140,10 @@
 		};
 		55AB57312D1AD26D0028A0F0 /* RookBookCoreTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				55CE64082D229FC40096E210 /* Exceptions for "RookBookCoreTests" folder in "RookBookCoreEndToEndTests" target */,
+				55CE64092D229FC40096E210 /* Exceptions for "RookBookCoreTests" folder in "RookBookCoreStoreIntegrationTests" target */,
+			);
 			path = RookBookCoreTests;
 			sourceTree = "<group>";
 		};
@@ -85,6 +160,29 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5571771C2D229DD3007C81C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				557177232D229DD3007C81C0 /* RookBookCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5571772A2D229E14007C81C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				557177312D229E14007C81C0 /* RookBookCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		557177382D229E2C007C81C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55AB57222D1AD26D0028A0F0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,6 +227,9 @@
 				55AB57312D1AD26D0028A0F0 /* RookBookCoreTests */,
 				55AB671F2D1C44B40028A0F0 /* RookBookIOS */,
 				55AB67292D1C44B40028A0F0 /* RookBookIOSTests */,
+				557177202D229DD3007C81C0 /* RookBookCoreEndToEndTests */,
+				5571772E2D229E14007C81C0 /* RookBookCoreStoreIntegrationTests */,
+				5571773C2D229E2C007C81C0 /* RookBookCoreTestHostApp */,
 				55AB6B142D1C46780028A0F0 /* Frameworks */,
 				55AB57262D1AD26D0028A0F0 /* Products */,
 			);
@@ -141,6 +242,9 @@
 				55AB572D2D1AD26D0028A0F0 /* RookBookCoreTests.xctest */,
 				55AB671E2D1C44B40028A0F0 /* RookBookIOS.framework */,
 				55AB67252D1C44B40028A0F0 /* RookBookIOSTests.xctest */,
+				5571771F2D229DD3007C81C0 /* RookBookCoreEndToEndTests.xctest */,
+				5571772D2D229E14007C81C0 /* RookBookCoreStoreIntegrationTests.xctest */,
+				5571773B2D229E2C007C81C0 /* RookBookCoreTestHostApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,6 +276,75 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		5571771E2D229DD3007C81C0 /* RookBookCoreEndToEndTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 557177282D229DD3007C81C0 /* Build configuration list for PBXNativeTarget "RookBookCoreEndToEndTests" */;
+			buildPhases = (
+				5571771B2D229DD3007C81C0 /* Sources */,
+				5571771C2D229DD3007C81C0 /* Frameworks */,
+				5571771D2D229DD3007C81C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				557177252D229DD3007C81C0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				557177202D229DD3007C81C0 /* RookBookCoreEndToEndTests */,
+			);
+			name = RookBookCoreEndToEndTests;
+			packageProductDependencies = (
+			);
+			productName = RookBookCoreEndToEndTests;
+			productReference = 5571771F2D229DD3007C81C0 /* RookBookCoreEndToEndTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5571772C2D229E14007C81C0 /* RookBookCoreStoreIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 557177342D229E14007C81C0 /* Build configuration list for PBXNativeTarget "RookBookCoreStoreIntegrationTests" */;
+			buildPhases = (
+				557177292D229E14007C81C0 /* Sources */,
+				5571772A2D229E14007C81C0 /* Frameworks */,
+				5571772B2D229E14007C81C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				557177332D229E14007C81C0 /* PBXTargetDependency */,
+				55CE63FA2D229E870096E210 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5571772E2D229E14007C81C0 /* RookBookCoreStoreIntegrationTests */,
+			);
+			name = RookBookCoreStoreIntegrationTests;
+			packageProductDependencies = (
+			);
+			productName = RookBookCoreStoreIntegrationTests;
+			productReference = 5571772D2D229E14007C81C0 /* RookBookCoreStoreIntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5571773A2D229E2C007C81C0 /* RookBookCoreTestHostApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5571775D2D229E2D007C81C0 /* Build configuration list for PBXNativeTarget "RookBookCoreTestHostApp" */;
+			buildPhases = (
+				557177372D229E2C007C81C0 /* Sources */,
+				557177382D229E2C007C81C0 /* Frameworks */,
+				557177392D229E2C007C81C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5571773C2D229E2C007C81C0 /* RookBookCoreTestHostApp */,
+			);
+			name = RookBookCoreTestHostApp;
+			packageProductDependencies = (
+			);
+			productName = RookBookCoreTestHostApp;
+			productReference = 5571773B2D229E2C007C81C0 /* RookBookCoreTestHostApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 		55AB57242D1AD26D0028A0F0 /* RookBookCore */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55AB57362D1AD26D0028A0F0 /* Build configuration list for PBXNativeTarget "RookBookCore" */;
@@ -209,6 +382,7 @@
 			);
 			dependencies = (
 				55AB57302D1AD26D0028A0F0 /* PBXTargetDependency */,
+				55CE63FC2D229EB40096E210 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				55AB57312D1AD26D0028A0F0 /* RookBookCoreTests */,
@@ -279,6 +453,16 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					5571771E2D229DD3007C81C0 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					5571772C2D229E14007C81C0 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 5571773A2D229E2C007C81C0;
+					};
+					5571773A2D229E2C007C81C0 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					55AB57242D1AD26D0028A0F0 = {
 						CreatedOnToolsVersion = 16.0;
 						LastSwiftMigration = 1600;
@@ -319,11 +503,35 @@
 				55AB572C2D1AD26D0028A0F0 /* RookBookCoreTests */,
 				55AB671D2D1C44B40028A0F0 /* RookBookIOS */,
 				55AB67242D1C44B40028A0F0 /* RookBookIOSTests */,
+				5571771E2D229DD3007C81C0 /* RookBookCoreEndToEndTests */,
+				5571772C2D229E14007C81C0 /* RookBookCoreStoreIntegrationTests */,
+				5571773A2D229E2C007C81C0 /* RookBookCoreTestHostApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5571771D2D229DD3007C81C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5571772B2D229E14007C81C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		557177392D229E2C007C81C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55AB57232D1AD26D0028A0F0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -396,6 +604,27 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5571771B2D229DD3007C81C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		557177292D229E14007C81C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		557177372D229E2C007C81C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55AB57212D1AD26D0028A0F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -427,6 +656,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		557177252D229DD3007C81C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55AB57242D1AD26D0028A0F0 /* RookBookCore */;
+			targetProxy = 557177242D229DD3007C81C0 /* PBXContainerItemProxy */;
+		};
+		557177332D229E14007C81C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55AB57242D1AD26D0028A0F0 /* RookBookCore */;
+			targetProxy = 557177322D229E14007C81C0 /* PBXContainerItemProxy */;
+		};
 		55AB57302D1AD26D0028A0F0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 55AB57242D1AD26D0028A0F0 /* RookBookCore */;
@@ -443,9 +682,181 @@
 			target = 55AB57242D1AD26D0028A0F0 /* RookBookCore */;
 			targetProxy = 55AB6B172D1C46780028A0F0 /* PBXContainerItemProxy */;
 		};
+		55CE63FA2D229E870096E210 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5571773A2D229E2C007C81C0 /* RookBookCoreTestHostApp */;
+			targetProxy = 55CE63F92D229E870096E210 /* PBXContainerItemProxy */;
+		};
+		55CE63FC2D229EB40096E210 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5571773A2D229E2C007C81C0 /* RookBookCoreTestHostApp */;
+			targetProxy = 55CE63FB2D229EB40096E210 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		557177262D229DD3007C81C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9ARVAPAG3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mkg.RookBookCoreEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		557177272D229DD3007C81C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9ARVAPAG3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mkg.RookBookCoreEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		557177352D229E14007C81C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9ARVAPAG3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mkg.RookBookCoreStoreIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RookBookCoreTestHostApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RookBookCoreTestHostApp";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		557177362D229E14007C81C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9ARVAPAG3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mkg.RookBookCoreStoreIntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RookBookCoreTestHostApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RookBookCoreTestHostApp";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		5571775E2D229E2D007C81C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RookBookCoreTestHostApp/RookBookCoreTestHostApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9ARVAPAG3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mkg.RookBookCoreTestHostApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		5571775F2D229E2D007C81C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RookBookCoreTestHostApp/RookBookCoreTestHostApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9ARVAPAG3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mkg.RookBookCoreTestHostApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 		55AB57372D1AD26D0028A0F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -849,6 +1260,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		557177282D229DD3007C81C0 /* Build configuration list for PBXNativeTarget "RookBookCoreEndToEndTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				557177262D229DD3007C81C0 /* Debug */,
+				557177272D229DD3007C81C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		557177342D229E14007C81C0 /* Build configuration list for PBXNativeTarget "RookBookCoreStoreIntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				557177352D229E14007C81C0 /* Debug */,
+				557177362D229E14007C81C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5571775D2D229E2D007C81C0 /* Build configuration list for PBXNativeTarget "RookBookCoreTestHostApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5571775E2D229E2D007C81C0 /* Debug */,
+				5571775F2D229E2D007C81C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		55AB571F2D1AD26D0028A0F0 /* Build configuration list for PBXProject "RookBookCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

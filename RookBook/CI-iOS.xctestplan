@@ -1,0 +1,78 @@
+{
+  "configurations" : [
+    {
+      "id" : "662C4156-D059-4B0F-9EF7-8D65D9A00AF5",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:RookBookCore.xcodeproj",
+          "identifier" : "55AB57242D1AD26D0028A0F0",
+          "name" : "RookBookCore"
+        },
+        {
+          "containerPath" : "container:RookBookCore.xcodeproj",
+          "identifier" : "55AB671D2D1C44B40028A0F0",
+          "name" : "RookBookIOS"
+        },
+        {
+          "containerPath" : "container:..\/RookBookIOSApp\/RookBookIOSApp.xcodeproj",
+          "identifier" : "55AB71252D1C8BE00028A0F0",
+          "name" : "RookBookIOSApp"
+        }
+      ]
+    },
+    "nsZombieEnabled" : true,
+    "testExecutionOrdering" : "random",
+    "threadSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "5571772C2D229E14007C81C0",
+        "name" : "RookBookCoreStoreIntegrationTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "5571771E2D229DD3007C81C0",
+        "name" : "RookBookCoreEndToEndTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:..\/RookBookIOSApp\/RookBookIOSApp.xcodeproj",
+        "identifier" : "55AB713B2D1C8BE20028A0F0",
+        "name" : "RookBookIOSAppTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "55AB67242D1C44B40028A0F0",
+        "name" : "RookBookIOSTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "55AB572C2D1AD26D0028A0F0",
+        "name" : "RookBookCoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}

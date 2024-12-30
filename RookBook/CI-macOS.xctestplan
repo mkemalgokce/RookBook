@@ -1,0 +1,52 @@
+{
+  "configurations" : [
+    {
+      "id" : "A32D26E1-ECCA-4A2D-AB02-9F91BE9A9F3C",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:RookBookCore.xcodeproj",
+          "identifier" : "55AB57242D1AD26D0028A0F0",
+          "name" : "RookBookCore"
+        }
+      ]
+    },
+    "nsZombieEnabled" : true,
+    "testExecutionOrdering" : "random",
+    "threadSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "5571772C2D229E14007C81C0",
+        "name" : "RookBookCoreStoreIntegrationTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "55AB572C2D1AD26D0028A0F0",
+        "name" : "RookBookCoreTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "5571771E2D229DD3007C81C0",
+        "name" : "RookBookCoreEndToEndTests"
+      }
+    }
+  ],
+  "version" : 1
+}
