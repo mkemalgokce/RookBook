@@ -19,9 +19,10 @@ jobs:
 
     - name: Run tests
       run:  xcodebuild clean build test -project  RookBook/RookBookCore.xcodeproj -scheme "CI-macOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -sdk macosx -destination "platform=macOS" ONLY_ACTIVE_ARCH=YES -resultBundlePath macOSResults -derivedDataPath /tmp/XcodeDerivedDataWithCoverage
-    # 3rd party script for showing result in Github Actions screen
-    - uses: slidoapp/xcresulttool@v3.1.0
+    
+    - name: Upload xcresult file
+      uses: actions/upload-artifact@v4
+      if: ${{ failure() }}
       with:
-        path: macOSResults.xcresult
-        show-passed-tests: false
-      if: success() || failure()
+          name: macOSResults-${{ github.run_number }}.xcresult
+          path: macOSResults.xcresult
