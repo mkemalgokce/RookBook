@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "A32D26E1-ECCA-4A2D-AB02-9F91BE9A9F3C",
+      "id" : "9203C05D-50BF-4235-8DA2-F314F716AE6C",
       "name" : "Test Scheme Action",
       "options" : {
 
@@ -24,7 +24,6 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:RookBookCore.xcodeproj",
         "identifier" : "5571772C2D229E14007C81C0",
@@ -32,19 +31,17 @@
       }
     },
     {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:RookBookCore.xcodeproj",
-        "identifier" : "55AB572C2D1AD26D0028A0F0",
-        "name" : "RookBookCoreTests"
-      }
-    },
-    {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:RookBookCore.xcodeproj",
         "identifier" : "5571771E2D229DD3007C81C0",
         "name" : "RookBookCoreEndToEndTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "55AB572C2D1AD26D0028A0F0",
+        "name" : "RookBookCoreTests"
       }
     }
   ],

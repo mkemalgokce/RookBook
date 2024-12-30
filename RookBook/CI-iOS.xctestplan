@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "662C4156-D059-4B0F-9EF7-8D65D9A00AF5",
+      "id" : "5043BAC4-4414-4189-A604-4295B2729108",
       "name" : "Test Scheme Action",
       "options" : {
 
@@ -34,7 +34,6 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:RookBookCore.xcodeproj",
         "identifier" : "5571772C2D229E14007C81C0",
@@ -42,15 +41,6 @@
       }
     },
     {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:RookBookCore.xcodeproj",
-        "identifier" : "5571771E2D229DD3007C81C0",
-        "name" : "RookBookCoreEndToEndTests"
-      }
-    },
-    {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:..\/RookBookIOSApp\/RookBookIOSApp.xcodeproj",
         "identifier" : "55AB713B2D1C8BE20028A0F0",
@@ -58,7 +48,13 @@
       }
     },
     {
-      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:RookBookCore.xcodeproj",
+        "identifier" : "55AB572C2D1AD26D0028A0F0",
+        "name" : "RookBookCoreTests"
+      }
+    },
+    {
       "target" : {
         "containerPath" : "container:RookBookCore.xcodeproj",
         "identifier" : "55AB67242D1C44B40028A0F0",
@@ -66,11 +62,10 @@
       }
     },
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:RookBookCore.xcodeproj",
-        "identifier" : "55AB572C2D1AD26D0028A0F0",
-        "name" : "RookBookCoreTests"
+        "identifier" : "5571771E2D229DD3007C81C0",
+        "name" : "RookBookCoreEndToEndTests"
       }
     }
   ],
