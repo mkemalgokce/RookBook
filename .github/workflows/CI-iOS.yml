@@ -2,8 +2,7 @@ name: CI-iOS
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main, development]
 
 jobs:
   test:
@@ -20,7 +19,8 @@ jobs:
       run: xcodebuild clean build test -workspace RookBook/RookBook.xcworkspace -scheme "CI-iOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 16,OS=18.0" ONLY_ACTIVE_ARCH=YES -resultBundlePath iOSResults -derivedDataPath /tmp/XcodeDerivedDataWithCoverage
 
     # 3rd party script for showing result in Github Actions screen
-    - uses: kishikawakatsumi/xcresulttool@v1
+    - uses: slidoapp/xcresulttool@v3.1.0
       with:
         path: iOSResults.xcresult
+        show-passed-tests: false
       if: success() || failure()
