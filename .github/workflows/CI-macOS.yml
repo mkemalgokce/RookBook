@@ -21,5 +21,5 @@ jobs:
     # 3rd party script for showing result in Github Actions screen
     - uses: kishikawakatsumi/xcresulttool@v1
       with:
-        path: CIiOSResults.xcresult
+        path: macOSResults.xcresult
       if: success() || failure()
