@@ -8,7 +8,7 @@ final class SignUpViewAdapter: ResourceView {
     // MARK: - Properties
     weak var controller: SignUpViewController?
     var onDisplay: (() -> Void)?
-    
+
     // MARK: - Initializers
     init(controller: SignUpViewController? = nil) {
         self.controller = controller

@@ -32,7 +32,7 @@ final class CompositionRoot {
     func show(_ viewController: UIViewController) {
         navigationController.setViewControllers([viewController], animated: true)
     }
-    
+
     // MARK: - Private Methods
     private func makeKeychainTokenStorage(for identifier: String) -> TokenStorable {
         KeychainTokenStore(identifier: identifier)
@@ -51,5 +51,4 @@ final class CompositionRoot {
             storage: tokenStore
         )
     }
-
 }
