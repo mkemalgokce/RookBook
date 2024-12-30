@@ -6,7 +6,7 @@ public final class SignInView: UIView {
     // MARK: - UI Properties
     lazy var mailTextField: RoundedTextField = {
         let field = RoundedTextField()
-        field.placeholder = "Mail"
+        field.placeholder = "Mailasd"
         field.backgroundColor = .green3
         field.placeholderColor = .green1
         field.textColor = .green1
@@ -16,7 +16,7 @@ public final class SignInView: UIView {
 
     lazy var passTextField: RoundedTextField = {
         let field = RoundedTextField(isSecure: true)
-        field.placeholder = "Password"
+        field.placeholder = "Passwordads"
         field.backgroundColor = .green3
         field.placeholderColor = .green1
         field.textColor = .green1
@@ -92,11 +92,12 @@ public final class SignInView: UIView {
     // MARK: - Override Methods
     override public func layoutSubviews() {
         super.layoutSubviews()
-        applyGradient(colors: [.green3, .green4])
+        //applyGradient(colors: [.green3, .green4])
     }
 
     // MARK: - Private Methods
     private func setupView() {
+        backgroundColor = .red
         addSubview(bodyVStack)
         addSubview(bottomVStack)
         addSubview(topImageView)
