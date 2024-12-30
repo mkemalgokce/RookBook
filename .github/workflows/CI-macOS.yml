@@ -22,7 +22,6 @@ jobs:
     
     - name: Upload xcresult file
       uses: actions/upload-artifact@v4
-      if: ${{ failure() }}
       with:
           name: macOSResults-${{ github.run_number }}.xcresult
           path: macOSResults.xcresult
