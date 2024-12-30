@@ -5,7 +5,7 @@ import RookBookCore
 import RookBookIOS
 
 final class SignInViewAdapter: ResourceView {
-    // MARK: - Properties
+    // MARK: - Propertiess
     weak var controller: SignInViewController?
     var onDisplay: (() -> Void)?
 
