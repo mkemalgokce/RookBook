@@ -23,4 +23,5 @@ jobs:
     - uses: slidoapp/xcresulttool@v3.1.0
       with:
         path: macOSResults.xcresult
+        show-passed-tests: false
       if: success() || failure()
