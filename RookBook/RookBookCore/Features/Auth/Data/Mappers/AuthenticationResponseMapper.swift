@@ -10,9 +10,7 @@ final class AuthenticationResponseMapper: ResponseMapping {
 
     private enum Constants {
         static let cookieSection = "Set-Cookie"
-        static let authorizationSection = "Authorization"
         static let refreshTokenKey = "refreshToken="
-        static let bearerKey = "Bearer "
     }
 
     // MARK: - ResponseMapping Methods
@@ -20,22 +18,24 @@ final class AuthenticationResponseMapper: ResponseMapping {
         guard response.hasValidStatusCode(in: 200..<201) else {
             throw Error.invalidData
         }
-        let authorizationSection = response.allHeaderFields[Constants.authorizationSection]
         let cookieSection = response.allHeaderFields[Constants.cookieSection]
 
         do {
-            let user = try decodeUser(data: data, from: response)
-            let refreshToken = try extractToken(from: cookieSection, tokenKey: Constants.refreshTokenKey)
-            let accessToken = try extractToken(from: authorizationSection, tokenKey: Constants.bearerKey)
-            return AuthenticationResponse(accessToken: accessToken, refreshToken: refreshToken, user: user)
+            let response = try decodeResponse(data: data, from: response)
+            let refreshToken = try extractRefreshToken(from: cookieSection, tokenKey: Constants.refreshTokenKey)
+            return AuthenticationResponse(
+                accessToken: Token(response.accessToken),
+                refreshToken: refreshToken,
+                user: response.user
+            )
         } catch {
             throw error
         }
     }
 
     // MARK: - Private Methods
-    private func decodeUser(data: Data, from response: HTTPURLResponse) throws -> AuthenticatedUserDTO {
-        let mapper = DecodableResourceResponseMapper<AuthenticatedUserDTO>()
+    private func decodeResponse(data: Data, from response: HTTPURLResponse) throws -> AuthenticationResponseDTO {
+        let mapper = DecodableResourceResponseMapper<AuthenticationResponseDTO>()
         do {
             return try mapper.map(data: data, from: response)
         } catch {
@@ -43,7 +43,7 @@ final class AuthenticationResponseMapper: ResponseMapping {
         }
     }
 
-    private func extractToken(from headerSection: Any?, tokenKey: String) throws -> Token {
+    private func extractRefreshToken(from headerSection: Any?, tokenKey: String) throws -> Token {
         guard let headerString = headerSection as? String
         else { throw Error.invalidData }
         let components = headerString.components(separatedBy: tokenKey)

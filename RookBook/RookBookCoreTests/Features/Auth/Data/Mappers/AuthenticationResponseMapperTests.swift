@@ -39,14 +39,15 @@ final class AuthenticationResponseMapperTests: XCTestCase {
 
         let userDict = makeUserDict()
         let validResponse = makeValidResponse(accessToken: accessToken, refreshToken: refreshToken)
-        let validJSON = makeJSON(dict: userDict)
+        let validDict = makeValidDict(accessToken: accessToken, userDict: userDict)
+        let validJSON = makeJSON(dict: validDict)
 
         let result = try makeSUT().map(data: validJSON, from: validResponse)
 
         XCTAssertEqual(result.accessToken.stringValue, accessToken)
         XCTAssertEqual(result.refreshToken.stringValue, refreshToken)
         XCTAssertEqual(result.user.id.uuidString, userDict["id"] as? String)
-        XCTAssertEqual(result.user.name, userDict["name"] as? String)
+        XCTAssertEqual(result.user.name, userDict["fullName"] as? String)
         XCTAssertEqual(result.user.email, userDict["email"] as? String)
     }
 
@@ -151,16 +152,22 @@ final class AuthenticationResponseMapperTests: XCTestCase {
         anyHTTPURLResponse(
             statusCode: 200,
             headers: [
-                "Authorization": "Bearer \(accessToken)",
                 "Set-Cookie": "refreshToken=\(refreshToken); path=/; HttpOnly"
             ]
         )
     }
 
+    private func makeValidDict(accessToken: String = "access", userDict: [String: Any]? = nil) -> [String: Any] {
+        [
+            "accessToken": accessToken,
+            "user": userDict ?? makeUserDict()
+        ]
+    }
+
     private func makeUserDict() -> [String: Any] {
         [
             "id": UUID().uuidString,
-            "name": "any name",
+            "fullName": "any name",
             "email": "any email"
         ]
     }

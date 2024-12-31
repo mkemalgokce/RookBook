@@ -2,5 +2,4 @@
 
 import XCTest
 
-final class RookBookCoreEndToEndTests: XCTestCase {
-}
+final class RookBookCoreEndToEndTests: XCTestCase {}
