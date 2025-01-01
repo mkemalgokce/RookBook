@@ -8,6 +8,7 @@ extension XCTestCase {
         _ publisher: T,
         toCompleteWith expectedResult: Result<T.Output, T.Failure>,
         when action: (() -> Void)? = nil,
+        timeout: TimeInterval = 1.0,
         file: StaticString = #file,
         line: UInt = #line
     ) where T.Output: Equatable, T.Failure: Error {
@@ -35,7 +36,7 @@ extension XCTestCase {
 
         action?()
 
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: timeout)
         switch (receivedResult, expectedResult) {
         case let (.failure(receivedError as NSError), .failure(expectedError as NSError)):
             XCTAssertEqual(receivedError, expectedError, file: file, line: line)
@@ -56,6 +57,7 @@ extension XCTestCase {
         _ publisher: T,
         toCompleteWith expectedResult: Result<T.Output, T.Failure>,
         when action: (() -> Void)? = nil,
+        timeout: TimeInterval = 1.0,
         file: StaticString = #file,
         line: UInt = #line
     ) where T.Output == Void, T.Failure: Error {
@@ -82,7 +84,7 @@ extension XCTestCase {
 
         action?()
 
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: timeout)
 
         switch (receivedResult, expectedResult) {
         case let (.failure(receivedError as NSError), .failure(expectedError as NSError)):

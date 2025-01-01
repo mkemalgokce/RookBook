@@ -5,6 +5,7 @@ import XCTest
 final class AuthEndToEndTests: XCTestCase {
     // MARK: - Properties
     private let baseURL = URL(string: "https://verdant-pen-production.up.railway.app/api")!
+    private let timeout: TimeInterval = 10
 
     // MARK: - Login Tests
     func test_login_deliversAuthenticatedUserOnValidCredentials() {
@@ -13,7 +14,7 @@ final class AuthEndToEndTests: XCTestCase {
         let expectedUser = makeAuthenticatedUser()
 
         expectPublisher(sut.login(with: credentials),
-                        toCompleteWith: .success(expectedUser))
+                        toCompleteWith: .success(expectedUser), timeout: timeout)
     }
 
     func test_login_storesTokensOnSuccess() {
@@ -22,12 +23,10 @@ final class AuthEndToEndTests: XCTestCase {
         let expectedUser = makeAuthenticatedUser()
 
         expectPublisher(sut.login(with: credentials),
-                        toCompleteWith: .success(expectedUser))
+                        toCompleteWith: .success(expectedUser), timeout: timeout)
 
-        XCTAssertNotNil(stores.accessToken.storedToken,
-                        "Expected access token to be stored")
-        XCTAssertNotNil(stores.refreshToken.storedToken,
-                        "Expected refresh token to be stored")
+        XCTAssertNotNil(stores.accessToken.storedToken, "Expected access token to be stored")
+        XCTAssertNotNil(stores.refreshToken.storedToken, "Expected refresh token to be stored")
     }
 
     // MARK: - Logout Tests
@@ -37,9 +36,9 @@ final class AuthEndToEndTests: XCTestCase {
         let expectedUser = makeAuthenticatedUser()
 
         expectPublisher(sut.login(with: credentials),
-                        toCompleteWith: .success(expectedUser))
+                        toCompleteWith: .success(expectedUser), timeout: timeout)
         expectPublisher(sut.logout(),
-                        toCompleteWith: .success(()))
+                        toCompleteWith: .success(()), timeout: timeout)
     }
 
     func test_logout_clearsTokens() {
@@ -48,9 +47,9 @@ final class AuthEndToEndTests: XCTestCase {
         let expectedUser = makeAuthenticatedUser()
 
         expectPublisher(sut.login(with: credentials),
-                        toCompleteWith: .success(expectedUser))
+                        toCompleteWith: .success(expectedUser), timeout: timeout)
         expectPublisher(sut.logout(),
-                        toCompleteWith: .success(()))
+                        toCompleteWith: .success(()), timeout: timeout)
 
         XCTAssertThrowsError(try stores.accessToken.get(),
                              "Expected access token to be cleared")
