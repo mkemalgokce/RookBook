@@ -23,7 +23,7 @@ final class AuthenticationResponseMapperTests: XCTestCase {
     }
 
     func test_map_throwsErrorOn200HTTPResponseValidJSONAndMissingAuthorizationHeader() {
-        let validResponse = anyHTTPURLResponse(statusCode: 200, headers: ["Set-Cookie": "", "Authorization": ""])
+        let validResponse = anyHTTPURLResponse(statusCode: 200, headers: ["Set-Cookie": ""])
         let validJSON = makeJSON(dict: makeUserDict())
 
         XCTAssertThrowsError(
@@ -39,14 +39,15 @@ final class AuthenticationResponseMapperTests: XCTestCase {
 
         let userDict = makeUserDict()
         let validResponse = makeValidResponse(accessToken: accessToken, refreshToken: refreshToken)
-        let validJSON = makeJSON(dict: userDict)
+        let validDict = makeValidDict(accessToken: accessToken, userDict: userDict)
+        let validJSON = makeJSON(dict: validDict)
 
         let result = try makeSUT().map(data: validJSON, from: validResponse)
 
         XCTAssertEqual(result.accessToken.stringValue, accessToken)
         XCTAssertEqual(result.refreshToken.stringValue, refreshToken)
         XCTAssertEqual(result.user.id.uuidString, userDict["id"] as? String)
-        XCTAssertEqual(result.user.name, userDict["name"] as? String)
+        XCTAssertEqual(result.user.name, userDict["fullName"] as? String)
         XCTAssertEqual(result.user.email, userDict["email"] as? String)
     }
 
@@ -64,7 +65,7 @@ final class AuthenticationResponseMapperTests: XCTestCase {
     func test_map_withMissingCookieHeader_throwsInvalidDataError() {
         let response = anyHTTPURLResponse(
             statusCode: 200,
-            headers: ["Authorization": "Bearer access_token_123"]
+            headers: [:]
         )
 
         XCTAssertThrowsError(try makeSUT().map(data: Data(), from: response)) { error in
@@ -76,7 +77,6 @@ final class AuthenticationResponseMapperTests: XCTestCase {
         let response = anyHTTPURLResponse(
             statusCode: 200,
             headers: [
-                "Authorization": "InvalidTokenFormat",
                 "Set-Cookie": "refreshToken=refresh_token_456; path=/; HttpOnly"
             ]
         )
@@ -90,7 +90,6 @@ final class AuthenticationResponseMapperTests: XCTestCase {
         let response = anyHTTPURLResponse(
             statusCode: 200,
             headers: [
-                "Authorization": "Bearer access_token_123",
                 "Set-Cookie": "InvalidTokenFormat"
             ]
         )
@@ -104,7 +103,6 @@ final class AuthenticationResponseMapperTests: XCTestCase {
         let response = anyHTTPURLResponse(
             statusCode: 200,
             headers: [
-                "Authorization": "Bearer ",
                 "Set-Cookie": "refreshToken=refresh_token_456; path=/; HttpOnly"
             ]
         )
@@ -118,7 +116,6 @@ final class AuthenticationResponseMapperTests: XCTestCase {
         let response = anyHTTPURLResponse(
             statusCode: 200,
             headers: [
-                "Authorization": "Bearer access_token_123",
                 "Set-Cookie": "refreshToken=; path=/; HttpOnly"
             ]
         )
@@ -131,10 +128,110 @@ final class AuthenticationResponseMapperTests: XCTestCase {
     func test_map_withEmptyCookieHeader_throwsInvalidDataError() {
         let response = anyHTTPURLResponse(
             statusCode: 200,
-            headers: ["Authorization": "Bearer access_token_123", "Set-Cookie": ""]
+            headers: ["Set-Cookie": ""]
         )
 
         XCTAssertThrowsError(try makeSUT().map(data: Data(), from: response)) { error in
+            XCTAssertEqual(error as? AuthenticationResponseMapper.Error, .invalidData)
+        }
+    }
+
+    func test_map_withMalformedRefreshTokenCookie_throwsInvalidDataError() {
+        let response = anyHTTPURLResponse(
+            statusCode: 200,
+            headers: [
+                "Set-Cookie": "malformed_cookie_without_equals_sign"
+            ]
+        )
+
+        XCTAssertThrowsError(try makeSUT().map(data: Data(), from: response)) { error in
+            XCTAssertEqual(error as? AuthenticationResponseMapper.Error, .invalidData)
+        }
+    }
+
+    func test_map_withMultipleRefreshTokenCookies_usesFirstToken() throws {
+        let firstToken = "first_token"
+        let secondToken = "second_token"
+        let response = anyHTTPURLResponse(
+            statusCode: 200,
+            headers: [
+                "Set-Cookie": "refreshToken=\(firstToken); path=/; HttpOnly, refreshToken=\(secondToken); path=/; HttpOnly"
+            ]
+        )
+
+        let validDict = makeValidDict()
+        let validJSON = makeJSON(dict: validDict)
+
+        let result = try makeSUT().map(data: validJSON, from: response)
+        XCTAssertEqual(result.refreshToken.stringValue, firstToken)
+    }
+
+    func test_map_withRefreshTokenCookieWithoutValue_throwsInvalidDataError() {
+        let response = anyHTTPURLResponse(
+            statusCode: 200,
+            headers: [
+                "Authorization": "Bearer access_token_123",
+                "Set-Cookie": "refreshToken"
+            ]
+        )
+
+        XCTAssertThrowsError(try makeSUT().map(data: Data(), from: response)) { error in
+            XCTAssertEqual(error as? AuthenticationResponseMapper.Error, .invalidData)
+        }
+    }
+
+    func test_map_withRefreshTokenCookieWithExtraSpaces_throwsInvalidDataError() {
+        let response = anyHTTPURLResponse(
+            statusCode: 200,
+            headers: [
+                "Authorization": "Bearer access_token_123",
+                "Set-Cookie": "refreshToken  =  token_with_spaces  ; path=/; HttpOnly"
+            ]
+        )
+
+        XCTAssertThrowsError(try makeSUT().map(data: Data(), from: response)) { error in
+            XCTAssertEqual(error as? AuthenticationResponseMapper.Error, .invalidData)
+        }
+    }
+
+    func test_map_withEmptyComponents_throwsInvalidDataError() {
+        let response = anyHTTPURLResponse(
+            statusCode: 200,
+            headers: [
+                "Authorization": "Bearer access_token_123",
+                "Set-Cookie": ""
+            ]
+        )
+
+        XCTAssertThrowsError(try makeSUT().map(data: Data(), from: response)) { error in
+            XCTAssertEqual(error as? AuthenticationResponseMapper.Error, .invalidData)
+        }
+    }
+
+    func test_map_withSingleComponent_throwsInvalidDataError() {
+        let response = anyHTTPURLResponse(
+            statusCode: 200,
+            headers: [
+                "Authorization": "Bearer access_token_123",
+                "Set-Cookie": "single_component"
+            ]
+        )
+
+        XCTAssertThrowsError(try makeSUT().map(data: Data(), from: response)) { error in
+            XCTAssertEqual(error as? AuthenticationResponseMapper.Error, .invalidData)
+        }
+    }
+
+    func test_map_withEmptyTokenValueAfterSemicolon_throwsInvalidDataError() {
+        let response = anyHTTPURLResponse(
+            statusCode: 200,
+            headers: [
+                "Set-Cookie": "refreshToken"
+            ]
+        )
+
+        let validData = makeJSON(dict: makeValidDict())
+        XCTAssertThrowsError(try makeSUT().map(data: validData, from: response)) { error in
             XCTAssertEqual(error as? AuthenticationResponseMapper.Error, .invalidData)
         }
     }
@@ -151,16 +248,22 @@ final class AuthenticationResponseMapperTests: XCTestCase {
         anyHTTPURLResponse(
             statusCode: 200,
             headers: [
-                "Authorization": "Bearer \(accessToken)",
                 "Set-Cookie": "refreshToken=\(refreshToken); path=/; HttpOnly"
             ]
         )
     }
 
+    private func makeValidDict(accessToken: String = "access", userDict: [String: Any]? = nil) -> [String: Any] {
+        [
+            "accessToken": accessToken,
+            "user": userDict ?? makeUserDict()
+        ]
+    }
+
     private func makeUserDict() -> [String: Any] {
         [
             "id": UUID().uuidString,
-            "name": "any name",
+            "fullName": "any name",
             "email": "any email"
         ]
     }

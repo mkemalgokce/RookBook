@@ -40,11 +40,12 @@ final class EmailAuthenticationServiceTests: XCTestCase {
         let (sut, client, _, _) = makeSUT()
         let credentials = MockCredentials()
         let userDTO = makeAuthenticatedUserDTO()
+        let responseDTO = makeAuthenticationResponse(user: userDTO)
         let user = AuthenticatedUserMapper.map(userDTO)
         let validResponse = makeValidHTTPResponse()
 
         expectPublisher(sut.login(with: credentials), toCompleteWith: .success(user), when: {
-            client.complete(with: encode(userDTO), and: validResponse)
+            client.complete(with: encode(responseDTO), and: validResponse)
         })
     }
 
@@ -55,10 +56,12 @@ final class EmailAuthenticationServiceTests: XCTestCase {
         let user = AuthenticatedUserMapper.map(userDTO)
         let accessToken = "anyaccesstoken"
         let refreshToken = "anyrefreshtoken"
-        let validResponse = makeValidHTTPResponse(accessToken: accessToken, refreshToken: refreshToken)
+        let responseDTO = makeAuthenticationResponse(accessToken: accessToken, user: userDTO)
+
+        let validResponse = makeValidHTTPResponse(refreshToken: refreshToken)
 
         expectPublisher(sut.login(with: credentials), toCompleteWith: .success(user), when: {
-            client.complete(with: encode(userDTO), and: validResponse)
+            client.complete(with: encode(responseDTO), and: validResponse)
         })
 
         XCTAssertEqual(accessTokenStore.storedToken?.stringValue, accessToken)
@@ -88,10 +91,11 @@ final class EmailAuthenticationServiceTests: XCTestCase {
         let credentials = MockCredentials()
         let userDTO = makeAuthenticatedUserDTO()
         let user = AuthenticatedUserMapper.map(userDTO)
+        let responseDTO = makeAuthenticationResponse(user: userDTO)
         let validResponse = makeValidHTTPResponse()
 
         expectPublisher(sut.register(with: credentials), toCompleteWith: .success(user), when: {
-            client.complete(with: encode(userDTO), and: validResponse)
+            client.complete(with: encode(responseDTO), and: validResponse)
         })
     }
 
@@ -102,10 +106,11 @@ final class EmailAuthenticationServiceTests: XCTestCase {
         let user = AuthenticatedUserMapper.map(userDTO)
         let accessToken = "anyaccesstoken"
         let refreshToken = "anyrefreshtoken"
-        let validResponse = makeValidHTTPResponse(accessToken: accessToken, refreshToken: refreshToken)
+        let responseDTO = makeAuthenticationResponse(accessToken: accessToken, user: userDTO)
+        let validResponse = makeValidHTTPResponse(refreshToken: refreshToken)
 
         expectPublisher(sut.register(with: credentials), toCompleteWith: .success(user), when: {
-            client.complete(with: encode(userDTO), and: validResponse)
+            client.complete(with: encode(responseDTO), and: validResponse)
         })
 
         XCTAssertEqual(accessTokenStore.storedToken?.stringValue, accessToken)
@@ -189,15 +194,18 @@ final class EmailAuthenticationServiceTests: XCTestCase {
         anyURLRequest(url: anyURL(value: "logout"))
     }
 
-    private func makeValidHTTPResponse(accessToken: String = "accesstoken",
-                                       refreshToken: String = "refreshtoken") -> HTTPURLResponse {
+    private func makeValidHTTPResponse(refreshToken: String = "refreshtoken") -> HTTPURLResponse {
         anyHTTPURLResponse(
             statusCode: 200,
             headers: [
-                "Authorization": "Bearer \(accessToken)",
                 "Set-Cookie": "refreshToken=\(refreshToken); path=/; HttpOnly"
             ]
         )
+    }
+
+    private func makeAuthenticationResponse(accessToken: String = "accesstoken",
+                                            user: AuthenticatedUserDTO? = nil) -> AuthenticationResponseDTO {
+        AuthenticationResponseDTO(user: user ?? makeAuthenticatedUserDTO(), accessToken: accessToken)
     }
 
     private func makeAuthenticatedUserDTO() -> AuthenticatedUserDTO {

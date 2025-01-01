@@ -98,6 +98,7 @@
 		55CE64082D229FC40096E210 /* Exceptions for "RookBookCoreTests" folder in "RookBookCoreEndToEndTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Features/Auth/Domain/MockTokenStore.swift,
 				"TestHelpers/Extensions/XCTestCase+Expect.swift",
 				"TestHelpers/Extensions/XCTestCase+MemoryLeakTracking.swift",
 				"TestHelpers/Localization+TestHelpers.swift",

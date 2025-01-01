@@ -7,4 +7,10 @@ struct AuthenticatedUserDTO: Codable {
     let id: UUID
     let email: String
     let name: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case email
+        case name = "fullName"
+    }
 }
