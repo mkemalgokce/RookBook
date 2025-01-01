@@ -4,7 +4,7 @@ import XCTest
 
 final class AuthEndToEndTests: XCTestCase {
     // MARK: - Properties
-    private let baseURL = URL(string: "http://localhost:3000/api")!
+    private let baseURL = URL(string: "https://verdant-pen-production.up.railway.app/api")!
 
     // MARK: - Login Tests
     func test_login_deliversAuthenticatedUserOnValidCredentials() {
@@ -104,9 +104,9 @@ extension AuthEndToEndTests {
 
     private func makeAuthenticatedUser() -> AuthenticatedUser {
         AuthenticatedUser(
-            id: "3DEB8925-4D24-4021-9581-3950D9FF5204",
+            id: "B8E5183C-830D-42B9-887A-D08E9B29E63B",
             email: "test@example.com",
-            name: "Test User"
+            name: "John Doe"
         )
     }
 }
