@@ -1,5 +1,6 @@
 // Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
 
+@testable import RookBookCore
 import Foundation
 
 func anyURL(value: String = "any") -> URL {
@@ -28,4 +29,37 @@ func makeJSON(dict: [String: Any]) -> Data {
 
 func encode<T: Encodable>(_ value: T) -> Data {
     try! JSONEncoder().encode(value)
+}
+
+func makeValidAuthenticatedResponse(refreshToken: String = "refreshtoken") -> HTTPURLResponse {
+    anyHTTPURLResponse(
+        statusCode: 200,
+        headers: [
+            "Set-Cookie": "refreshToken=\(refreshToken); path=/; HttpOnly"
+        ]
+    )
+}
+
+func makeAuthenticationResponse(accessToken: String = "accesstoken",
+                                user: AuthenticatedUserDTO? = nil) -> AuthenticationResponseDTO {
+    AuthenticationResponseDTO(user: user ?? makeAuthenticatedUserDTO(), accessToken: accessToken)
+}
+
+func makeAuthenticatedUserDTO() -> AuthenticatedUserDTO {
+    AuthenticatedUserDTO(id: UUID(), email: "any@mail.com", name: "any name")
+}
+
+func makeSignInCredentials() -> EmailSignInCredentials {
+    EmailSignInCredentials(
+        email: "test@example.com",
+        password: "Password123!@#"
+    )
+}
+
+func makeAuthenticatedUser() -> AuthenticatedUser {
+    AuthenticatedUser(
+        id: "B8E5183C-830D-42B9-887A-D08E9B29E63B",
+        email: "test@example.com",
+        name: "John Doe"
+    )
 }
