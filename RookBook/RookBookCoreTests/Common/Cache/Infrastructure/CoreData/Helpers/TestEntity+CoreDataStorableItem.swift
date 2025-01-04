@@ -4,7 +4,7 @@ import CoreData
 import RookBookCore
 
 extension TestEntity: CoreDataStorableItem {
-    public func update(with domain: DomainEntity) {
+    public func update(with domain: DomainEntity, in context: NSManagedObjectContext) {
         id = domain.id
         value = domain.value
     }

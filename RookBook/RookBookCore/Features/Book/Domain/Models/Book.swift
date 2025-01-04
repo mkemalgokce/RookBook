@@ -9,7 +9,9 @@ public struct Book: Hashable, Identifiable {
     public let currentPage: Int
     public let numberOfPages: Int
     public let coverImage: URL
-    
+    public let lastReadAt: Date?
+    public let isFavorite: Bool
+
     // MARK: - Initializers
     public init(
         id: UUID,
@@ -18,7 +20,9 @@ public struct Book: Hashable, Identifiable {
         author: String,
         currentPage: Int,
         numberOfPages: Int,
-        coverImage: URL
+        coverImage: URL,
+        lastReadAt: Date?,
+        isFavorite: Bool
     ) {
         self.id = id
         self.title = title
@@ -27,5 +31,7 @@ public struct Book: Hashable, Identifiable {
         self.currentPage = currentPage
         self.numberOfPages = numberOfPages
         self.coverImage = coverImage
+        self.lastReadAt = lastReadAt
+        self.isFavorite = isFavorite
     }
-} 
+}

@@ -5,6 +5,6 @@ import CoreData
 public protocol CoreDataStorableItem: StorableItem, NSManagedObject {
     associatedtype Domain: StorableItem
 
-    func update(with domain: Domain)
+    func update(with domain: Domain, in context: NSManagedObjectContext)
     func toDomain() -> Domain
 }

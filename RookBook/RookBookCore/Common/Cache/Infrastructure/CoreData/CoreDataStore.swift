@@ -46,39 +46,51 @@ public final class CoreDataStore<CoreDataItem: CoreDataStorableItem>: Storable {
 
     // MARK: - Public Methods
     public func save(_ item: Domain) throws {
-        let model = CoreDataItem(context: context)
-        model.update(with: item)
-        try saveContext()
+        try context.throwingPerformAndWait {
+            let model = CoreDataItem(context: context)
+            model.update(with: item, in: context)
+            try saveContext()
+        }
     }
 
     public func loadAll() throws -> [Domain] {
-        let fetchRequest = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        let models = try context.fetch(fetchRequest)
-        return models.map { $0.toDomain() }
+        try context.throwingPerformAndWait {
+            let fetchRequest = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+            let models = try context.fetch(fetchRequest)
+            return models.map { $0.toDomain() }
+        }
     }
 
     public func deleteAll() throws {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: CoreDataItem.self))
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        try context.execute(deleteRequest)
-        try saveContext()
+        try context.throwingPerformAndWait {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: CoreDataItem.self))
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            try context.execute(deleteRequest)
+            try saveContext()
+        }
     }
 
     public func load(for identifier: Item.Identifier) throws -> Domain {
-        let model = try findModel(for: identifier)
-        return model.toDomain()
+        try context.throwingPerformAndWait {
+            let model = try findModel(for: identifier)
+            return model.toDomain()
+        }
     }
 
     public func delete(for identifier: Item.Identifier) throws {
-        let model = try findModel(for: identifier)
-        context.delete(model)
-        try saveContext()
+        try context.throwingPerformAndWait {
+            let model = try findModel(for: identifier)
+            context.delete(model)
+            try saveContext()
+        }
     }
 
     public func update(_ item: Item) throws {
-        let model = try findModel(for: item.id)
-        model.update(with: item)
-        try saveContext()
+        try context.throwingPerformAndWait {
+            let model = try findModel(for: item.id)
+            model.update(with: item, in: context)
+            try saveContext()
+        }
     }
 
     // MARK: - Save Context
