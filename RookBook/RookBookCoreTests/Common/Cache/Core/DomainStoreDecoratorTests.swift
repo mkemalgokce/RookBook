@@ -10,9 +10,19 @@ final class DomainStoreDecoratorTests: XCTestCase {
 
         try sut.save(domainModel)
 
-        XCTAssertEqual(store.savedModels.count, 1)
-        XCTAssertEqual(store.savedModels.first?.id, "test-id")
-        XCTAssertEqual(store.savedModels.first?.value, "test-value")
+        XCTAssertEqual(store.savedModels, [LocalModel(id: domainModel.id, value: domainModel.value)])
+    }
+
+    func test_saveAll_convertsAndDelegatesModelsToUnderlyingStore() throws {
+        let (sut, store) = makeSUT()
+        let domainModels = [
+            DomainModel(id: "id1", value: "value1"),
+            DomainModel(id: "id2", value: "value2")
+        ]
+
+        try sut.saveAll(domainModels)
+
+        XCTAssertEqual(store.savedAllModels, [domainModels.map { LocalModel(id: $0.id, value: $0.value) }])
     }
 
     func test_loadAll_convertsAndReturnsAllModelsFromUnderlyingStore() throws {
@@ -25,11 +35,7 @@ final class DomainStoreDecoratorTests: XCTestCase {
 
         let result = try sut.loadAll()
 
-        XCTAssertEqual(result.count, 2)
-        XCTAssertEqual(result[0].id, "id1")
-        XCTAssertEqual(result[0].value, "value1")
-        XCTAssertEqual(result[1].id, "id2")
-        XCTAssertEqual(result[1].value, "value2")
+        XCTAssertEqual(result, localModels.map { DomainModel(id: $0.id, value: $0.value) })
     }
 
     func test_load_convertsAndReturnsModelForIdentifier() throws {
@@ -39,9 +45,8 @@ final class DomainStoreDecoratorTests: XCTestCase {
 
         let result = try sut.load(for: "test-id")
 
-        XCTAssertEqual(result.id, "test-id")
-        XCTAssertEqual(result.value, "test-value")
-        XCTAssertEqual(store.loadedIdentifier, "test-id")
+        XCTAssertEqual(result, DomainModel(id: localModel.id, value: localModel.value))
+        XCTAssertEqual(store.loadedIdentifier, localModel.id)
     }
 
     func test_update_convertsAndDelegatesModelToUnderlyingStore() throws {
@@ -50,9 +55,7 @@ final class DomainStoreDecoratorTests: XCTestCase {
 
         try sut.update(domainModel)
 
-        XCTAssertEqual(store.updatedModels.count, 1)
-        XCTAssertEqual(store.updatedModels.first?.id, "test-id")
-        XCTAssertEqual(store.updatedModels.first?.value, "updated-value")
+        XCTAssertEqual(store.updatedModels, [LocalModel(id: domainModel.id, value: domainModel.value)])
     }
 
     func test_delete_delegatesIdentifierToUnderlyingStore() throws {
@@ -73,7 +76,7 @@ final class DomainStoreDecoratorTests: XCTestCase {
 
     func test_underlyingStoreError_propagatesToClient() {
         let (sut, store) = makeSUT()
-        let expectedError = NSError(domain: "test", code: 1)
+        let expectedError = anyNSError()
         store.stubbedError = expectedError
 
         XCTAssertThrowsError(try sut.loadAll()) { error in
@@ -82,7 +85,6 @@ final class DomainStoreDecoratorTests: XCTestCase {
     }
 
     // MARK: - Helpers
-
     private struct LocalModel: Equatable {
         let id: String
         let value: String

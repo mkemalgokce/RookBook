@@ -42,4 +42,31 @@ final class BookCompositeLoader<Store: CacheStorable> where Store.Item == LocalB
             .map(LocalBookMapper.map)
             .eraseToAnyPublisher()
     }
+
+    func makeRemoteLoader() -> AnyPublisher<[Book], Error> {
+        let request = URLRequest(url: URL(string: "https://api.example.com/books")!)
+        let mapper = DecodableResourceResponseMapper<[BookDTO]>()
+        return client
+            .perform(request)
+            .tryMap(mapper.map)
+            .map { $0.map(BookDTOMapper.map) }
+            .eraseToAnyPublisher()
+    }
+
+    func makeLocalLoader() -> AnyPublisher<[Book], Error> {
+        localRepository.fetch()
+            .map { $0.map(LocalBookMapper.map) }
+            .eraseToAnyPublisher()
+    }
+
+    func makeRemoteWithLocalFallbackLoader() -> AnyPublisher<[Book], Error> {
+        let remoteLoader = makeRemoteLoader()
+        let localLoader = makeLocalLoader()
+
+        return remoteLoader
+            .caching(to: bookStore, map: { $0.map(LocalBookMapper.map) })
+            .fallback(to: localLoader)
+            .subscribe(on: scheduler)
+            .eraseToAnyPublisher()
+    }
 }

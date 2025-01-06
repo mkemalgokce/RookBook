@@ -1,4 +1,5 @@
-import Foundation
+// Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
+
 import Foundation
 
 final class DomainStoreDecorator<UnderlyingStore: Storable, DomainModel>: Storable {

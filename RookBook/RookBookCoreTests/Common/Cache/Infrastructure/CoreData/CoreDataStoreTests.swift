@@ -55,6 +55,17 @@ final class CoreDataStoreTests: XCTestCase {
         XCTAssertEqual(loaded, [entity])
     }
 
+    func test_saveAll_changesArePersisted() throws {
+        let store = try makeSUT()
+        let entity1 = makeDomainEntity()
+        let entity2 = makeDomainEntity()
+
+        try store.saveAll([entity1, entity2])
+
+        let loaded = try store.loadAll()
+        XCTAssertEqual(Set(loaded), Set([entity1, entity2]))
+    }
+
     func test_loadAll_whenEmpty_returnsEmptyArray() throws {
         let store = try makeSUT()
 

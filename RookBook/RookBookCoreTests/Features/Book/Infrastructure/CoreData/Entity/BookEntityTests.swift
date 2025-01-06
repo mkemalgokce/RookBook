@@ -9,10 +9,7 @@ final class BookEntityTests: XCTestCase {
         let (sut, context) = try makeSUT()
         let domain = makeLocalBook()
 
-        try context.throwingPerformAndWait {
-            sut.update(with: domain, in: context)
-            try context.save()
-        }
+        sut.update(with: domain, in: context)
 
         XCTAssertEqual(sut.id, domain.id)
         XCTAssertEqual(sut.title, domain.title)
@@ -29,10 +26,7 @@ final class BookEntityTests: XCTestCase {
         let (sut, context) = try makeSUT()
         let domain = makeLocalBook(coverURL: nil, lastReadAt: nil)
 
-        try context.throwingPerformAndWait {
-            sut.update(with: domain, in: context)
-            try context.save()
-        }
+        sut.update(with: domain, in: context)
 
         XCTAssertNil(sut.coverURL)
         XCTAssertNil(sut.lastReadAt)
@@ -42,10 +36,7 @@ final class BookEntityTests: XCTestCase {
         let (sut, context) = try makeSUT()
         let expectedBook = makeLocalBook()
 
-        try context.throwingPerformAndWait {
-            sut.update(with: expectedBook, in: context)
-            try context.save()
-        }
+        sut.update(with: expectedBook, in: context)
 
         let localBook = sut.toLocal()
 
@@ -64,10 +55,7 @@ final class BookEntityTests: XCTestCase {
         let (sut, context) = try makeSUT()
         let expectedBook = makeLocalBook(coverURL: nil, lastReadAt: nil)
 
-        try context.throwingPerformAndWait {
-            sut.update(with: expectedBook, in: context)
-            try context.save()
-        }
+        sut.update(with: expectedBook, in: context)
 
         let localBook = sut.toLocal()
 
@@ -79,10 +67,7 @@ final class BookEntityTests: XCTestCase {
         let (sut, context) = try makeSUT()
         let originalBook = makeLocalBook()
 
-        try context.throwingPerformAndWait {
-            sut.update(with: originalBook, in: context)
-            try context.save()
-        }
+        sut.update(with: originalBook, in: context)
 
         let roundTripBook = sut.toLocal()
 
@@ -100,13 +85,8 @@ final class BookEntityTests: XCTestCase {
     // MARK: - Helpers
     private func makeSUT(file: StaticString = #file,
                          line: UInt = #line) throws -> (BookEntity, NSManagedObjectContext) {
-        let (context, container) = makeContext(file: file, line: line)
-        var sut: BookEntity!
-        try context.throwingPerformAndWait {
-            sut = BookEntity(context: context)
-        }
-
-        trackForMemoryLeaks(sut, file: file, line: line)
+        let (context, _) = makeContext()
+        let sut = try XCTUnwrap(BookEntity(context: context))
         return (sut, context)
     }
 
@@ -116,6 +96,7 @@ final class BookEntityTests: XCTestCase {
         let managedObjectModel = NSManagedObjectModel.with(name: "BookStore", in: Bundle(for: BookEntity.self))!
         let container = try! NSPersistentContainer.load(name: "BookStore", model: managedObjectModel, url: storeURL)
         let context = container.newBackgroundContext()
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return (context, container)
     }
 

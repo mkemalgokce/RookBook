@@ -14,9 +14,7 @@ extension Publisher {
 
     public func caching<Store: CacheStorable>(to cache: Store,
                                               map: @escaping (Output) -> [Store.Item]) -> AnyPublisher<Output, Failure>
-        where Output == [
-            Store.Item
-        ] {
+        where Output: Sequence {
         handleEvents(receiveOutput: { items in
             cache.saveIgnoringResults(map(items))
         })

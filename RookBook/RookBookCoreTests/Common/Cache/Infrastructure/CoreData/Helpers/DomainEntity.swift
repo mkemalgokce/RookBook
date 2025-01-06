@@ -3,7 +3,7 @@
 import Foundation
 import RookBookCore
 
-public struct DomainEntity: StorableItem, Equatable {
+public struct DomainEntity: StorableItem, Hashable {
     public let id: UUID
     let value: String
 }
