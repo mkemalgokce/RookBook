@@ -4,14 +4,12 @@
       "id" : "88A5937E-2536-4612-A805-2C264BD00B17",
       "name" : "Configuration 1",
       "options" : {
-        "testRepetitionMode" : "untilFailure"
+
       }
     }
   ],
   "defaultOptions" : {
-    "maximumTestRepetitions" : 10,
-    "testExecutionOrdering" : "random",
-    "testRepetitionMode" : "untilFailure"
+    "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {

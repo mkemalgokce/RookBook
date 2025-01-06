@@ -2,27 +2,29 @@
 
 import Foundation
 
-public struct CachedBook: Codable, StorableItem, Cacheable {
+public struct LocalBook: Codable, StorableItem, Cacheable {
     // MARK: - Properties
     public let id: UUID
     public let title: String
     public let author: String
-    public let coverURL: URL
+    public let coverURL: URL?
     public let pageCount: Int
     public let currentPage: Int
     public let lastReadAt: Date?
     public let isFavorite: Bool
+    public let cacheTimestamp: Date
 
     // MARK: - Initializers
     public init(
         id: UUID,
         title: String,
         author: String,
-        coverURL: URL,
+        coverURL: URL?,
         pageCount: Int,
         currentPage: Int,
         lastReadAt: Date?,
-        isFavorite: Bool
+        isFavorite: Bool,
+        cacheTimestamp: Date = Date()
     ) {
         self.id = id
         self.title = title
@@ -32,18 +34,6 @@ public struct CachedBook: Codable, StorableItem, Cacheable {
         self.currentPage = currentPage
         self.lastReadAt = lastReadAt
         self.isFavorite = isFavorite
-    }
-
-    public init(_ book: Book) {
-        self.init(
-            id: book.id,
-            title: book.title,
-            author: book.author,
-            coverURL: book.coverImage,
-            pageCount: book.numberOfPages,
-            currentPage: book.currentPage,
-            lastReadAt: book.lastReadAt,
-            isFavorite: book.isFavorite
-        )
+        self.cacheTimestamp = cacheTimestamp
     }
 }

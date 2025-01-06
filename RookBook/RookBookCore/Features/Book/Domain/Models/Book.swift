@@ -8,7 +8,7 @@ public struct Book: Hashable, Identifiable {
     public let author: String
     public let currentPage: Int
     public let numberOfPages: Int
-    public let coverImage: URL
+    public let coverImage: URL?
     public let lastReadAt: Date?
     public let isFavorite: Bool
 
@@ -20,7 +20,7 @@ public struct Book: Hashable, Identifiable {
         author: String,
         currentPage: Int,
         numberOfPages: Int,
-        coverImage: URL,
+        coverImage: URL?,
         lastReadAt: Date?,
         isFavorite: Bool
     ) {

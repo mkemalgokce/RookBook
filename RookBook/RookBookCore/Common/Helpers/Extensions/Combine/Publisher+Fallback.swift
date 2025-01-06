@@ -8,4 +8,8 @@ extension Publisher {
         -> AnyPublisher<Output, Failure> {
         self.catch { _ in fallbackPublisher() }.eraseToAnyPublisher()
     }
+
+    public func fallback(to fallbackPublisher: AnyPublisher<Output, Failure>) -> AnyPublisher<Output, Failure> {
+        self.catch { _ in fallbackPublisher }.eraseToAnyPublisher()
+    }
 }

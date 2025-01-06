@@ -2,4 +2,6 @@
 
 import Foundation
 
-public protocol BookStore: CacheStoreConformable where Item == Book {}
+public protocol BookStore: Storable where Item == Book, Identifier == UUID {}
+
+extension DomainStoreDecorator: BookStore where Item == Book, Identifier == UUID {}

@@ -3,8 +3,8 @@
 import CoreData
 
 public protocol CoreDataStorableItem: StorableItem, NSManagedObject {
-    associatedtype Domain: StorableItem
+    associatedtype Local: StorableItem
 
-    func update(with domain: Domain, in context: NSManagedObjectContext)
-    func toDomain() -> Domain
+    func update(with local: Local, in context: NSManagedObjectContext)
+    func toLocal() -> Local
 }

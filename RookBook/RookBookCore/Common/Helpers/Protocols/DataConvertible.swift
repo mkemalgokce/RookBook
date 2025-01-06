@@ -2,6 +2,6 @@
 
 import Foundation
 
-public protocol Cacheable {
-    var cacheTimestamp: Date { get }
+public protocol DataConvertible {
+    func toData() -> Data?
 }

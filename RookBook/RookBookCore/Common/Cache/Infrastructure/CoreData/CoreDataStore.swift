@@ -1,10 +1,11 @@
 // Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
 
+import Combine
 import CoreData
 
 public final class CoreDataStore<CoreDataItem: CoreDataStorableItem>: Storable {
     // MARK: - Type Aliases
-    public typealias Domain = CoreDataItem.Domain
+    public typealias Local = CoreDataItem.Local
 
     // MARK: - Nested Types
     public enum StoreError: Error {
@@ -45,7 +46,7 @@ public final class CoreDataStore<CoreDataItem: CoreDataStorableItem>: Storable {
     }
 
     // MARK: - Public Methods
-    public func save(_ item: Domain) throws {
+    public func save(_ item: Local) throws {
         try context.throwingPerformAndWait {
             let model = CoreDataItem(context: context)
             model.update(with: item, in: context)
@@ -53,11 +54,21 @@ public final class CoreDataStore<CoreDataItem: CoreDataStorableItem>: Storable {
         }
     }
 
-    public func loadAll() throws -> [Domain] {
+    public func saveAll(_ items: [CoreDataItem.Local]) throws {
+        try context.throwingPerformAndWait {
+            items.forEach { item in
+                let model = CoreDataItem(context: context)
+                model.update(with: item, in: context)
+            }
+            try saveContext()
+        }
+    }
+
+    public func loadAll() throws -> [Local] {
         try context.throwingPerformAndWait {
             let fetchRequest = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
             let models = try context.fetch(fetchRequest)
-            return models.map { $0.toDomain() }
+            return models.map { $0.toLocal() }
         }
     }
 
@@ -70,10 +81,10 @@ public final class CoreDataStore<CoreDataItem: CoreDataStorableItem>: Storable {
         }
     }
 
-    public func load(for identifier: Item.Identifier) throws -> Domain {
+    public func load(for identifier: Local.Identifier) throws -> Local {
         try context.throwingPerformAndWait {
             let model = try findModel(for: identifier)
-            return model.toDomain()
+            return model.toLocal()
         }
     }
 

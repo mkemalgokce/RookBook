@@ -7,7 +7,7 @@ extension NSManagedObjectContext {
     /// - Parameter block: A closure that performs work on the context. It may throw errors.
     /// - Throws: An error thrown from the block, if any.
     public func throwingPerformAndWait<T>(_ block: () throws -> T) throws -> T {
-        var result: Result<T, Error>?
+        var result: Result<T, Error>!
 
         performAndWait {
             do {
@@ -17,12 +17,6 @@ extension NSManagedObjectContext {
                 result = .failure(error)
             }
         }
-
-        switch result! {
-        case let .success(value):
-            return value
-        case let .failure(error):
-            throw error
-        }
+        return try result!.get()
     }
 }

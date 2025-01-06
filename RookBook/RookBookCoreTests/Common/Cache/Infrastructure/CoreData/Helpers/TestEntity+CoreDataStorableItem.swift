@@ -9,7 +9,7 @@ extension TestEntity: CoreDataStorableItem {
         value = domain.value
     }
 
-    public func toDomain() -> DomainEntity {
+    public func toLocal() -> DomainEntity {
         DomainEntity(id: id, value: value)
     }
 }
