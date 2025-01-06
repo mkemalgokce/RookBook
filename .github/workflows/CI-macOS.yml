@@ -29,15 +29,7 @@ jobs:
     - name: AssetOrganizer
       # You may pin to the exact commit or the version.
       # uses: mkemalgokce/AssetOrganizer-action@9b6327e13b78991227652ddbf0f57ee2937bf088
-      uses: mkemalgokce/AssetOrganizer-action@1.1
+      uses: mkemalgokce/AssetOrganizer-action@1.2
       with:
         # Path to the project directory to analyze
         project-path: RookBook # default is .
-        
-    - name: Download Report
-      uses: actions/download-artifact@v3
-      with:
-        name: asset-analysis-report
-          
-  
-          
