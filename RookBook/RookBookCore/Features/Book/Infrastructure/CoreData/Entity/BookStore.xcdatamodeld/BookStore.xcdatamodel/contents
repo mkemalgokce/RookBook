@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24B83" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="BookEntity" representedClassName="BookEntity" syncable="YES">
         <attribute name="author" attributeType="String"/>
+        <attribute name="cacheTimestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="coverURL" optional="YES" attributeType="URI"/>
         <attribute name="currentPage" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>

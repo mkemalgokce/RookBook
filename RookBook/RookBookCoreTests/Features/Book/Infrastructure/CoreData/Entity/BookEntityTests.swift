@@ -9,8 +9,10 @@ final class BookEntityTests: XCTestCase {
         let (sut, context) = try makeSUT()
         let domain = makeLocalBook()
 
-        sut.update(with: domain, in: context)
-        try context.save()
+        try context.throwingPerformAndWait {
+            sut.update(with: domain, in: context)
+            try context.save()
+        }
 
         XCTAssertEqual(sut.id, domain.id)
         XCTAssertEqual(sut.title, domain.title)
@@ -20,14 +22,17 @@ final class BookEntityTests: XCTestCase {
         XCTAssertEqual(sut.currentPage, Int16(domain.currentPage))
         XCTAssertEqual(sut.lastReadAt, domain.lastReadAt)
         XCTAssertEqual(sut.isFavorite, domain.isFavorite)
+        XCTAssertEqual(sut.cacheTimestamp, domain.cacheTimestamp)
     }
 
     func test_update_handlesOptionalProperties() throws {
         let (sut, context) = try makeSUT()
         let domain = makeLocalBook(coverURL: nil, lastReadAt: nil)
 
-        sut.update(with: domain, in: context)
-        try context.save()
+        try context.throwingPerformAndWait {
+            sut.update(with: domain, in: context)
+            try context.save()
+        }
 
         XCTAssertNil(sut.coverURL)
         XCTAssertNil(sut.lastReadAt)
@@ -37,8 +42,10 @@ final class BookEntityTests: XCTestCase {
         let (sut, context) = try makeSUT()
         let expectedBook = makeLocalBook()
 
-        sut.update(with: expectedBook, in: context)
-        try context.save()
+        try context.throwingPerformAndWait {
+            sut.update(with: expectedBook, in: context)
+            try context.save()
+        }
 
         let localBook = sut.toLocal()
 
@@ -50,14 +57,17 @@ final class BookEntityTests: XCTestCase {
         XCTAssertEqual(localBook.currentPage, expectedBook.currentPage)
         XCTAssertEqual(localBook.lastReadAt, expectedBook.lastReadAt)
         XCTAssertEqual(localBook.isFavorite, expectedBook.isFavorite)
+        XCTAssertEqual(localBook.cacheTimestamp, expectedBook.cacheTimestamp)
     }
 
     func test_toLocal_handlesOptionalProperties() throws {
         let (sut, context) = try makeSUT()
         let expectedBook = makeLocalBook(coverURL: nil, lastReadAt: nil)
 
-        sut.update(with: expectedBook, in: context)
-        try context.save()
+        try context.throwingPerformAndWait {
+            sut.update(with: expectedBook, in: context)
+            try context.save()
+        }
 
         let localBook = sut.toLocal()
 
@@ -69,8 +79,10 @@ final class BookEntityTests: XCTestCase {
         let (sut, context) = try makeSUT()
         let originalBook = makeLocalBook()
 
-        sut.update(with: originalBook, in: context)
-        try context.save()
+        try context.throwingPerformAndWait {
+            sut.update(with: originalBook, in: context)
+            try context.save()
+        }
 
         let roundTripBook = sut.toLocal()
 
@@ -82,23 +94,29 @@ final class BookEntityTests: XCTestCase {
         XCTAssertEqual(roundTripBook.currentPage, originalBook.currentPage)
         XCTAssertEqual(roundTripBook.lastReadAt, originalBook.lastReadAt)
         XCTAssertEqual(roundTripBook.isFavorite, originalBook.isFavorite)
+        XCTAssertEqual(roundTripBook.cacheTimestamp, originalBook.cacheTimestamp)
     }
 
     // MARK: - Helpers
     private func makeSUT(file: StaticString = #file,
                          line: UInt = #line) throws -> (BookEntity, NSManagedObjectContext) {
-        let context = makeContext(file: file, line: line)
-        let sut = BookEntity(context: context)
+        let (context, container) = makeContext(file: file, line: line)
+        var sut: BookEntity!
+        try context.throwingPerformAndWait {
+            sut = BookEntity(context: context)
+        }
+
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, context)
     }
 
-    private func makeContext(file: StaticString = #file, line: UInt = #line) -> NSManagedObjectContext {
+    private func makeContext(file: StaticString = #file,
+                             line: UInt = #line) -> (NSManagedObjectContext, NSPersistentContainer) {
         let storeURL = URL(fileURLWithPath: "/dev/null")
         let managedObjectModel = NSManagedObjectModel.with(name: "BookStore", in: Bundle(for: BookEntity.self))!
         let container = try! NSPersistentContainer.load(name: "BookStore", model: managedObjectModel, url: storeURL)
         let context = container.newBackgroundContext()
-        return context
+        return (context, container)
     }
 
     private func makeLocalBook(
@@ -109,7 +127,8 @@ final class BookEntityTests: XCTestCase {
         pageCount: Int = 100,
         currentPage: Int = 42,
         lastReadAt: Date? = Date(),
-        isFavorite: Bool = true
+        isFavorite: Bool = true,
+        cacheTimestamp: Date = Date()
     ) -> LocalBook {
         LocalBook(
             id: id,
@@ -119,7 +138,8 @@ final class BookEntityTests: XCTestCase {
             pageCount: pageCount,
             currentPage: currentPage,
             lastReadAt: lastReadAt,
-            isFavorite: isFavorite
+            isFavorite: isFavorite,
+            cacheTimestamp: cacheTimestamp
         )
     }
 }

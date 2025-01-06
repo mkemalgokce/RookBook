@@ -4,7 +4,8 @@
       "id" : "88A5937E-2536-4612-A805-2C264BD00B17",
       "name" : "Configuration 1",
       "options" : {
-
+        "maximumTestRepetitions" : 10,
+        "testRepetitionMode" : "untilFailure"
       }
     }
   ],

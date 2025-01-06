@@ -12,6 +12,7 @@ extension BookEntity: CoreDataStorableItem {
         currentPage = Int16(domain.currentPage)
         lastReadAt = domain.lastReadAt
         isFavorite = domain.isFavorite
+        cacheTimestamp = domain.cacheTimestamp
     }
 
     public func toLocal() -> LocalBook {
@@ -23,7 +24,8 @@ extension BookEntity: CoreDataStorableItem {
             pageCount: Int(pageCount),
             currentPage: Int(currentPage),
             lastReadAt: lastReadAt,
-            isFavorite: isFavorite
+            isFavorite: isFavorite,
+            cacheTimestamp: cacheTimestamp
         )
     }
 }

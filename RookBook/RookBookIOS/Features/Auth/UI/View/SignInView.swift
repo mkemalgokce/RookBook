@@ -50,6 +50,7 @@ public final class SignInView: UIView {
 
     private lazy var topImageView: UIImageView = {
         let imageView = UIImageView(image: .dogSleeping)
+        imageView.image = UIImage.dogSleeping
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
