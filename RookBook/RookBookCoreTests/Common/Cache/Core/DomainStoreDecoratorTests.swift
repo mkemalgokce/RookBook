@@ -95,6 +95,7 @@ final class DomainStoreDecoratorTests: XCTestCase {
 
     private class StoreSpy: Storable {
         var savedModels: [LocalModel] = []
+        var savedAllModels: [[LocalModel]] = []
         var updatedModels: [LocalModel] = []
         var deletedIdentifiers: [String] = []
         var deleteAllCalled = false
@@ -107,6 +108,11 @@ final class DomainStoreDecoratorTests: XCTestCase {
         func save(_ item: LocalModel) throws {
             if let error = stubbedError { throw error }
             savedModels.append(item)
+        }
+
+        func saveAll(_ items: [DomainStoreDecoratorTests.LocalModel]) throws {
+            if let error = stubbedError { throw error }
+            savedAllModels.append(items)
         }
 
         func loadAll() throws -> [LocalModel] {
