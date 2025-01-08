@@ -2,10 +2,11 @@
 
 import Foundation
 
-public struct LocalBook: Codable, StorableItem, Cacheable {
+public struct LocalBook: Codable, StorableItem, Cacheable, Hashable {
     // MARK: - Properties
     public let id: UUID
     public let title: String
+    public let description: String
     public let author: String
     public let coverURL: URL?
     public let pageCount: Int
@@ -18,6 +19,7 @@ public struct LocalBook: Codable, StorableItem, Cacheable {
     public init(
         id: UUID,
         title: String,
+        description: String,
         author: String,
         coverURL: URL?,
         pageCount: Int,
@@ -28,6 +30,7 @@ public struct LocalBook: Codable, StorableItem, Cacheable {
     ) {
         self.id = id
         self.title = title
+        self.description = description
         self.author = author
         self.coverURL = coverURL
         self.pageCount = pageCount
@@ -35,5 +38,9 @@ public struct LocalBook: Codable, StorableItem, Cacheable {
         self.lastReadAt = lastReadAt
         self.isFavorite = isFavorite
         self.cacheTimestamp = cacheTimestamp
+    }
+
+    public static func ==(lhs: LocalBook, rhs: LocalBook) -> Bool {
+        lhs.id == rhs.id
     }
 }

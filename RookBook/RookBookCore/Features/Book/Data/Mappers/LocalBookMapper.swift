@@ -8,6 +8,7 @@ enum LocalBookMapper {
         LocalBook(
             id: book.id,
             title: book.title,
+            description: book.description,
             author: book.author,
             coverURL: book.coverImage,
             pageCount: book.numberOfPages,
@@ -21,7 +22,7 @@ enum LocalBookMapper {
         Book(
             id: localBook.id,
             title: localBook.title,
-            description: "",
+            description: localBook.description,
             author: localBook.author,
             currentPage: localBook.currentPage,
             numberOfPages: localBook.pageCount,
@@ -29,5 +30,13 @@ enum LocalBookMapper {
             lastReadAt: localBook.lastReadAt,
             isFavorite: localBook.isFavorite
         )
+    }
+
+    static func map(_ localBooks: [LocalBook]) -> [Book] {
+        localBooks.map { map($0) }
+    }
+
+    static func map(_ books: [Book]) -> [LocalBook] {
+        books.map { map($0) }
     }
 }

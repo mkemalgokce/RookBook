@@ -3,19 +3,8 @@
 import Combine
 import Foundation
 
-final class BookCompositeLoader<Store: CacheStorable> where Store.Item == LocalBook, Store.Identifier == UUID {
-    private let client: HTTPClient
-    private let bookStore: Store
-    private let scheduler: AnyDispatchQueueScheduler
-
-    private lazy var localRepository = LocalRepository(store: bookStore)
-
-    init(client: HTTPClient, bookStore: Store, scheduler: AnyDispatchQueueScheduler) {
-        self.client = client
-        self.bookStore = bookStore
-        self.scheduler = scheduler
-    }
-
+extension BookCompositeFactory {
+    // MARK: - Public Methods
     func makeRemoteWithLocalFallbackLoader(id: UUID) -> AnyPublisher<Book, Error> {
         let remoteLoader = makeRemoteLoader(id: id)
         let localLoader = makeLocalLoader(id: id)
@@ -27,6 +16,18 @@ final class BookCompositeLoader<Store: CacheStorable> where Store.Item == LocalB
             .eraseToAnyPublisher()
     }
 
+    func makeRemoteWithLocalFallbackLoader() -> AnyPublisher<[Book], Error> {
+        let remoteLoader = makeRemoteLoader()
+        let localLoader = makeLocalLoader()
+
+        return remoteLoader
+            .caching(to: bookStore, map: LocalBookMapper.map)
+            .fallback(to: localLoader)
+            .subscribe(on: scheduler)
+            .eraseToAnyPublisher()
+    }
+
+    // MARK: - Private Methods
     private func makeRemoteLoader(id: UUID) -> AnyPublisher<Book, Error> {
         let request = URLRequest(url: URL(string: "https://api.example.com/books/\(id.uuidString)")!)
         let mapper = DecodableResourceResponseMapper<BookDTO>()
@@ -43,7 +44,7 @@ final class BookCompositeLoader<Store: CacheStorable> where Store.Item == LocalB
             .eraseToAnyPublisher()
     }
 
-    func makeRemoteLoader() -> AnyPublisher<[Book], Error> {
+    private func makeRemoteLoader() -> AnyPublisher<[Book], Error> {
         let request = URLRequest(url: URL(string: "https://api.example.com/books")!)
         let mapper = DecodableResourceResponseMapper<[BookDTO]>()
         return client
@@ -53,20 +54,9 @@ final class BookCompositeLoader<Store: CacheStorable> where Store.Item == LocalB
             .eraseToAnyPublisher()
     }
 
-    func makeLocalLoader() -> AnyPublisher<[Book], Error> {
+    private func makeLocalLoader() -> AnyPublisher<[Book], Error> {
         localRepository.fetch()
-            .map { $0.map(LocalBookMapper.map) }
-            .eraseToAnyPublisher()
-    }
-
-    func makeRemoteWithLocalFallbackLoader() -> AnyPublisher<[Book], Error> {
-        let remoteLoader = makeRemoteLoader()
-        let localLoader = makeLocalLoader()
-
-        return remoteLoader
-            .caching(to: bookStore, map: { $0.map(LocalBookMapper.map) })
-            .fallback(to: localLoader)
-            .subscribe(on: scheduler)
+            .map(LocalBookMapper.map)
             .eraseToAnyPublisher()
     }
 }

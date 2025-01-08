@@ -8,6 +8,7 @@ import Foundation
 public class BookEntity: NSManagedObject {
     @NSManaged public var id: UUID
     @NSManaged public var title: String
+    @NSManaged public var desc: String
     @NSManaged public var author: String
     @NSManaged public var coverURL: URL?
     @NSManaged public var pageCount: Int16

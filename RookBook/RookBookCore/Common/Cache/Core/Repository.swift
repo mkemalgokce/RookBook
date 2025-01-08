@@ -1,16 +1,7 @@
-// Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
+// Copyright © 2025 Mustafa Kemal Gökçe. All rights reserved.
 
 import Combine
 import Foundation
-
-public protocol BookRepository {
-    func fetchBooks() -> AnyPublisher<[Book], Error>
-    func fetchBook(with id: UUID) -> AnyPublisher<Book, Error>
-    func save(_ book: Book) -> AnyPublisher<Void, Error>
-    func delete(_ book: Book) -> AnyPublisher<Void, Error>
-    func update(_ book: Book) -> AnyPublisher<Void, Error>
-}
-
 public protocol Repository {
     associatedtype Entity
     associatedtype Identifier: StringConvertible

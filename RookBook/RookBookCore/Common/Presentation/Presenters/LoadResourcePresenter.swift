@@ -60,9 +60,13 @@ public class LoadResourcePresenter {
                 case let .failure(error):
                     self.errorView.display(.error(message: error.localizedDescription))
                 }
-            } receiveValue: { [weak self] value in
-                guard let self else { return }
+            } receiveValue: { value in
                 resourceView.display(value)
             }
+    }
+
+    public func cancel() {
+        cancellable?.cancel()
+        cancellable = nil
     }
 }

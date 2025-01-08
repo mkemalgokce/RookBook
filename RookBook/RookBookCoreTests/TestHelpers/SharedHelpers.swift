@@ -31,6 +31,20 @@ func encode<T: Encodable>(_ value: T) -> Data {
     try! JSONEncoder().encode(value)
 }
 
+func makeBook() -> Book {
+    Book(
+        id: UUID(),
+        title: "Title",
+        description: "Description",
+        author: "Author",
+        currentPage: 0,
+        numberOfPages: 100,
+        coverImage: anyURL(),
+        lastReadAt: Date(),
+        isFavorite: false
+    )
+}
+
 func makeValidAuthenticatedResponse(refreshToken: String = "refreshtoken") -> HTTPURLResponse {
     anyHTTPURLResponse(
         statusCode: 200,

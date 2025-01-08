@@ -19,6 +19,7 @@ extension BookEntity: CoreDataStorableItem {
         LocalBook(
             id: id,
             title: title,
+            description: desc,
             author: author,
             coverURL: coverURL,
             pageCount: Int(pageCount),

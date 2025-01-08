@@ -103,6 +103,7 @@ final class BookEntityTests: XCTestCase {
     private func makeLocalBook(
         id: UUID = UUID(),
         title: String = "Test Title",
+        description: String = "Test Description",
         author: String = "Test Author",
         coverURL: URL? = URL(string: "https://example.com/cover.jpg"),
         pageCount: Int = 100,
@@ -114,6 +115,7 @@ final class BookEntityTests: XCTestCase {
         LocalBook(
             id: id,
             title: title,
+            description: description,
             author: author,
             coverURL: coverURL,
             pageCount: pageCount,

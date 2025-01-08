@@ -4,19 +4,6 @@ import Combine
 import Foundation
 
 extension Storable {
-    func saveAllPublisher(_ items: [Item]) -> AnyPublisher<Void, Error> {
-        Deferred {
-            Future { promise in
-                do {
-                    try self.saveAll(items)
-                    promise(.success(()))
-                } catch {
-                    promise(.failure(error))
-                }
-            }
-        }.eraseToAnyPublisher()
-    }
-
     func savePublisher(_ item: Item) -> AnyPublisher<Void, Error> {
         Deferred {
             Future { promise in
@@ -42,20 +29,6 @@ extension Storable {
                 }
             }
         }.eraseToAnyPublisher()
-    }
-
-    func deleteAllPublisher() -> AnyPublisher<Void, Error> {
-        Deferred {
-            Future { promise in
-                do {
-                    try self.deleteAll()
-                    promise(.success(()))
-                } catch {
-                    promise(.failure(error))
-                }
-            }
-        }
-        .eraseToAnyPublisher()
     }
 
     func loadPublisher(for identifier: Identifier) -> AnyPublisher<Item, Error> {
