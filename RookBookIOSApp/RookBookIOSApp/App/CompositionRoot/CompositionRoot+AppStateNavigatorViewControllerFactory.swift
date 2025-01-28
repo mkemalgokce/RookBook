@@ -20,15 +20,17 @@ extension CompositionRoot: AppStateNavigatorViewControllerFactory {
     }
 
     func makeHomeViewController() -> UIViewController {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .red
-        return vc
+        BookUIComposer.composed(
+            loadBooks: <#T##() -> AnyPublisher<[Book], any Error>#>,
+            loadImage: <#T##(URL) -> AnyPublisher<Data, any Error>#>,
+            onSelection: <#T##(Book) -> Void#>
+        )
     }
 
     func makeOnboardingViewController() -> UIViewController {
         OnboardingUIComposer.composed(onCompletion: { [weak self] in
             guard let self else { return }
-            self.updateAppState(to: .login)
+            updateAppState(to: .login)
         })
     }
 
@@ -39,7 +41,7 @@ extension CompositionRoot: AppStateNavigatorViewControllerFactory {
             apple: authenticationService.register,
             onSignIn: { [weak self] in
                 guard let self else { return }
-                navigationController.popViewController(animated: true)
+                self.show(makeLoginViewController())
             },
             onSuccess: { [weak self] in
                 self?.updateAppState(to: .home)

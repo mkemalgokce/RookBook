@@ -8,7 +8,7 @@ public final class LocalRepository<Store: Storable>: Repository {
     private let store: Store
 
     // MARK: - Initializers
-    init(store: Store) {
+    public init(store: Store) {
         self.store = store
     }
 

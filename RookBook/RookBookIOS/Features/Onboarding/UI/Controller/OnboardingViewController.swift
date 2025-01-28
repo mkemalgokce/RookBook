@@ -17,7 +17,7 @@ public final class OnboardingViewController: ViewController<OnboardingView>, Roo
         pageViewModels: [OnboardingPageViewModel<UIImage>] = []
     ) {
         self.pageViewModels = pageViewModels
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
 
     @available(*, unavailable)

@@ -8,12 +8,18 @@ import RookBookIOS
 enum BookUIComposer {
     static func composed(loadBooks: @escaping () -> AnyPublisher<[Book], Error>,
                          loadImage: @escaping (URL) -> AnyPublisher<Data, Error>,
-                         onSelection: @escaping (Book) -> Void) {
-        let vc = BookViewController()
-        let presenter = LoadResourcePresenter(errorView: WeakRef(vc), loadingView: WeakRef(vc))
+                         onSelection: @escaping (Book) -> Void) -> BookViewController {
+        let vc = BookViewController.make(with: BookListPresenter.textConfiguration)
         let bookView = BookViewAdapter(controller: vc, loadImage: loadImage)
 
+        let presenter = LoadResourcePresenter(
+            errorView: WeakRef(vc),
+            loadingView: WeakRef(vc)
+        )
+
         vc.onRefresh = { presenter.load(on: bookView, loader: loadBooks) }
+
+        return vc
     }
 }
 

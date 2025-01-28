@@ -2,6 +2,7 @@
 
 import Combine
 import Foundation
+
 public protocol Repository {
     associatedtype Entity
     associatedtype Identifier: StringConvertible

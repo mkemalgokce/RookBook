@@ -9,9 +9,24 @@ public class ViewController<View: UIView>: UIViewController {
         view as! View
     }
 
+    // MARK: - Initializers
+    public init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Lifecycle Methods
     override public func loadView() {
         view = View()
+    }
+
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
     }
 }
 

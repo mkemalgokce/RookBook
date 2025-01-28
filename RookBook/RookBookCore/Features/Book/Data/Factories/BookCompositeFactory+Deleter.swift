@@ -19,7 +19,7 @@ extension BookCompositeFactory {
     private func makeRemoteDeleter(with id: UUID) -> AnyPublisher<Void, Error> {
         let url = URL(string: "https://api.example.com/books/\(id.uuidString)")!
         let mapper = EmptyResponseMapper()
-        var request = URLRequest(url: url, method: .delete)
+        let request = URLRequest(url: url, method: .delete)
         return client
             .perform(request)
             .tryMap(mapper.map)

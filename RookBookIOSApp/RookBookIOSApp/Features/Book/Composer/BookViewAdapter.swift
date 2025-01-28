@@ -28,21 +28,16 @@ final class BookViewAdapter: ResourceView {
 
             if let imageURL = book.coverImage {
                 let presenter = LoadResourcePresenter(
-                    errorView: view,
-                    loadingView: view
+                    errorView: WeakRef(view),
+                    loadingView: WeakRef(view)
                 )
 
                 let loader = loadImage(imageURL)
                     .tryMap(UIImage.tryMake)
                     .eraseToAnyPublisher()
-                
-                view.requestImage = { [weak presenter] in
-                    presenter?.load(on: view, loader: { loader })
-                }
-                
-                view.cancelImageRequest = { [weak presenter] in
-                    presenter?.cancel()
-                }
+
+                view.requestImage = { presenter.load(on: view, loader: { loader }) }
+                view.cancelImageRequest = { presenter.cancel() }
             }
 
             return TableCellController(id: book.id, view)
@@ -51,4 +46,3 @@ final class BookViewAdapter: ResourceView {
         controller.display(cellControllers)
     }
 }
-

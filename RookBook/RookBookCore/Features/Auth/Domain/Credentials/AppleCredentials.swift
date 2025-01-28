@@ -30,7 +30,7 @@ public struct AppleCredentials: SignInCredentials, SignUpCredentials, Hashable {
         ["userIdentifier": userIdentifier,
          "email": email,
          "fullName": fullName,
-         "authorizationCode": authorizationCode,
-         "identityToken": identityToken]
+         "authorizationCode": authorizationCode?.base64EncodedString(),
+         "identityToken": identityToken?.base64EncodedString()]
     }
 }

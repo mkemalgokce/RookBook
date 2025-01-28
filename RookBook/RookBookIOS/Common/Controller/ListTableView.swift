@@ -6,21 +6,17 @@ import UIKit
 
 public protocol ListTableView: UIView {
     var tableView: UITableView { get }
+    var refreshControl: UIRefreshControl { get }
     var isTableViewEmpty: Bool { get set }
 }
 
 public class ListTableViewController<ListView: ListTableView>: ViewController<ListView>,
     UITableViewDataSourcePrefetching, UITableViewDelegate {
     // MARK: - Properties
-    private lazy var dataSource = {
-        UITableViewDiffableDataSource<Int, TableCellController>(tableView: rootView.tableView) {
-            tableView,
-                indexPath,
-                controller
-            in
+    private lazy var dataSource = UITableViewDiffableDataSource<Int, TableCellController>(tableView: rootView.tableView)
+        { tableView, indexPath, controller in
             controller.dataSource.tableView(tableView, cellForRowAt: indexPath)
         }
-    }()
 
     public var onRefresh: (() -> Void)?
     public var onDelete: ((UUID) -> Void)?

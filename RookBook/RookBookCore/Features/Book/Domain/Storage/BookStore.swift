@@ -3,3 +3,5 @@
 import Foundation
 
 public protocol BookStore: Storable, CacheStorable where Item == LocalBook, Identifier == UUID {}
+
+extension CoreDataStore: BookStore where CoreDataItem.Local == LocalBook {}

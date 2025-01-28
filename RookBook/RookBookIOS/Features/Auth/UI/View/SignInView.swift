@@ -10,6 +10,14 @@ public final class SignInView: UIView {
         field.backgroundColor = .green3
         field.placeholderColor = .green1
         field.textColor = .green1
+        field.keyboardType = .emailAddress
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
+        field.spellCheckingType = .no
+        field.textContentType = .emailAddress
+        field.returnKeyType = .next
+        field.enablesReturnKeyAutomatically = true
+        field.clearButtonMode = .whileEditing
         field.font = .boldSystemFont(ofSize: 20)
         return field
     }()
@@ -20,6 +28,13 @@ public final class SignInView: UIView {
         field.backgroundColor = .green3
         field.placeholderColor = .green1
         field.textColor = .green1
+        field.textContentType = .password
+        field.returnKeyType = .done
+        field.enablesReturnKeyAutomatically = true
+        field.clearButtonMode = .whileEditing
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
+        field.spellCheckingType = .no
         field.font = .boldSystemFont(ofSize: 20)
         return field
     }()
