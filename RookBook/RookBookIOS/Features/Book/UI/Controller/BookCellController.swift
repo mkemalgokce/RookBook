@@ -86,7 +86,7 @@ extension BookCellController: ResourceView, ResourceLoadingView, ResourceErrorVi
     }
 
     public func display(_ viewModel: ResourceErrorViewModel) {
-        print("Cell viewmodel alert: \(viewModel)")
+        cell?.showRetryButton()
     }
 
     public func display(_ viewModel: UIImage) {

@@ -8,8 +8,8 @@ import UIKit
 
 final class CompositionRoot {
     // MARK: - Constanst
-    let baseURL = URL(string: "https://verdant-pen-production.up.railway.app/api")!
-    private lazy var scheduler: AnyDispatchQueueScheduler = DispatchQueue(
+    let baseURL = URL(string: "http://localhost:3000/api")!
+    lazy var scheduler: AnyDispatchQueueScheduler = DispatchQueue(
         label: "com.mkg.infra.queue",
         qos: .userInitiated,
         attributes: .concurrent
@@ -24,10 +24,9 @@ final class CompositionRoot {
     )
     lazy var client: HTTPClient = URLSessionHTTPClient(session: .shared)
     lazy var tokenStore = TokenStorage(
-        accessTokenStore: makeKeychainTokenStorage(for: "access-token"),
-        refreshTokenStore: makeKeychainTokenStorage(for: "refresh-token")
+        accessTokenStore: KeychainTokenStore(identifier: "access-token"),
+        refreshTokenStore: KeychainTokenStore(identifier: "refresh-token")
     )
-    lazy var authenticationService: AuthenticationServiceConformable = makeRemoteAuthenticationService()
     lazy var appStateStore: AppStateStore = UserDefaultsAppStateStore()
 
     lazy var bookStore: AnyStorable<LocalBook, UUID> = {
@@ -46,6 +45,28 @@ final class CompositionRoot {
         return AnyStorable<LocalData, URL>(store)
     }()
 
+    lazy var authenticatedClient: HTTPClient = {
+        let client = AuthenticatedHTTPClient(
+            client: client,
+            signedRequestBuilder: signRequest,
+            tokenStorage: tokenStore,
+            refreshRequest: refreshRequest
+        )
+
+        client.unauthorizedHandler = { [weak self] in
+            self?.updateAppState(to: .login)
+        }
+        return client
+    }()
+
+    private var accessToken: String {
+        (try? tokenStore.accessTokenStore.get().value) ?? ""
+    }
+
+    private var refreshToken: String {
+        (try? tokenStore.refreshTokenStore.get().value) ?? ""
+    }
+
     // MARK: - Internal Methods
     func updateAppState(to state: AppState) {
         appStateStore.update(state)
@@ -57,39 +78,17 @@ final class CompositionRoot {
     }
 
     // MARK: - Private Methods
-    private func makeKeychainTokenStorage(for identifier: String) -> TokenStorable {
-        KeychainTokenStore(identifier: identifier)
+    private func signRequest(_ request: URLRequest) -> URLRequest {
+        var request = request
+        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("refreshToken=\(refreshToken)", forHTTPHeaderField: "Cookie")
+        return request
     }
 
-    private func makeRemoteAuthenticationService() -> RemoteAuthenticationService {
-        let signInURL = AuthEndpoint.login.url(baseURL: baseURL)
-        let signUpURL = AuthEndpoint.register.url(baseURL: baseURL)
-        let logoutURL = AuthEndpoint.logout.url(baseURL: baseURL)
-
-        return RemoteAuthenticationService(
-            client: client,
-            buildSignInRequest: { DictionaryRequestBuilder.build(on: signInURL, from: $0, with: .post) },
-            buildSignUpRequest: { DictionaryRequestBuilder.build(on: signUpURL, from: $0, with: .post) },
-            buildLogoutRequest: { logoutURL.request(for: .post) },
-            storage: tokenStore
-        )
-    }
-
-    private func makeLocalImageLoaderWithRemoteFallback(url: URL) -> AnyPublisher<Data, Error> {
-        let localImageLoader = LocalRepository(store: imageStore)
-
-        return localImageLoader
-            .fetch(with: url)
-            .map(\.data)
-            .fallback(to: { [client, scheduler, imageStore] in
-                client
-                    .perform(url.request())
-                    .tryMap(DataResponseMapper().map)
-                    .caching(to: imageStore, map: { LocalData(id: url, data: $0) })
-                    .subscribe(on: scheduler)
-                    .eraseToAnyPublisher()
-            })
-            .subscribe(on: scheduler)
-            .eraseToAnyPublisher()
+    private func refreshRequest() -> URLRequest {
+        var request = baseURL.appendingPathComponent("auth/refresh").request(for: .post)
+        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("refreshToken=\(refreshToken)", forHTTPHeaderField: "Cookie")
+        return request
     }
 }

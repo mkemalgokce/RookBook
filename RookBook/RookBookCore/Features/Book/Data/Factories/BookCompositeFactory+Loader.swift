@@ -5,7 +5,7 @@ import Foundation
 
 extension BookCompositeFactory {
     // MARK: - Public Methods
-    func makeRemoteWithLocalFallbackLoader(id: UUID) -> AnyPublisher<Book, Error> {
+    public func makeRemoteWithLocalFallbackLoader(id: UUID) -> AnyPublisher<Book, Error> {
         let remoteLoader = makeRemoteLoader(id: id)
         let localLoader = makeLocalLoader(id: id)
 
@@ -16,7 +16,7 @@ extension BookCompositeFactory {
             .eraseToAnyPublisher()
     }
 
-    func makeRemoteWithLocalFallbackLoader() -> AnyPublisher<[Book], Error> {
+    public func makeRemoteWithLocalFallbackLoader() -> AnyPublisher<[Book], Error> {
         let remoteLoader = makeRemoteLoader()
         let localLoader = makeLocalLoader()
 
@@ -45,12 +45,14 @@ extension BookCompositeFactory {
     }
 
     private func makeRemoteLoader() -> AnyPublisher<[Book], Error> {
-        let request = URLRequest(url: URL(string: "https://api.example.com/books")!)
-        let mapper = DecodableResourceResponseMapper<[BookDTO]>()
+        var request = URL(string: "http://localhost:3000/api/books?limit=12&orderBy=lastReadAt&orderDirection=DESC")!
+            .request()
+        request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        let mapper = DecodableResourceResponseMapper<BookResponse>()
         return client
             .perform(request)
             .tryMap(mapper.map)
-            .map { $0.map(BookDTOMapper.map) }
+            .map { $0.items.map(BookDTOMapper.map) }
             .eraseToAnyPublisher()
     }
 

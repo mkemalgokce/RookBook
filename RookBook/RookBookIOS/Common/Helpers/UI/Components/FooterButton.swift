@@ -2,7 +2,7 @@
 
 import UIKit
 
-final class FooterButton: UIButton {
+final class FooterButton: AnimatableButton {
     // MARK: - Properties
     var firstText: String {
         didSet {

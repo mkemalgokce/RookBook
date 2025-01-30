@@ -2,19 +2,13 @@
 
 import UIKit
 
-final class RoundedButton: UIButton {
+final class RoundedButton: AnimatableButton {
     // MARK: - Initializers
     init(title: String?, backgroundColor: UIColor, textColor: UIColor, iconImage: UIImage? = nil) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         setupView(iconImage: iconImage, titleColor: textColor, backgroundColor: backgroundColor)
         setTitle(title, for: .normal)
-        addTarget(self, action: #selector(animateButtonPress), for: [.touchDown, .touchDragEnter])
-        addTarget(
-            self,
-            action: #selector(animateButtonRelease),
-            for: [.touchUpInside, .touchCancel, .touchDragExit]
-        )
     }
 
     @available(*, unavailable)
@@ -44,17 +38,5 @@ final class RoundedButton: UIButton {
         imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 16)
 
         heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1 / 4).isActive = true
-    }
-
-    @objc private func animateButtonPress() {
-        UIView.animate(withDuration: 0.1, animations: {
-            self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-        })
-    }
-
-    @objc private func animateButtonRelease() {
-        UIView.animate(withDuration: 0.1, animations: {
-            self.transform = CGAffineTransform.identity
-        })
     }
 }

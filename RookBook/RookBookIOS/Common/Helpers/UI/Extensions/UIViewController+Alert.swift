@@ -28,7 +28,7 @@ private var loaderViewTag: Int { 999_999_081 }
 
 extension UIViewController {
     public var isLoading: Bool {
-        get { view.viewWithTag(loaderViewTag)?.isHidden == false }
+        get { view.viewWithTag(loaderViewTag) != nil }
         set { newValue ? showLoader() : hideLoader() }
     }
 
@@ -37,10 +37,21 @@ extension UIViewController {
 
         let loaderView = LoaderView(frame: view.bounds)
         loaderView.tag = loaderViewTag
+        loaderView.alpha = 0
         view.addSubview(loaderView)
+
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+            loaderView.alpha = 1
+        }, completion: nil)
     }
 
     func hideLoader() {
-        view.viewWithTag(loaderViewTag)?.removeFromSuperview()
+        guard let loaderView = view.viewWithTag(loaderViewTag) else { return }
+
+        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveEaseInOut, animations: {
+            loaderView.alpha = 0
+        }, completion: { _ in
+            loaderView.removeFromSuperview()
+        })
     }
 }

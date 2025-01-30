@@ -5,13 +5,13 @@ import Foundation
 enum BookDTOMapper {
     static func map(_ dto: BookDTO) -> Book {
         Book(
-            id: dto.id,
+            id: UUID(),
             title: dto.title,
-            description: dto.description,
+            description: "-",
             author: dto.author,
             currentPage: 0,
-            numberOfPages: dto.pageCount,
-            coverImage: dto.coverURL,
+            numberOfPages: dto.totalPages,
+            coverImage: dto.coverUrl,
             lastReadAt: nil,
             isFavorite: false
         )
@@ -19,12 +19,13 @@ enum BookDTOMapper {
 
     static func map(_ book: Book) -> BookDTO {
         BookDTO(
-            id: book.id,
+            id: book.id.uuidString,
             title: book.title,
-            description: book.description,
             author: book.author,
-            pageCount: book.numberOfPages,
-            coverURL: book.coverImage
+            totalPages: book.numberOfPages,
+            coverUrl: book.coverImage,
+            currentPage: nil,
+            lastReadAt: nil
         )
     }
 }

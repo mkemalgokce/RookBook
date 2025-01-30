@@ -5,7 +5,7 @@ import Foundation
 
 extension BookCompositeFactory {
     // MARK: - Public Methods
-    func makeRemoteWithLocalFallbackDeleter(id: UUID) -> AnyPublisher<Void, Error> {
+    public func makeRemoteWithLocalFallbackDeleter(id: UUID) -> AnyPublisher<Void, Error> {
         let remoteDeleter = makeRemoteDeleter(with: id)
         let localDeleter = makeLocalDeleter(with: id)
 

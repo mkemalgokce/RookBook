@@ -3,16 +3,16 @@
 import Combine
 import Foundation
 
-public final class BookCompositeFactory<Store: BookStore> {
+public final class BookCompositeFactory {
     // MARK: - Properties
     let client: HTTPClient
-    let bookStore: Store
+    let bookStore: AnyStorable<LocalBook, UUID>
     let scheduler: AnyDispatchQueueScheduler
 
-    lazy var localRepository: LocalRepository<Store> = LocalRepository(store: bookStore)
+    lazy var localRepository: LocalRepository<AnyStorable<LocalBook, UUID>> = LocalRepository(store: bookStore)
 
     // MARK: - Initializers
-    init(client: HTTPClient, bookStore: Store, scheduler: AnyDispatchQueueScheduler) {
+    public init(client: HTTPClient, bookStore: AnyStorable<LocalBook, UUID>, scheduler: AnyDispatchQueueScheduler) {
         self.client = client
         self.bookStore = bookStore
         self.scheduler = scheduler

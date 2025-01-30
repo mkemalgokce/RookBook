@@ -5,7 +5,7 @@ import Foundation
 
 extension BookCompositeFactory {
     // MARK: - Public Methods
-    func makeRemoteWithLocalFallbackUpdater(item: Book) -> AnyPublisher<Void, Error> {
+    public func makeRemoteWithLocalFallbackUpdater(item: Book) -> AnyPublisher<Void, Error> {
         let remoteUpdater = makeRemoteUpdater(item: item)
         let localUpdater = makeLocalUpdater(item: item)
 

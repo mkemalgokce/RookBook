@@ -3,26 +3,33 @@
 import Foundation
 
 public struct BookDTO: Codable {
-    public let id: UUID
+    public let id: String
     public let title: String
-    public let description: String
     public let author: String
-    public let pageCount: Int
-    public let coverURL: URL?
+    public let totalPages: Int
+    public let coverUrl: URL?
+    public let currentPage: Int?
+    public let lastReadAt: String?
 
     public init(
-        id: UUID,
+        id: String,
         title: String,
-        description: String,
         author: String,
-        pageCount: Int,
-        coverURL: URL?
+        totalPages: Int,
+        coverUrl: URL?,
+        currentPage: Int?,
+        lastReadAt: String?
     ) {
         self.id = id
         self.title = title
-        self.description = description
         self.author = author
-        self.pageCount = pageCount
-        self.coverURL = coverURL
+        self.totalPages = totalPages
+        self.coverUrl = coverUrl
+        self.currentPage = currentPage
+        self.lastReadAt = lastReadAt
     }
+}
+
+public struct BookResponse: Codable {
+    public let items: [BookDTO]
 }

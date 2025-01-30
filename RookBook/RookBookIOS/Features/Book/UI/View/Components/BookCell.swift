@@ -4,14 +4,21 @@ import UIKit
 
 public final class BookCell: UITableViewCell {
     // MARK: - UI Properties
+    public lazy var logoContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .green3
+        view.layer.cornerRadius = 25.0
+        view.clipsToBounds = true
+        return view
+    }()
+
     public lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 25.0
-        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .green3
+        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
         return imageView
     }()
 
@@ -53,12 +60,27 @@ public final class BookCell: UITableViewCell {
         return stack
     }()
 
+    lazy var retryButton: UIButton = {
+        let button = AnimatableButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
+        let largeImage = UIImage(systemName: "arrow.clockwise", withConfiguration: largeConfig)
+        button.setImage(largeImage, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.tintColor = .green1.withAlphaComponent(0.7)
+        button.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
+        button.isHidden = true
+        return button
+    }()
+
     // MARK: - Properties
     lazy var emptyImage: UIImage? = {
         let image = UIImage(systemName: "photo.on.rectangle.angled")
         let tintedImage = image?.withTintColor(.green1.withAlphaComponent(0.7), renderingMode: .alwaysOriginal)
         return tintedImage
     }()
+
+    var onRetry: (() -> Void)?
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -73,33 +95,41 @@ public final class BookCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Lifecycle Methods
-    override public func layoutSubviews() {
-        super.layoutSubviews()
-        logoImageView.isShimmering = logoImageView.isShimmering
-    }
-
     // MARK: - Internal Methods
     func showEmptyImage() {
-        if logoImageView.contentMode == .scaleAspectFill {
-            logoImageView.contentMode = .scaleAspectFit
-        }
+        logoImageView.contentMode = .scaleAspectFit
         logoImageView.setImageAnimated(emptyImage)
     }
 
     func updateLogoImage(_ newImage: UIImage?) {
-        if logoImageView.contentMode == .scaleAspectFit {
-            logoImageView.contentMode = .scaleAspectFill
-        }
+        logoImageView.contentMode = .scaleAspectFill
         logoImageView.setImageAnimated(newImage)
     }
 
+    func showRetryButton() {
+        retryButton.isHidden = false
+        logoImageView.isHidden = true
+    }
+
+    func hideRetryButton() {
+        retryButton.isHidden = true
+        logoImageView.isHidden = false
+    }
+
     // MARK: - Private Methods
+    @objc private func retryButtonTapped() {
+        onRetry?()
+        print("Retry button tapped")
+    }
+
     private func setupView() {
         backgroundColor = .clear
         selectionStyle = .none
 
-        contentView.addSubview(logoImageView)
+        logoContainerView.addSubview(logoImageView)
+        logoContainerView.addSubview(retryButton)
+
+        contentView.addSubview(logoContainerView)
         contentView.addSubview(labelVStack)
 
         labelVStack.addArrangedSubview(nameLabel)
@@ -109,23 +139,43 @@ public final class BookCell: UITableViewCell {
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            logoImageView.leadingAnchor.constraint(
+            // Logo Container View
+            logoContainerView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
                 constant: 16
             ),
+            logoContainerView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: 8
+            ),
+            logoContainerView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -8
+            ),
+            logoContainerView.widthAnchor.constraint(equalToConstant: 100),
+            logoContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
-            logoImageView.heightAnchor.constraint(equalToConstant: 100),
-            logoImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            // Logo Image View
+            logoImageView.leadingAnchor.constraint(equalTo: logoContainerView.leadingAnchor),
+            logoImageView.trailingAnchor.constraint(equalTo: logoContainerView.trailingAnchor),
+            logoImageView.topAnchor.constraint(equalTo: logoContainerView.topAnchor),
+            logoImageView.bottomAnchor.constraint(equalTo: logoContainerView.bottomAnchor),
 
-            contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 116),
+            // Retry Button
+            retryButton.centerXAnchor.constraint(equalTo: logoContainerView.centerXAnchor),
+            retryButton.centerYAnchor.constraint(equalTo: logoContainerView.centerYAnchor),
+            retryButton.widthAnchor.constraint(equalToConstant: 50),
+            retryButton.heightAnchor.constraint(equalToConstant: 50),
 
-            labelVStack.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
+            // Label Stack
+            labelVStack.centerYAnchor.constraint(equalTo: logoContainerView.centerYAnchor),
             labelVStack.leadingAnchor.constraint(
-                equalTo: logoImageView.trailingAnchor,
+                equalTo: logoContainerView.trailingAnchor,
                 constant: 16
             ),
 
             labelVStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4)
+
         ])
     }
 }

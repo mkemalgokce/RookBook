@@ -5,7 +5,7 @@ import Foundation
 
 extension BookCompositeFactory {
     // MARK: - Public Methods
-    func makeRemoteWithLocalCreator(item: Book) -> AnyPublisher<Void, Error> {
+    public func makeRemoteWithLocalCreator(item: Book) -> AnyPublisher<Void, Error> {
         let remoteCreator = makeRemoteCreator(item: item)
         let localCreator = makeLocalCreator(item: item)
 

@@ -1,7 +1,5 @@
 // Copyright © 2025 Mustafa Kemal Gökçe. All rights reserved.
 
-// Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
-
 import UIKit
 
 public protocol ListTableView: UIView {
@@ -13,8 +11,8 @@ public protocol ListTableView: UIView {
 public class ListTableViewController<ListView: ListTableView>: ViewController<ListView>,
     UITableViewDataSourcePrefetching, UITableViewDelegate {
     // MARK: - Properties
-    private lazy var dataSource = UITableViewDiffableDataSource<Int, TableCellController>(tableView: rootView.tableView)
-        { tableView, indexPath, controller in
+    private lazy var dataSource = UITableViewDiffableDataSource<Int, TableCellController>(tableView: rootView
+        .tableView) { tableView, indexPath, controller in
             controller.dataSource.tableView(tableView, cellForRowAt: indexPath)
         }
 
@@ -75,7 +73,7 @@ public class ListTableViewController<ListView: ListTableView>: ViewController<Li
     }
 
     public func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
-        true // Her hücre için swipe özelliğini etkinleştir
+        true
     }
 
     public func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -102,6 +100,7 @@ public class ListTableViewController<ListView: ListTableView>: ViewController<Li
     }
 
     private func setupTableView() {
+        dataSource.defaultRowAnimation = .fade
         rootView.tableView.dataSource = dataSource
         rootView.tableView.delegate = self
         rootView.tableView.prefetchDataSource = self

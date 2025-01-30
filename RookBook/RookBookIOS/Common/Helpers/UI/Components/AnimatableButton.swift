@@ -6,12 +6,7 @@ public class AnimatableButton: UIButton {
     // MARK: - Initializers
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        addTarget(self, action: #selector(animateButtonPress), for: [.touchDown, .touchDragEnter])
-        addTarget(
-            self,
-            action: #selector(animateButtonRelease),
-            for: [.touchUpInside, .touchCancel, .touchDragExit]
-        )
+        setupAnimationHandlers()
     }
 
     @available(*, unavailable)
@@ -20,15 +15,24 @@ public class AnimatableButton: UIButton {
     }
 
     // MARK: - Private Methods
+    private func setupAnimationHandlers() {
+        addTarget(self, action: #selector(animateButtonPress), for: [.touchDown, .touchDragEnter])
+        addTarget(
+            self,
+            action: #selector(animateButtonRelease),
+            for: [.touchUpInside, .touchCancel, .touchDragExit]
+        )
+    }
+
     @objc private func animateButtonPress() {
-        UIView.animate(withDuration: 0.1, animations: {
-            self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-        })
+        UIView.animate(withDuration: 0.1) {
+            self.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+        }
     }
 
     @objc private func animateButtonRelease() {
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: 0.1) {
             self.transform = CGAffineTransform.identity
-        })
+        }
     }
 }

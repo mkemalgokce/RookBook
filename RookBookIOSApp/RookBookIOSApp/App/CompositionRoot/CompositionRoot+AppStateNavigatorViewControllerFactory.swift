@@ -1,11 +1,13 @@
 // Copyright © 2024 Mustafa Kemal Gökçe. All rights reserved.
 
 import Foundation
+import RookBookCore
 import UIKit
 
 extension CompositionRoot: AppStateNavigatorViewControllerFactory {
     func makeLoginViewController() -> UIViewController {
-        SignInUIComposer
+        let authenticationService = makeRemoteAuthenticationService()
+        return SignInUIComposer
             .composed(
                 emailSignInPublisher: authenticationService.login,
                 appleSignInPublisher: authenticationService.login,
@@ -20,10 +22,16 @@ extension CompositionRoot: AppStateNavigatorViewControllerFactory {
     }
 
     func makeHomeViewController() -> UIViewController {
-        BookUIComposer.composed(
-            loadBooks: <#T##() -> AnyPublisher<[Book], any Error>#>,
-            loadImage: <#T##(URL) -> AnyPublisher<Data, any Error>#>,
-            onSelection: <#T##(Book) -> Void#>
+        let bookCompositeFactory = BookCompositeFactory(
+            client: authenticatedClient,
+            bookStore: bookStore,
+            scheduler: scheduler
+        )
+        let imageLoaderFactory = ImageDataLoaderFactory(client: client, imageStore: imageStore, scheduler: scheduler)
+        return BookUIComposer.composed(
+            loadBooks: bookCompositeFactory.makeRemoteWithLocalFallbackLoader,
+            loadImage: imageLoaderFactory.makeLocalImageLoaderWithRemoteFallback,
+            onSelection: { _ in }
         )
     }
 
@@ -36,7 +44,8 @@ extension CompositionRoot: AppStateNavigatorViewControllerFactory {
 
     // MARK: - SignUpViewController
     private func makeSignUpViewController() -> UIViewController {
-        SignUpUIComposer.composed(
+        let authenticationService = makeRemoteAuthenticationService()
+        return SignUpUIComposer.composed(
             email: authenticationService.register,
             apple: authenticationService.register,
             onSignIn: { [weak self] in
@@ -46,6 +55,21 @@ extension CompositionRoot: AppStateNavigatorViewControllerFactory {
             onSuccess: { [weak self] in
                 self?.updateAppState(to: .home)
             }
+        )
+    }
+
+    // MARK: - Factory Methods
+    private func makeRemoteAuthenticationService() -> RemoteAuthenticationService {
+        let signInURL = AuthEndpoint.login.url(baseURL: baseURL)
+        let signUpURL = AuthEndpoint.register.url(baseURL: baseURL)
+        let logoutURL = AuthEndpoint.logout.url(baseURL: baseURL)
+
+        return RemoteAuthenticationService(
+            client: client,
+            buildSignInRequest: { DictionaryRequestBuilder.build(on: signInURL, from: $0, with: .post) },
+            buildSignUpRequest: { DictionaryRequestBuilder.build(on: signUpURL, from: $0, with: .post) },
+            buildLogoutRequest: { logoutURL.request(for: .post) },
+            storage: tokenStore
         )
     }
 }

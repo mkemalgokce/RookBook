@@ -13,6 +13,7 @@ public final class NavigationController: UINavigationController {
     // MARK: - Private Methods
     private func setupTitle() {
         let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
         appearance.titleTextAttributes = [
             .foregroundColor: UIColor.green1,
             .font: UIFont.systemFont(ofSize: 24, weight: .semibold)
@@ -22,6 +23,8 @@ public final class NavigationController: UINavigationController {
             .font: UIFont.systemFont(ofSize: 24, weight: .semibold)
         ]
         navigationBar.standardAppearance = appearance
+        navigationBar.compactAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
     }
 
     private func setupBackButton() {

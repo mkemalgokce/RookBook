@@ -10,19 +10,19 @@ public final class AuthenticatedHTTPClient: HTTPClient {
     }
 
     // MARK: - Properties
-    var unauthorizedHandler: (() -> Void)?
+    public var unauthorizedHandler: (() -> Void)?
 
     private let client: HTTPClient
     private let signedRequestBuilder: (URLRequest) -> URLRequest
     private let tokenStorage: TokenStorage
-    private let refreshRequest: URLRequest
+    private let refreshRequest: () -> URLRequest
 
     // MARK: - Initializers
     public init(
         client: HTTPClient,
         signedRequestBuilder: @escaping (URLRequest) -> URLRequest,
         tokenStorage: TokenStorage,
-        refreshRequest: URLRequest
+        refreshRequest: @escaping () -> URLRequest
     ) {
         self.client = client
         self.signedRequestBuilder = signedRequestBuilder
@@ -37,9 +37,10 @@ public final class AuthenticatedHTTPClient: HTTPClient {
             .refreshAndRetry(
                 client: client,
                 tokenStorage: tokenStorage,
-                refreshRequest: refreshRequest,
-                request: signedRequest
+                refreshRequest: refreshRequest(),
+                request: { [signedRequestBuilder] in signedRequestBuilder(request) }
             )
+            .dispatchOnMainThread()
             .catch { [weak self] error in
                 if let authError = error as? AuthError, authError == .unauthorized {
                     self?.unauthorizedHandler?()
@@ -55,7 +56,7 @@ extension Publisher where Output == (Data, HTTPURLResponse), Failure == Error {
         client: HTTPClient,
         tokenStorage: TokenStorage,
         refreshRequest: URLRequest,
-        request: URLRequest
+        request: @escaping () -> URLRequest
     ) -> AnyPublisher<(Data, HTTPURLResponse), Error> {
         flatMap { data, response -> AnyPublisher<(Data, HTTPURLResponse), Error> in
             if response.statusCode == 401 {
@@ -75,7 +76,7 @@ extension Publisher where Output == (Data, HTTPURLResponse), Failure == Error {
                             )
                     }
                     .flatMap { _ in
-                        client.perform(request)
+                        client.perform(request())
                     }
                     .eraseToAnyPublisher()
             } else {
