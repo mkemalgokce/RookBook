@@ -66,6 +66,8 @@ public final class BookCell: UITableViewCell {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
         let largeImage = UIImage(systemName: "arrow.clockwise", withConfiguration: largeConfig)
         button.setImage(largeImage, for: .normal)
+        button.setImage(largeImage, for: .highlighted)
+        button.setImage(largeImage, for: .selected)
         button.imageView?.contentMode = .scaleAspectFit
         button.tintColor = .green1.withAlphaComponent(0.7)
         button.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
@@ -81,6 +83,7 @@ public final class BookCell: UITableViewCell {
     }()
 
     var onRetry: (() -> Void)?
+    var onReuse: (() -> Void)?
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -95,6 +98,12 @@ public final class BookCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Lifecycle Methods
+    override public func prepareForReuse() {
+        super.prepareForReuse()
+        onReuse?()
+    }
+
     // MARK: - Internal Methods
     func showEmptyImage() {
         logoImageView.contentMode = .scaleAspectFit
@@ -102,6 +111,7 @@ public final class BookCell: UITableViewCell {
     }
 
     func updateLogoImage(_ newImage: UIImage?) {
+        hideRetryButton()
         logoImageView.contentMode = .scaleAspectFill
         logoImageView.setImageAnimated(newImage)
     }
@@ -119,7 +129,6 @@ public final class BookCell: UITableViewCell {
     // MARK: - Private Methods
     @objc private func retryButtonTapped() {
         onRetry?()
-        print("Retry button tapped")
     }
 
     private func setupView() {

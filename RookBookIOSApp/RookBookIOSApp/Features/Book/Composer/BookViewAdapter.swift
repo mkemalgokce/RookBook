@@ -20,7 +20,8 @@ final class BookViewAdapter: ResourceView {
     // MARK: - Internal Methods
     func display(_ viewModel: [RookBookCore.Book]) {
         guard let controller else { return }
-        let cellControllers: [TableCellController] = viewModel.compactMap { book in
+
+        let cellControllers: [TableCellController] = viewModel.map { book in
             let view = BookCellController(
                 viewModel: BookCellPresenter.map(book),
                 selection: {}

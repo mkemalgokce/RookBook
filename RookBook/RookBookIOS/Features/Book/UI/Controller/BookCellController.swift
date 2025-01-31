@@ -31,6 +31,13 @@ extension BookCellController: UITableViewDataSource, UITableViewDelegate, UITabl
         cell?.descriptionLabel.text = viewModel.description
         cell?.authorLabel.text = viewModel.author
         cell?.showEmptyImage()
+        cell?.onRetry = { [weak self] in
+            guard let self else { return }
+            requestImage?()
+        }
+        cell?.onReuse = { [weak self] in
+            self?.releaseCellForReuse()
+        }
         requestImage?()
         return cell!
     }
@@ -71,6 +78,7 @@ extension BookCellController: UITableViewDataSource, UITableViewDelegate, UITabl
     }
 
     private func releaseCellForReuse() {
+        cell?.onReuse = nil
         cell = nil
     }
 }

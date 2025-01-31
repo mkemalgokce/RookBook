@@ -6,7 +6,7 @@ public class AnimatableButton: UIButton {
     // MARK: - Initializers
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        setupAnimationHandlers()
+        setupAnimationHandler()
     }
 
     @available(*, unavailable)
@@ -15,24 +15,19 @@ public class AnimatableButton: UIButton {
     }
 
     // MARK: - Private Methods
-    private func setupAnimationHandlers() {
-        addTarget(self, action: #selector(animateButtonPress), for: [.touchDown, .touchDragEnter])
-        addTarget(
-            self,
-            action: #selector(animateButtonRelease),
-            for: [.touchUpInside, .touchCancel, .touchDragExit]
-        )
+    private func setupAnimationHandler() {
+        addTarget(self, action: #selector(animateButtonPress), for: .touchUpInside)
     }
 
     @objc private func animateButtonPress() {
-        UIView.animate(withDuration: 0.1) {
+        UIView.animate(withDuration: 0.2, animations: {
             self.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-        }
-    }
-
-    @objc private func animateButtonRelease() {
-        UIView.animate(withDuration: 0.1) {
-            self.transform = CGAffineTransform.identity
-        }
+            self.backgroundColor = self.backgroundColor?.withAlphaComponent(0.6)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2) {
+                self.transform = CGAffineTransform.identity
+                self.backgroundColor = self.backgroundColor?.withAlphaComponent(1.0)
+            }
+        })
     }
 }
