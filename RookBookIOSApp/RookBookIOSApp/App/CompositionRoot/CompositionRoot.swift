@@ -59,6 +59,8 @@ final class CompositionRoot {
         return client
     }()
 
+    lazy var mailAuthenticationService: AuthenticationServiceConformable = makeRemoteAuthenticationService()
+
     private var accessToken: String {
         (try? tokenStore.accessTokenStore.get().value) ?? ""
     }
@@ -90,5 +92,34 @@ final class CompositionRoot {
         request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         request.addValue("refreshToken=\(refreshToken)", forHTTPHeaderField: "Cookie")
         return request
+    }
+
+    // MARK: - Factory Methods
+    private func makeRemoteAuthenticationService() -> RemoteAuthenticationService {
+        let signInURL = AuthEndpoint.login.url(baseURL: baseURL)
+        let signUpURL = AuthEndpoint.register.url(baseURL: baseURL)
+        let logoutURL = AuthEndpoint.logout.url(baseURL: baseURL)
+
+        return RemoteAuthenticationService(
+            client: client,
+            buildSignInRequest: { DictionaryRequestBuilder.build(on: signInURL, from: $0, with: .post) },
+            buildSignUpRequest: { DictionaryRequestBuilder.build(on: signUpURL, from: $0, with: .post) },
+            buildLogoutRequest: { logoutURL.request(for: .post) },
+            storage: tokenStore
+        )
+    }
+
+    private func makeAppleAuthenticationService() -> RemoteAuthenticationService {
+        let signInURL = AuthEndpoint.login.url(baseURL: baseURL)
+        let signUpURL = AuthEndpoint.register.url(baseURL: baseURL)
+        let logoutURL = AuthEndpoint.logout.url(baseURL: baseURL)
+
+        return RemoteAuthenticationService(
+            client: client,
+            buildSignInRequest: { DictionaryRequestBuilder.build(on: signInURL, from: $0, with: .post) },
+            buildSignUpRequest: { DictionaryRequestBuilder.build(on: signUpURL, from: $0, with: .post) },
+            buildLogoutRequest: { logoutURL.request(for: .post) },
+            storage: tokenStore
+        )
     }
 }

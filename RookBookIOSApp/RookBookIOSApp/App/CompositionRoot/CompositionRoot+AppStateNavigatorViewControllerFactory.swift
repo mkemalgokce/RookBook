@@ -6,11 +6,10 @@ import UIKit
 
 extension CompositionRoot: AppStateNavigatorViewControllerFactory {
     func makeLoginViewController() -> UIViewController {
-        let authenticationService = makeRemoteAuthenticationService()
-        return SignInUIComposer
+        SignInUIComposer
             .composed(
-                emailSignInPublisher: authenticationService.login,
-                appleSignInPublisher: authenticationService.login,
+                emailSignInPublisher: mailAuthenticationService.login,
+                appleSignInPublisher: mailAuthenticationService.login,
                 onSignUp: { [weak self] in
                     guard let self else { return }
                     self.show(self.makeSignUpViewController())
@@ -44,10 +43,9 @@ extension CompositionRoot: AppStateNavigatorViewControllerFactory {
 
     // MARK: - SignUpViewController
     private func makeSignUpViewController() -> UIViewController {
-        let authenticationService = makeRemoteAuthenticationService()
-        return SignUpUIComposer.composed(
-            email: authenticationService.register,
-            apple: authenticationService.register,
+        SignUpUIComposer.composed(
+            email: mailAuthenticationService.register,
+            apple: mailAuthenticationService.register,
             onSignIn: { [weak self] in
                 guard let self else { return }
                 self.show(makeLoginViewController())
@@ -55,21 +53,6 @@ extension CompositionRoot: AppStateNavigatorViewControllerFactory {
             onSuccess: { [weak self] in
                 self?.updateAppState(to: .home)
             }
-        )
-    }
-
-    // MARK: - Factory Methods
-    private func makeRemoteAuthenticationService() -> RemoteAuthenticationService {
-        let signInURL = AuthEndpoint.login.url(baseURL: baseURL)
-        let signUpURL = AuthEndpoint.register.url(baseURL: baseURL)
-        let logoutURL = AuthEndpoint.logout.url(baseURL: baseURL)
-
-        return RemoteAuthenticationService(
-            client: client,
-            buildSignInRequest: { DictionaryRequestBuilder.build(on: signInURL, from: $0, with: .post) },
-            buildSignUpRequest: { DictionaryRequestBuilder.build(on: signUpURL, from: $0, with: .post) },
-            buildLogoutRequest: { logoutURL.request(for: .post) },
-            storage: tokenStore
         )
     }
 }

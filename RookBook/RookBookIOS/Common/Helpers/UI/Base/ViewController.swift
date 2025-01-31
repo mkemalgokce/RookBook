@@ -9,6 +9,14 @@ public class ViewController<View: UIView>: UIViewController {
         view as! View
     }
 
+    private lazy var loaderView = LoaderView(frame: view.bounds)
+
+    var isLoading: Bool = false {
+        didSet {
+            isLoading ? showLoader() : hideLoader()
+        }
+    }
+
     // MARK: - Initializers
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -27,6 +35,27 @@ public class ViewController<View: UIView>: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+    }
+
+    // MARK: - Private Methods
+    private func showLoader() {
+        guard !view.subviews.contains(loaderView) else { return }
+
+        loaderView.frame = view.bounds
+        loaderView.alpha = 0
+        view.addSubview(loaderView)
+
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) { [weak self] in
+            self?.loaderView.alpha = 1
+        }
+    }
+
+    private func hideLoader() {
+        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveEaseInOut) { [weak self] in
+            self?.loaderView.alpha = 0
+        } completion: { [weak self] _ in
+            self?.loaderView.removeFromSuperview()
+        }
     }
 }
 

@@ -6,6 +6,7 @@ import UIKit
 public final class BookViewController: ListTableViewController<BookView> {
     // MARK: - Properties
     var onCreate: (() -> Void)?
+    var onAdd: (() -> Void)?
 
     // MARK: - Helpers
     override public func viewDidLoad() {
@@ -14,12 +15,15 @@ public final class BookViewController: ListTableViewController<BookView> {
     }
 
     private func setupNavigationButton() {
-//        navigationItem.rightBarButtonItem = NavigationController
-//            .makeCreateButton(target: self, action: #selector(createButtonTapped))
+        addPlusButtonToNavigationBar(target: self, action: #selector(plusButtonTapped))
     }
 
     @objc private func createButtonTapped() {
         onCreate?()
+    }
+
+    @objc private func plusButtonTapped() {
+        onAdd?()
     }
 }
 
