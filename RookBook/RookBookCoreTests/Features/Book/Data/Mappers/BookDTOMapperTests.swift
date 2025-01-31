@@ -13,8 +13,8 @@ final class BookDTOMapperTests: XCTestCase {
         XCTAssertEqual(book.title, dto.title)
         XCTAssertEqual(book.description, dto.description)
         XCTAssertEqual(book.author, dto.author)
-        XCTAssertEqual(book.numberOfPages, dto.pageCount)
-        XCTAssertEqual(book.coverImage, dto.coverURL)
+        XCTAssertEqual(book.numberOfPages, dto.totalPages)
+        XCTAssertEqual(book.coverImage, dto.coverUrl)
         XCTAssertEqual(book.currentPage, 0)
         XCTAssertNil(book.lastReadAt)
         XCTAssertFalse(book.isFavorite)
@@ -29,8 +29,8 @@ final class BookDTOMapperTests: XCTestCase {
         XCTAssertEqual(dto.title, book.title)
         XCTAssertEqual(dto.description, book.description)
         XCTAssertEqual(dto.author, book.author)
-        XCTAssertEqual(dto.pageCount, book.numberOfPages)
-        XCTAssertEqual(dto.coverURL, book.coverImage)
+        XCTAssertEqual(dto.totalPages, book.numberOfPages)
+        XCTAssertEqual(dto.coverUrl, book.coverImage)
     }
 
     func test_map_handlesOptionalValues() {
@@ -51,8 +51,8 @@ final class BookDTOMapperTests: XCTestCase {
         XCTAssertEqual(resultDTO.title, originalDTO.title)
         XCTAssertEqual(resultDTO.description, originalDTO.description)
         XCTAssertEqual(resultDTO.author, originalDTO.author)
-        XCTAssertEqual(resultDTO.pageCount, originalDTO.pageCount)
-        XCTAssertEqual(resultDTO.coverURL, originalDTO.coverURL)
+        XCTAssertEqual(resultDTO.totalPages, originalDTO.totalPages)
+        XCTAssertEqual(resultDTO.coverUrl, originalDTO.coverUrl)
     }
 
     // MARK: - Helpers
@@ -61,6 +61,7 @@ final class BookDTOMapperTests: XCTestCase {
         title: String = "any title",
         description: String = "any description",
         author: String = "any author",
+        currentPage: Int = 0,
         pageCount: Int = 100,
         coverURL: URL? = anyURL()
     ) -> BookDTO {
@@ -69,8 +70,10 @@ final class BookDTOMapperTests: XCTestCase {
             title: title,
             description: description,
             author: author,
-            pageCount: pageCount,
-            coverURL: coverURL
+            totalPages: pageCount,
+            coverUrl: coverURL,
+            currentPage: currentPage,
+            lastReadAt: nil
         )
     }
 

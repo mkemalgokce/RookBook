@@ -6,7 +6,7 @@ public struct LocalBook: Codable, StorableItem, Cacheable, Hashable {
     // MARK: - Properties
     public let id: UUID
     public let title: String
-    public let description: String
+    public let description: String?
     public let author: String
     public let coverURL: URL?
     public let pageCount: Int
@@ -19,7 +19,7 @@ public struct LocalBook: Codable, StorableItem, Cacheable, Hashable {
     public init(
         id: UUID,
         title: String,
-        description: String,
+        description: String?,
         author: String,
         coverURL: URL?,
         pageCount: Int,

@@ -3,8 +3,9 @@
 import Foundation
 
 public struct BookDTO: Codable {
-    public let id: String
+    public let id: UUID
     public let title: String
+    public let description: String?
     public let author: String
     public let totalPages: Int
     public let coverUrl: URL?
@@ -12,8 +13,9 @@ public struct BookDTO: Codable {
     public let lastReadAt: String?
 
     public init(
-        id: String,
+        id: UUID,
         title: String,
+        description: String?,
         author: String,
         totalPages: Int,
         coverUrl: URL?,
@@ -22,6 +24,7 @@ public struct BookDTO: Codable {
     ) {
         self.id = id
         self.title = title
+        self.description = description
         self.author = author
         self.totalPages = totalPages
         self.coverUrl = coverUrl

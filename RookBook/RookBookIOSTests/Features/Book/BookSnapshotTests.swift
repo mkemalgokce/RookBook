@@ -36,7 +36,7 @@ final class BookSnapshotTests: XCTestCase {
 extension BookViewController {
     func display(_ stubs: [BookStub]) {
         let cells: [TableCellController] = stubs.map { stub in
-            let cellController = BookCellController(delegate: stub, viewModel: stub.viewModel, selection: {})
+            let cellController = BookCellController(viewModel: stub.viewModel, selection: {})
             stub.controller = cellController
             return TableCellController(id: UUID(), cellController)
         }

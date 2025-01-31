@@ -48,8 +48,8 @@ final class AppleCredentialsTests: XCTestCase {
         XCTAssertEqual(dictionary["userIdentifier"] as? String, userIdentifier)
         XCTAssertEqual(dictionary["email"] as? String, email)
         XCTAssertEqual(dictionary["fullName"] as? String, fullName)
-        XCTAssertEqual(dictionary["authorizationCode"] as? Data, authorizationCode)
-        XCTAssertEqual(dictionary["identityToken"] as? Data, identityToken)
+        XCTAssertEqual(dictionary["authorizationCode"] as? String, authorizationCode.base64EncodedString())
+        XCTAssertEqual(dictionary["identityToken"] as? String, identityToken.base64EncodedString())
     }
 
     // MARK: - Test toStringDictionary with nil values

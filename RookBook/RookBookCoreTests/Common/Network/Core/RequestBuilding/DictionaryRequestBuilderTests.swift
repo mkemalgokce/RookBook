@@ -40,7 +40,7 @@ final class DictionaryRequestBuilderTests: XCTestCase {
         let (sut, dummyDict) = makeSUT()
         let url = URL(string: "https://example.com")!
 
-        let request = sut.build(on: url, from: dummyDict, with: .delete)
+        let request = sut.build(on: url, from: dummyDict, with: .delete, headers: [:])
 
         XCTAssertEqual(request.allHTTPHeaderFields, [:])
     }

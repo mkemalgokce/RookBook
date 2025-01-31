@@ -143,7 +143,7 @@ public final class SignInView: UIView {
                 constant: -16
             ),
 
-            bodyVStack.topAnchor.constraint(equalTo: topImageView.bottomAnchor, constant: -48),
+            bodyVStack.topAnchor.constraint(equalTo: topImageView.bottomAnchor, constant: 8),
 
             bodyVStack.widthAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.widthAnchor,

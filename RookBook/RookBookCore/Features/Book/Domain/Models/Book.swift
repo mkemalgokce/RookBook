@@ -4,7 +4,7 @@ public struct Book: Hashable, Identifiable {
     // MARK: - Properties
     public let id: UUID
     public let title: String
-    public let description: String
+    public let description: String?
     public let author: String
     public let currentPage: Int
     public let numberOfPages: Int
@@ -16,7 +16,7 @@ public struct Book: Hashable, Identifiable {
     public init(
         id: UUID,
         title: String,
-        description: String,
+        description: String?,
         author: String,
         currentPage: Int,
         numberOfPages: Int,

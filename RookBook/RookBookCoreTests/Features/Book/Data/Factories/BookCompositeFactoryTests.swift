@@ -41,7 +41,7 @@ final class BookCompositeFactoryTests: XCTestCase {
         let books = [makeBook(), makeBook()]
         let (sut, client, store) = makeSUT()
 
-        let data = encode(books.map(BookDTOMapper.map))
+        let data = encode(BookResponse(items: books.map(BookDTOMapper.map)))
         expectPublisher(
             sut.makeRemoteWithLocalFallbackLoader(),
             toCompleteWith: .success(books),
@@ -166,11 +166,11 @@ final class BookCompositeFactoryTests: XCTestCase {
     private func makeSUT(
         file: StaticString = #file,
         line: UInt = #line
-    ) -> (sut: BookCompositeFactory<BookStoreSpy>, client: HTTPClientSpy, store: BookStoreSpy) {
+    ) -> (sut: BookCompositeFactory, client: HTTPClientSpy, store: BookStoreSpy) {
         let client = HTTPClientSpy()
         let store = BookStoreSpy()
         let scheduler = AnyDispatchQueueScheduler.immediateOnMainQueue
-        let sut = BookCompositeFactory(client: client, bookStore: store, scheduler: scheduler)
+        let sut = BookCompositeFactory(client: client, bookStore: AnyStorable(store), scheduler: scheduler)
 
         trackForMemoryLeaks(client, file: file, line: line)
         trackForMemoryLeaks(store, file: file, line: line)

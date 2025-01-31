@@ -5,9 +5,9 @@ import Foundation
 enum BookDTOMapper {
     static func map(_ dto: BookDTO) -> Book {
         Book(
-            id: UUID(),
+            id: dto.id,
             title: dto.title,
-            description: "-",
+            description: dto.description,
             author: dto.author,
             currentPage: 0,
             numberOfPages: dto.totalPages,
@@ -19,8 +19,9 @@ enum BookDTOMapper {
 
     static func map(_ book: Book) -> BookDTO {
         BookDTO(
-            id: book.id.uuidString,
+            id: book.id,
             title: book.title,
+            description: book.description,
             author: book.author,
             totalPages: book.numberOfPages,
             coverUrl: book.coverImage,

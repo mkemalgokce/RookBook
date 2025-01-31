@@ -93,8 +93,8 @@ final class BookEntityTests: XCTestCase {
     private func makeContext(file: StaticString = #file,
                              line: UInt = #line) -> (NSManagedObjectContext, NSPersistentContainer) {
         let storeURL = URL(fileURLWithPath: "/dev/null")
-        let managedObjectModel = NSManagedObjectModel.with(name: "BookStore", in: Bundle(for: BookEntity.self))!
-        let container = try! NSPersistentContainer.load(name: "BookStore", model: managedObjectModel, url: storeURL)
+        let managedObjectModel = NSManagedObjectModel.with(name: "BookEntity", in: Bundle(for: BookEntity.self))!
+        let container = try! NSPersistentContainer.load(name: "BookEntity", model: managedObjectModel, url: storeURL)
         let context = container.newBackgroundContext()
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return (context, container)

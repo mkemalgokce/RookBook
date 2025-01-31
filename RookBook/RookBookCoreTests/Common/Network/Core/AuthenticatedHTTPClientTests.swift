@@ -89,7 +89,7 @@ extension AuthenticatedHTTPClientTests {
                 return signedRequest
             },
             tokenStorage: tokenStorage,
-            refreshRequest: anyURLRequest()
+            refreshRequest: { anyURLRequest() }
         )
 
         trackForMemoryLeaks(sut, file: file, line: line)
