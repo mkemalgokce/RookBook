@@ -32,4 +32,8 @@ public final class LocalRepository<Store: Storable>: Repository {
     public func update(_ entity: Store.Item) -> AnyPublisher<Void, any Error> {
         store.updatePublisher(entity)
     }
+
+    public func deleteAll() -> AnyPublisher<Void, any Error> {
+        store.deleteAllPublisher()
+    }
 }

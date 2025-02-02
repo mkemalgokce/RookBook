@@ -59,6 +59,20 @@ extension Storable {
         .eraseToAnyPublisher()
     }
 
+    func deleteAllPublisher() -> AnyPublisher<Void, Error> {
+        Deferred {
+            Future { promise in
+                do {
+                    try self.deleteAll()
+                    promise(.success(()))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
     func updatePublisher(_ item: Item) -> AnyPublisher<Void, Error> {
         Deferred {
             Future { promise in

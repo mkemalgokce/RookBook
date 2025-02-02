@@ -19,7 +19,6 @@ public struct DataResponseMapper: ResponseMapping {
         guard response.hasValidStatusCode(in: validStatusCodes) else {
             throw InvalidResponseError()
         }
-
         return data
     }
 }

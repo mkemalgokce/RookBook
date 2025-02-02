@@ -23,6 +23,9 @@ public class LoadResourcePresenter {
         loadingView.display(.init(isLoading: true))
 
         cancellable = loader()
+            .handleEvents(receiveCancel: { [weak self] in
+                self?.loadingView.display(.init(isLoading: false))
+            })
             .dispatchOnMainThread()
             .sink { [weak self] completion in
                 guard let self else { return }
@@ -50,6 +53,9 @@ public class LoadResourcePresenter {
         loadingView.display(.init(isLoading: true))
 
         cancellable = loader()
+            .handleEvents(receiveCancel: { [weak self] in
+                self?.loadingView.display(.init(isLoading: false))
+            })
             .dispatchOnMainThread()
             .sink { [weak self] completion in
                 guard let self else { return }

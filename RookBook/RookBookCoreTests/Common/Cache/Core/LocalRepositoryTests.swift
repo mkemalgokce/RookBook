@@ -15,7 +15,8 @@ final class LocalRepositoryTests: XCTestCase {
     func test_fetch_deliversItemsFromStore() {
         let (sut, store) = makeSUT()
         let items = [1, 2, 3]
-        store.stubbedItems = items
+
+        store.loadResult = .success(items)
 
         expectPublisher(
             sut.fetch(),
@@ -26,7 +27,7 @@ final class LocalRepositoryTests: XCTestCase {
     func test_fetch_deliversErrorOnStoreError() {
         let (sut, store) = makeSUT()
         let expectedError = anyNSError()
-        store.stubbedError = expectedError
+        store.loadResult = .failure(expectedError)
 
         expectPublisher(
             sut.fetch(),
@@ -37,20 +38,20 @@ final class LocalRepositoryTests: XCTestCase {
     func test_fetchWithID_deliversItemFromStore() {
         let (sut, store) = makeSUT()
         let item = 1
-        store.stubbedItem = item
+        store.loadItemResult = .success(item)
 
         expectPublisher(
             sut.fetch(with: "any-id"),
             toCompleteWith: .success(item)
         )
 
-        XCTAssertEqual(store.receivedIDs, ["any-id"])
+        XCTAssertEqual(store.receivedMessages, [.load(identifier: "any-id")])
     }
 
     func test_fetchWithID_deliversErrorOnStoreError() {
         let (sut, store) = makeSUT()
         let expectedError = anyNSError()
-        store.stubbedError = expectedError
+        store.loadItemResult = .failure(expectedError)
 
         expectPublisher(
             sut.fetch(with: "any-id"),
@@ -67,13 +68,14 @@ final class LocalRepositoryTests: XCTestCase {
             toCompleteWith: .success(())
         )
 
-        XCTAssertEqual(store.receivedItems, [item])
+        XCTAssertEqual(store.receivedMessages, [.save(item: item)])
     }
 
     func test_save_deliversErrorOnStoreError() {
         let (sut, store) = makeSUT()
         let expectedError = anyNSError()
-        store.stubbedError = expectedError
+
+        store.saveResult = .failure(expectedError)
 
         expectPublisher(
             sut.save(1),
@@ -89,16 +91,38 @@ final class LocalRepositoryTests: XCTestCase {
             toCompleteWith: .success(())
         )
 
-        XCTAssertEqual(store.deletedIDs, ["any-id"])
+        XCTAssertEqual(store.receivedMessages, [.delete(identifier: "any-id")])
     }
 
     func test_delete_deliversErrorOnStoreError() {
         let (sut, store) = makeSUT()
         let expectedError = anyNSError()
-        store.stubbedError = expectedError
+        store.deleteResult = .failure(expectedError)
 
         expectPublisher(
             sut.delete(with: "any-id"),
+            toCompleteWith: .failure(expectedError)
+        )
+    }
+
+    func test_deleteAll_delegatesToStore() {
+        let (sut, store) = makeSUT()
+
+        expectPublisher(
+            sut.deleteAll(),
+            toCompleteWith: .success(())
+        )
+
+        XCTAssertEqual(store.receivedMessages, [.deleteAll])
+    }
+
+    func test_deleteAll_deliversErrorOnStoreError() {
+        let (sut, store) = makeSUT()
+        let expectedError = anyNSError()
+        store.deleteAllResult = .failure(expectedError)
+
+        expectPublisher(
+            sut.deleteAll(),
             toCompleteWith: .failure(expectedError)
         )
     }
@@ -112,13 +136,13 @@ final class LocalRepositoryTests: XCTestCase {
             toCompleteWith: .success(())
         )
 
-        XCTAssertEqual(store.updatedItems, [item])
+        XCTAssertEqual(store.receivedMessages, [.update(item: item)])
     }
 
     func test_update_deliversErrorOnStoreError() {
         let (sut, store) = makeSUT()
         let expectedError = anyNSError()
-        store.stubbedError = expectedError
+        store.updateResult = .failure(expectedError)
 
         expectPublisher(
             sut.update(1),
@@ -127,11 +151,12 @@ final class LocalRepositoryTests: XCTestCase {
     }
 
     // MARK: - Helpers
+    private typealias IntStoreSpy = StoreSpy<Int, String>
     private func makeSUT(
         file: StaticString = #file,
         line: UInt = #line
-    ) -> (sut: LocalRepository<StoreSpy>, store: StoreSpy) {
-        let store = StoreSpy()
+    ) -> (sut: LocalRepository<IntStoreSpy>, store: IntStoreSpy) {
+        let store = IntStoreSpy()
         let sut = LocalRepository(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
