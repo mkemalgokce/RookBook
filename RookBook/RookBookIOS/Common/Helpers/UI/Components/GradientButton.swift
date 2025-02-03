@@ -2,7 +2,7 @@
 
 import UIKit
 
-final class GradientButton: UIButton {
+final class GradientButton: AnimatableButton {
     // MARK: - Properties
     var gradientColors: [UIColor] {
         didSet {
@@ -14,13 +14,6 @@ final class GradientButton: UIButton {
     init(colors: [UIColor] = []) {
         gradientColors = colors
         super.init(frame: .zero)
-
-        addTarget(self, action: #selector(animateButtonPress), for: [.touchDown, .touchDragEnter])
-        addTarget(
-            self,
-            action: #selector(animateButtonRelease),
-            for: [.touchUpInside, .touchCancel, .touchDragExit]
-        )
     }
 
     @available(*, unavailable)
@@ -36,18 +29,5 @@ final class GradientButton: UIButton {
             applyGradient(customFrame: imageView.frame, colors: gradientColors)
             mask = imageView
         }
-    }
-
-    // MARK: - Private Methods
-    @objc private func animateButtonPress() {
-        UIView.animate(withDuration: 0.1, animations: {
-            self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-        })
-    }
-
-    @objc private func animateButtonRelease() {
-        UIView.animate(withDuration: 0.1, animations: {
-            self.transform = CGAffineTransform.identity
-        })
     }
 }

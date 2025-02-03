@@ -96,6 +96,19 @@ class LoadResourcePresenterTests: XCTestCase {
         XCTAssertNil(weakSUT)
     }
 
+    func test_cancel_cancelsLoading() {
+        let (sut, views) = makeSUT()
+        let publisher = PassthroughSubject<String, Error>()
+
+        sut.load(on: views.resourceView) { publisher.eraseToAnyPublisher() }
+        sut.cancel()
+
+        XCTAssertEqual(views.loadingView.messages, [
+            .init(isLoading: true),
+            .init(isLoading: false)
+        ])
+    }
+
     // MARK: - Helpers
     private func makeSUT(
         file: StaticString = #filePath,

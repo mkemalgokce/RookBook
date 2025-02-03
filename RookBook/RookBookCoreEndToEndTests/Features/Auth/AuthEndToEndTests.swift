@@ -93,21 +93,6 @@ extension AuthEndToEndTests {
 
         return (sut, (accessTokenStore, refreshTokenStore))
     }
-
-    private func makeSignInCredentials() -> EmailSignInCredentials {
-        EmailSignInCredentials(
-            email: "test@example.com",
-            password: "Password123!@#"
-        )
-    }
-
-    private func makeAuthenticatedUser() -> AuthenticatedUser {
-        AuthenticatedUser(
-            id: "B8E5183C-830D-42B9-887A-D08E9B29E63B",
-            email: "test@example.com",
-            name: "John Doe"
-        )
-    }
 }
 
 // MARK: - Network Helpers

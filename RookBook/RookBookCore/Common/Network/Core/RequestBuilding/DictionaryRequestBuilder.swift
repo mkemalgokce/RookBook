@@ -6,7 +6,7 @@ public enum DictionaryRequestBuilder {
     public static func build(on url: URL,
                              from dict: StringDictionaryConvertible,
                              with method: HTTPMethod,
-                             headers: [String: String] = [:]) -> URLRequest {
+                             headers: [String: String] = ["Content-Type": "application/json"]) -> URLRequest {
         var request = url.request(for: method)
         request.httpBody = try? JSONSerialization.data(withJSONObject: dict.toStringDictionary())
         request.allHTTPHeaderFields = headers

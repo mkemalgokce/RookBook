@@ -15,7 +15,6 @@ final class SignInUISnapshotTests: XCTestCase {
     func test_signIn_filledState_dark() {
         let (sut, nc) = makeSUT()
         fillFields(on: sut)
-
         let image = nc.snapshot(for: .iPhone13(style: .dark))
 
         assert(image)

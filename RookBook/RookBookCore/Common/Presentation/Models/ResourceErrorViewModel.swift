@@ -2,7 +2,7 @@
 
 public struct ResourceErrorViewModel: Equatable {
     // MARK: - Static Methods
-    static func error(message: String) -> Self {
+    public static func error(message: String) -> Self {
         self.init(message: message)
     }
 

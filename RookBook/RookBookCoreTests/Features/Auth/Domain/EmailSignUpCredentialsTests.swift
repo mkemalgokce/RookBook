@@ -26,7 +26,7 @@ final class EmailSignUpCredentialsTests: XCTestCase {
 
         let dictionary = credentials.toStringDictionary()
 
-        XCTAssertEqual(dictionary["name"] as? String, name, "The 'name' key should map to the correct value")
+        XCTAssertEqual(dictionary["fullName"] as? String, name, "The 'name' key should map to the correct value")
         XCTAssertEqual(dictionary["email"] as? String, email, "The 'email' key should map to the correct value")
         XCTAssertEqual(
             dictionary["password"] as? String,

@@ -4,48 +4,47 @@
 import Combine
 import XCTest
 
-class PublisherFallbackTests: XCTestCase {
-    // MARK: - Properties
+final class PublisherFallbackTests: XCTestCase {
     private var cancellables: Set<AnyCancellable>!
 
-    // MARK: - Setup
     override func setUp() {
         super.setUp()
         cancellables = []
     }
 
-    // MARK: - Tests
-    func test_fallback_whenOriginalPublisherSucceeds_doesNotUseFallback() {
+    // MARK: - Closure Based Fallback Tests
+    func test_fallbackWithClosure_whenOriginalPublisherSucceeds_doesNotUseFallback() {
         let expectedValue = "original value"
         let originalPublisher = Just(expectedValue)
         let fallbackPublisher = { Just("fallback value").eraseToAnyPublisher() }
+
         let values = expectValues(from: originalPublisher.fallback(to: fallbackPublisher))
 
         XCTAssertEqual(values, [expectedValue])
     }
 
-    func test_fallback_whenOriginalPublisherFails_usesFallback() {
+    func test_fallbackWithClosure_whenOriginalPublisherFails_usesFallback() {
         let expectedValue = "fallback value"
-        let originalPublisher = Fail<String, Error>(error: NSError(domain: "test", code: 0))
+        let originalPublisher = Fail<String, Error>(error: anyNSError())
         let fallbackPublisher = { Just(expectedValue).setFailureType(to: Error.self).eraseToAnyPublisher() }
+
         let values = expectValues(from: originalPublisher.fallback(to: fallbackPublisher))
 
         XCTAssertEqual(values, [expectedValue])
     }
 
-    func test_fallback_whenBothPublishersFail_propagatesLastError() {
+    func test_fallbackWithClosure_whenBothPublishersFail_propagatesLastError() {
         let originalError = NSError(domain: "original", code: 0)
         let fallbackError = NSError(domain: "fallback", code: 1)
-
         let originalPublisher = Fail<String, Error>(error: originalError)
         let fallbackPublisher = { Fail<String, Error>(error: fallbackError).eraseToAnyPublisher() }
 
-        let error = expectError(originalPublisher.fallback(to: fallbackPublisher))
+        let error = expectError(from: originalPublisher.fallback(to: fallbackPublisher))
 
-        XCTAssertEqual(error?.localizedDescription, fallbackError.localizedDescription)
+        XCTAssertEqual(error as NSError?, fallbackError)
     }
 
-    func test_fallback_doesNotTriggerFallbackUntilOriginalFails() {
+    func test_fallbackWithClosure_doesNotTriggerFallbackUntilOriginalFails() {
         let expectation = expectation(description: "Should not call fallback")
         expectation.isInverted = true
 
@@ -66,8 +65,43 @@ class PublisherFallbackTests: XCTestCase {
         wait(for: [expectation], timeout: 0.1)
     }
 
+    // MARK: - Publisher Based Fallback Tests
+    func test_fallbackWithPublisher_whenOriginalPublisherSucceeds_doesNotUseFallback() {
+        let expectedValue = "original value"
+        let originalPublisher = Just(expectedValue)
+        let fallbackPublisher = Just("fallback value").eraseToAnyPublisher()
+
+        let values = expectValues(from: originalPublisher.fallback(to: fallbackPublisher))
+
+        XCTAssertEqual(values, [expectedValue])
+    }
+
+    func test_fallbackWithPublisher_whenOriginalPublisherFails_usesFallback() {
+        let expectedValue = "fallback value"
+        let originalPublisher = Fail<String, Error>(error: anyNSError())
+        let fallbackPublisher = Just(expectedValue).setFailureType(to: Error.self).eraseToAnyPublisher()
+
+        let values = expectValues(from: originalPublisher.fallback(to: fallbackPublisher))
+
+        XCTAssertEqual(values, [expectedValue])
+    }
+
+    func test_fallbackWithPublisher_whenBothPublishersFail_propagatesLastError() {
+        let originalError = NSError(domain: "original", code: 0)
+        let fallbackError = NSError(domain: "fallback", code: 1)
+        let originalPublisher = Fail<String, Error>(error: originalError)
+        let fallbackPublisher = Fail<String, Error>(error: fallbackError).eraseToAnyPublisher()
+
+        let error = expectError(from: originalPublisher.fallback(to: fallbackPublisher))
+
+        XCTAssertEqual(error as NSError?, fallbackError)
+    }
+
     // MARK: - Helpers
-    private func expectValues<T: Publisher>(from publisher: T) -> [T.Output] where T.Output: Equatable {
+    private func expectValues<T: Publisher>(
+        from publisher: T,
+        timeout: TimeInterval = 0.1
+    ) -> [T.Output] where T.Output: Equatable {
         var values: [T.Output] = []
         let expectation = expectation(description: "Awaiting publisher")
 
@@ -78,11 +112,14 @@ class PublisherFallbackTests: XCTestCase {
             )
             .store(in: &cancellables)
 
-        wait(for: [expectation], timeout: 0.1)
+        wait(for: [expectation], timeout: timeout)
         return values
     }
 
-    private func expectError<T: Publisher>(_ publisher: T) -> Error? {
+    private func expectError<T: Publisher>(
+        from publisher: T,
+        timeout: TimeInterval = 0.1
+    ) -> Error? {
         var capturedError: Error?
         let expectation = expectation(description: "Awaiting publisher error")
 
@@ -98,7 +135,7 @@ class PublisherFallbackTests: XCTestCase {
             )
             .store(in: &cancellables)
 
-        wait(for: [expectation], timeout: 0.1)
+        wait(for: [expectation], timeout: timeout)
         return capturedError
     }
 }

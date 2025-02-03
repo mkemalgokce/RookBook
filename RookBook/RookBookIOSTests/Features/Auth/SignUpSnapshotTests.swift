@@ -8,14 +8,13 @@ final class SignUpSnapshotTests: XCTestCase {
     func test_signUp_emptyState_light() {
         let (_, nc) = makeSUT()
         let image = nc.snapshot(for: .iPhone13(style: .light))
-
         assert(image)
     }
 
     func test_signUp_filledState_dark() {
         let (sut, nc) = makeSUT()
         fillFields(on: sut)
-
+        sut.rootView.fullNameTextField.becomeFirstResponder()
         let image = nc.snapshot(for: .iPhone13(style: .dark))
 
         assert(image)
@@ -33,5 +32,10 @@ final class SignUpSnapshotTests: XCTestCase {
         sut.fullNameText = "Test Name"
         sut.mailText = "any@mail.com"
         sut.passwordText = "password"
+    }
+
+    private func simulateEditing(_ sut: SignUpViewController, text: String, in textField: UITextField) {
+        textField.text = text
+        textField.sendActions(for: .editingChanged)
     }
 }
