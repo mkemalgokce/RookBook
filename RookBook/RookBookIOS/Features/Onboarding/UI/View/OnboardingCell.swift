@@ -9,7 +9,7 @@ final class OnboardingCell: UICollectionViewCell {
     // MARK: - UI Properties
     lazy var titleLabel: TitleLabel = {
         let view = TitleLabel()
-        view.numberOfLines = 2
+        view.label.numberOfLines = 2
         view.gradientColors = [.green1, .green2]
         view.alignment = .center
         view.setContentHuggingPriority(.defaultHigh, for: .vertical)

@@ -50,7 +50,7 @@ func assertPropertyMatchesLocalizedString(
 ) {
     XCTAssertEqual(
         value,
-        localized(key, table: table, bundle: bundle),
+        localized(key, table: table, bundle: bundle, file: file, line: line),
         file: file,
         line: line
     )

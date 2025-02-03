@@ -1,0 +1,40 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Book List Empty Message" : {
+      "comment" : "Book Empty Message",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can add some books."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kitap eklemek ister misin? "
+          }
+        }
+      }
+    },
+    "Book List Title" : {
+      "comment" : "Book Title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Books"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kitaplar"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

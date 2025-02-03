@@ -4,12 +4,12 @@ import CoreData
 import RookBookCore
 
 extension TestEntity: CoreDataStorableItem {
-    public func update(with domain: DomainEntity) {
+    public func update(with domain: DomainEntity, in context: NSManagedObjectContext) {
         id = domain.id
         value = domain.value
     }
 
-    public func toDomain() -> DomainEntity {
+    public func toLocal() -> DomainEntity {
         DomainEntity(id: id, value: value)
     }
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		551BF3072D47F27E00915E2E /* RookBookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551BF3062D47F27E00915E2E /* RookBookCore.framework */; };
+		551BF3082D47F27E00915E2E /* RookBookCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 551BF3062D47F27E00915E2E /* RookBookCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		551BF30D2D48063200915E2E /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 551BF30C2D48063200915E2E /* IQKeyboardManagerSwift */; };
 		554FDD062D20A8D6006CBFA6 /* RookBookIOSApp.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 554FDD052D20A8D6006CBFA6 /* RookBookIOSApp.xctestplan */; };
 		55935C712D1CC034005004D6 /* RookBookIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55935C702D1CC034005004D6 /* RookBookIOS.framework */; };
 		55935C722D1CC034005004D6 /* RookBookIOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55935C702D1CC034005004D6 /* RookBookIOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -30,6 +33,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				55935C722D1CC034005004D6 /* RookBookIOS.framework in Embed Frameworks */,
+				551BF3082D47F27E00915E2E /* RookBookCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,6 +41,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		551BF3062D47F27E00915E2E /* RookBookCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RookBookCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		554FDD052D20A8D6006CBFA6 /* RookBookIOSApp.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RookBookIOSApp.xctestplan; sourceTree = "<group>"; };
 		55935C702D1CC034005004D6 /* RookBookIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RookBookIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AB71262D1C8BE00028A0F0 /* RookBookIOSApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RookBookIOSApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +80,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				55935C712D1CC034005004D6 /* RookBookIOS.framework in Frameworks */,
+				551BF3072D47F27E00915E2E /* RookBookCore.framework in Frameworks */,
+				551BF30D2D48063200915E2E /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +98,7 @@
 		55935C6F2D1CC034005004D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				551BF3062D47F27E00915E2E /* RookBookCore.framework */,
 				55935C702D1CC034005004D6 /* RookBookIOS.framework */,
 			);
 			name = Frameworks;
@@ -137,6 +145,7 @@
 			);
 			name = RookBookIOSApp;
 			packageProductDependencies = (
+				551BF30C2D48063200915E2E /* IQKeyboardManagerSwift */,
 			);
 			productName = RookBookIOSApp;
 			productReference = 55AB71262D1C8BE00028A0F0 /* RookBookIOSApp.app */;
@@ -194,6 +203,9 @@
 			);
 			mainGroup = 55AB711D2D1C8BE00028A0F0;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				551BF30B2D48063200915E2E /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 55AB71272D1C8BE00028A0F0 /* Products */;
 			projectDirPath = "";
@@ -254,6 +266,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RookBookIOSApp/RookBookIOSApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q9ARVAPAG3;
@@ -281,6 +294,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RookBookIOSApp/RookBookIOSApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q9ARVAPAG3;
@@ -494,6 +508,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		551BF30B2D48063200915E2E /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		551BF30C2D48063200915E2E /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 551BF30B2D48063200915E2E /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 55AB711E2D1C8BE00028A0F0 /* Project object */;
 }

@@ -17,7 +17,7 @@ final class LoaderView: UIView {
         let view = UIView()
         view.layer.cornerRadius = 20
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green3
+        view.backgroundColor = .clear
         return view
     }()
 

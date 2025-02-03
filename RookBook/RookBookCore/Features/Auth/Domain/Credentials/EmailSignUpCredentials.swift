@@ -18,7 +18,7 @@ public struct EmailSignUpCredentials: SignUpCredentials, Hashable {
     // MARK: - Public Methods
     public func toStringDictionary() -> [String: Any?] {
         [
-            "name": name,
+            "fullName": name,
             "email": email,
             "password": password
         ]

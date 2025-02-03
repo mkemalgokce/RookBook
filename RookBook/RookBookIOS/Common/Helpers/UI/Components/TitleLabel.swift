@@ -24,16 +24,6 @@ class TitleLabel: UIStackView {
         set { label.text = newValue }
     }
 
-    var numberOfLines: Int {
-        get { label.numberOfLines }
-        set { label.numberOfLines = newValue }
-    }
-
-    var font: UIFont? {
-        get { label.font }
-        set { label.font = newValue }
-    }
-
     // MARK: - Initializers
     init(gradientColors: [UIColor] = []) {
         self.gradientColors = gradientColors

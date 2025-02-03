@@ -53,7 +53,7 @@ final class SignInAcceptanceTests: XCTestCase {
         service: AuthenticationServiceSpy
     ) {
         scene.compositionRoot.appStateStore = store
-        scene.compositionRoot.authenticationService = service
+        scene.compositionRoot.mailAuthenticationService = service
         scene.window = UIWindow(frame: CGRect(x: 0, y: 0, width: 390, height: 844))
         scene.configureWindow()
     }
