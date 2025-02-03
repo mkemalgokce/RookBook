@@ -1,6 +1,5 @@
-<!-- Add Readme for RookBook Book Note App, it built with UIKIt  -->
-
 # RookBook
+[![CI-iOS](https://github.com/mkemalgokce/RookBook/actions/workflows/CI-iOS.yml/badge.svg)](https://github.com/mkemalgokce/RookBook/actions/workflows/CI-iOS.yml) [![CI-macOS](https://github.com/mkemalgokce/RookBook/actions/workflows/CI-macOS.yml/badge.svg)](https://github.com/mkemalgokce/RookBook/actions/workflows/CI-macOS.yml)
 
 RookBook is an iOS application built with Clean Architecture principles and Test-Driven Development (TDD) practices. The project demonstrates the implementation of robust software design patterns and best practices in iOS development.
 
@@ -96,4 +95,3 @@ The project maintains high code quality standards through:
 - Clean Architecture principles
 - SOLID design principles
 
-[![CI-iOS](https://github.com/mkemalgokce/RookBook/actions/workflows/CI-iOS.yml/badge.svg)](https://github.com/mkemalgokce/RookBook/actions/workflows/CI-iOS.yml) [![CI-macOS](https://github.com/mkemalgokce/RookBook/actions/workflows/CI-macOS.yml/badge.svg)](https://github.com/mkemalgokce/RookBook/actions/workflows/CI-macOS.yml)
